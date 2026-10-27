@@ -68,7 +68,16 @@ está cubierta: deben obtenerse de sus fuentes originales.
 | `InSpectre.exe` | Sin versión en el nombre | Consulta y gestión de mitigaciones Spectre/Meltdown. | Terceros |
 | `MSI_util_v3.exe` | v3 | Activación de interrupciones señaladas (MSI) por dispositivo. | Terceros |
 | `winscript-portable.exe` | Sin versión en el nombre | Scripts de optimización y limpieza de Windows (portable). | Terceros |
+| `autoruns.exe` | Sin versión en el nombre | Inventario y gestión de programas, servicios y tareas de autoarranque. | Terceros |
+| `Windows_Update_Blocker.exe` | Sin versión en el nombre | Bloqueo o rehabilitación del servicio de Windows Update. | Terceros |
+| `TCPOptimizer.exe` | Sin versión en el nombre | Ajuste de parámetros de la pila TCP/IP de Windows. | Terceros |
+| `PresentMon-2.4.1-x64.exe` | 2.4.1 | Captura y análisis de métricas de presentación de fotogramas (ETW). | Terceros |
+| `innoextract.exe` | Sin versión en el nombre | Extracción del contenido de instaladores creados con Inno Setup. | Terceros |
+| `NVPI-R.exe` | Sin versión en el nombre | Inspector y edición de perfiles del driver NVIDIA. | Terceros |
+| `PowerSettingsExplorer.exe` | Sin versión en el nombre | Exploración y ajuste de atributos ocultos de planes de energía de Windows. | Terceros |
+| `Optimizer_tmp.exe` | Sin versión en el nombre | Utilidad de optimización y ajuste de Windows (nombre con sufijo `tmp`, provisional). | Terceros |
 | `WindowsReset.zip` | Sin versión en el nombre | Utilidades de restablecimiento de Windows. | Terceros |
+| `ThrottleStop_9.7.3.zip` | 9.7.3 | Monitorización y gestión de throttling y límites de frecuencia de CPU. | Terceros |
 | `ActualizarNvidiaDLSS/` | Sin versión en el nombre | DLLs de NVIDIA DLSS (dlss/dlssd/dlssg, ~142 MB) para actualizar DLSS en el sistema. | Terceros |
 | `SCEHUB-1.2.0/` | 1.2.0 | Conjunto de utilidades (~18 MB) que incluye `UEFITool.exe`. | Terceros |
 | `Regedits & Profiles/` | Sin versión en el nombre | Ajustes de registro (`.reg`) y perfiles NVIDIA (`.nip`). | Terceros |
