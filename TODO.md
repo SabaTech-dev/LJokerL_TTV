@@ -6,7 +6,7 @@
 
 ## Estado de ejecución — 27/10/2026
 
-**Completadas y fusionadas en `develop`** (pipeline completo: DoR → worktree → TDD cuando aplica → RDD → jueces ciegos → CI → PR): P0-1 y P1-1 (bootstrap del repositorio público con CI y protección de rama), P0-3 (PR #2), P0-4 (PR #3), P0-5 (PR #4), P0-7 (PR #5), P1-4 (PR #6), P1-3 (PR #7), P1-9 (PR #8), P2-3 (PR #9), P2-7 (PR #10), P2-6 (PR #11).
+**Completadas y fusionadas en `develop`**: P0-1 y P1-1 (bootstrap del repositorio público con CI y protección de rama, commits directos), y el resto con pipeline completo (DoR → worktree → TDD cuando aplica → RDD → jueces ciegos → CI → PR): P0-3 (PR #2), P0-4 (PR #3), P0-5 (PR #4), P0-7 (PR #5), P1-4 (PR #6), P1-3 (PR #7), P1-9 (PR #8), P2-3 (PR #9), P2-7 (PR #10), P2-6 (PR #11).
 
 **Bloqueadas por el revisor nativo de RDD** (el CLI `claude` que invoca gentle-ai no tiene sesión iniciada; desbloqueo: ejecutar `claude` y completar `/login`, luego reanudar cada transacción con `gentle-ai review status --lineage=<id> --next-transition` desde su worktree):
 
