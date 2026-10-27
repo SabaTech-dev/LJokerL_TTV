@@ -9,7 +9,7 @@
   SHA256` sobre Windows).
 - **Cobertura**: todos los `*.exe` y `*.zip` de `Resources/` (primer nivel y
   subdirectorios `ActualizarNvidiaDLSS/` y `SCEHUB-1.2.0/`): 25 ficheros,
-  69,07 MB en total.
+  69,07 MiB en total.
 - **Cómo regenerar un hash**: `Get-FileHash -Algorithm SHA256 <fichero>`.
   Las rutas de la tabla son relativas a `Resources/`.
 - **Origen**: distribución oficial del fabricante de cada herramienta (nombre,
@@ -23,7 +23,7 @@
   `SCEHUB-1.2.0/5.05.01.0002/SCEWIN_64.exe` comparten hash y tamaño: es la
   misma copia del binario distribuida en dos ubicaciones del paquete.
 
-| Fichero (ruta relativa a `Resources/`) | Tamaño (MB) | Origen | SHA-256 |
+| Fichero (ruta relativa a `Resources/`) | Tamaño (MiB) | Origen | SHA-256 |
 | --- | --- | --- | --- |
 | `ActualizarNvidiaDLSS/nvidiaDlssGlom.exe` | 0,24 | Distribución oficial del fabricante (ver DEPENDENCIES.md) | a7a511d01d56eb84acb14b3998997472913aa533d460180887623ad7122ad7d5 |
 | `autoruns.exe` | 1,70 | Distribución oficial del fabricante (ver DEPENDENCIES.md) | 6111a70da65153e6ded71eae2057bf6760f340476261f6e15a80479daf9724eb |
