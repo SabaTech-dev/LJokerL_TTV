@@ -1,308 +1,101 @@
-# 🗺️ Roadmap Estratégico - LJokerL_TTV Custom Config PRO
+# Roadmap — LJokerL_TTV Custom Config PRO
 
-## 📋 Visión Estratégica
+> Última revisión: 27/10/2026 (auditoría documental de octubre de 2026).
+> Documento vivo: el backlog operativo vigente es [TODO.md](TODO.md); este roadmap describe el estado real del producto y la dirección declarada.
 
-**LJokerL_TTV Custom Config PRO** aspira a convertirse en la solución líder de optimización de sistemas Windows, proporcionando optimizaciones inteligentes, adaptativas y basadas en IA que maximicen el rendimiento del hardware disponible.
+## Estado actual (verificado)
 
-## 🎯 Objetivos Estratégicos
+**LJokerL_TTV v13.0.0** es una aplicación de escritorio **C#/.NET 9 con WPF (patrón MVVM)**, publicada en GitHub (`SabaTech-dev/LJokerL_TTV`) con integración continua (GitHub Actions: build Release + suite de pruebas en cada push/PR a `main`/`develop`).
 
-### 🚀 **Objetivo a Corto Plazo (6 meses)**
-- Consolidar y estabilizar la versión actual
-- Implementar sistema de testing automatizado
-- Mejorar documentación y guías de usuario
-- Optimizar rendimiento y estabilidad
+Existe hoy, verificado contra el árbol de fuentes:
 
-### 🎯 **Objetivo a Mediano Plazo (1-2 años)**
-- Desarrollar interfaz gráfica nativa
-- Implementar sistema de plugins
-- Expandir soporte a múltiples plataformas
-- Integrar capacidades de machine learning
+- **Aplicación WPF** (`src/LJokerL.App`): `MainWindow.xaml` con 7 pestañas — Dashboard, Auto Config, Perfiles, Tweaks, Monitor, Benchmarks, Settings. Solo **Dashboard** y **Benchmarks** tienen vista implementada; las otras 5 pestañas carecen aún de vista dedicada.
+- **ViewModel** (`MainViewModel.cs`): aplicación y reversión de perfiles y tweaks individuales, detección de hardware (CPU/GPU/RAM), monitor de rendimiento con registro de métricas, sistema de logs JSONL con paginación y exportación, y sistema de benchmarks (rápido/completo, comparación y exportación de informes).
+- **Núcleo** (`src/LJokerL.Core`): `ConfigLoader` (catálogos JSON), `ExecutionEngine` (acciones directas de registro/sistema), `HardwareDetector` (instantánea de hardware y reglas), `ExecutionLogger` (JSONL + snapshot para rollback) y `BenchmarkRunner`.
+- **Catálogos** (`Config/`): 14 reglas de hardware, 10 perfiles, 92 tweaks con reversión definida, 13 servicios y 23 aplicaciones de bloatware.
+- **Pruebas**: suite propia (`src/LJokerL.Tests`, runner de consola) con 28 pruebas sobre modelos, detector de hardware, catálogos, perfiles, auto-config y sistema de benchmarks; la ejecuta el pipeline de CI.
+- **CI**: `.github/workflows/ci.yml` — `dotnet build -c Release` y `dotnet run --project src/LJokerL.Tests` en `windows-latest` con .NET 9.
 
-### 🔮 **Objetivo a Largo Plazo (3-5 años)**
-- Liderar el mercado de optimización de sistemas
-- Plataforma de optimización basada en IA
-- Ecosistema de plugins y extensiones
-- Soporte para sistemas empresariales
+**Stack tecnológico actual**: C#/.NET 9 · WPF + MVVM · catálogos JSON · GitHub Actions (CI) · Windows 10/11 con privilegios de administrador (PowerShell solo como dependencia de empaquetado/instalación, no como lenguaje de la aplicación).
 
-## 📅 Cronograma de Desarrollo
+## Backlog vivo
 
-## 🗺️ **Fase 1: Consolidación (Meses 1-3)**
+El plan de trabajo vigente es **[TODO.md](TODO.md)**, derivado de la auditoría de documentación y configuración del 27/10/2026 (`Reports/Auditoria_Documentacion_Configuracion_2026-10-27.md`), con tres fases:
 
-#### **Semanas 1-4: Análisis y Documentación**
-- [x] **Completado**: Análisis estratégico del proyecto
-- [x] **Completado**: Documentación de arquitectura actualizada (WPF + JSON configs)
-- [x] **Completado**: Análisis de dependencias
-- [x] **Completado**: Creación de README.md actualizado con Control Center
-- [x] **Completado**: Identificación de duplicaciones → cleanup de scripts viejos + unified configs
-- [x] **Completado**: Plan de refactorización detallado → ROADMAP actualizado
+- **P0 — Crítico**: coherencia documental, Git/GitHub, CI (en curso; varios ítems ya ejecutados).
+- **P1 — Importante**: seguridad, higiene del repositorio y consolidación de infraestructura.
+- **P2 — Optimización**: calidad técnica (.editorconfig, migración de tests a xUnit, estrategia de `Resources/`).
 
-#### **Semanas 5-8: Refactorización y Limpieza**
-- [x] **Completado**: Consolidación de múltiples versiones → unified WPF + JSON configs (Control Center)
-- [x] **Completado**: Refactorización de código duplicado → cleanup de scripts duplicados
-- [x] **Completado**: Implementación de estándares de código → modelos + loader + engine en C#
-- [x] **Completado**: Optimización de rendimiento → ExecutionEngine con acciones directas
-- [x] **Completado**: Mejora de manejo de errores → logging JSONL + snapshot + validaciones
+Las fases futuras de este roadmap son **Propuestas (no comprometidas)**: no se planifican ni se fechan hasta cerrar el backlog vigente de TODO.md.
 
-#### **Semanas 9-12: Testing y Calidad**
-- [x] **Completado**: Implementación de testing unitario → runner custom en src/LJokerL.Tests/Program.cs
-- [x] **Completado**: Tests de integración UI (MainViewModel con filtros y comandos)
-- [x] **Completado**: Tests de ExecutionEngine (registry snapshot, rollback)
-- [x] **Completado**: Tests de ConfigLoader (load + referencias)
-- [ ] **Pendiente**: Testing de rendimiento
-- [ ] **Pendiente**: Testing de seguridad
-- [ ] **Pendiente**: Testing de compatibilidad
+## Fases
 
-### 🗓️ **Fase 2: Mejoras Core (Meses 4-6)**
+### Fase 1 — Consolidación (completada)
 
-#### **Semanas 13-16: Arquitectura y Performance**
-- [x] **Completado**: Rediseño de arquitectura modular → WPF + JSON configs (Control Center)
-- [x] **Completado**: Implementación de patrones de diseño → MVVM en WPF + modelos separados
-- [x] **Completado**: Optimización de algoritmos → ExecutionEngine con acciones directas
-- [x] **Completado**: Mejora de gestión de memoria → ConfigLoader lazy + ExecutionEngine stateless
-- [x] **Completado**: Implementación de caché inteligente → JSON configs cacheados
+- [x] Consolidación de múltiples versiones en una única aplicación WPF con catálogos JSON.
+- [x] Modelos, loader y motor de ejecución en C# (`LJokerL.Core`).
+- [x] Logging JSONL con snapshot de registro para rollback.
+- [x] Runner de pruebas propio en `src/LJokerL.Tests` (28 pruebas, integrado en CI).
+- [x] Auditoría de código y seguridad; validación de ajustes (SAFE/ADV/EXP) en `Reports/Tweaks2_Validation_Status.md`.
 
-#### **Semanas 17-20: Seguridad y Estabilidad**
-- [x] **Completado**: Auditoría de seguridad completa → validación SAFE/ADV/EXP en Reports/Tweaks2_Validation_Status.md
-- [x] **Completado**: Implementación de validaciones robustas → try/catch + logging JSONL + admin checks
-- [x] **Completado**: Sistema de logging avanzado → ExecutionLogger con JSONL y snapshot
-- [x] **Completado**: Manejo de errores mejorado → exceptions con log y estado en UI
-- [x] **Completado**: Sistema de rollback automático → RollbackContext + FindLatestContextForProfile + revert catálogo
+### Fase 2 — Mejoras core (completada en lo esencial)
 
-### 🗓️ **Fase 3: Innovación (Meses 7-12)**
+- [x] Arquitectura modular: WPF + MVVM con modelos separados del código de UI.
+- [x] Motor de ejecución con acciones directas y catálogo de reversiones (92 tweaks revertibles).
+- [x] Detección de hardware en C# (`HardwareDetector`) conectada a las 14 reglas de `Config/hardware_rules.json`.
+- [x] Rollback automático: snapshot en logs + contexto por perfil + reversión por catálogo a nivel de ViewModel.
+- [x] CI con build y pruebas en cada push/PR (GitHub Actions).
+- [ ] **Pendiente**: suite de pruebas de `ExecutionEngine` (el motor se ejercita de forma indirecta vía auto-config, pero no tiene grupo de pruebas propio).
 
-#### **Semanas 25-32: Interfaz de Usuario**
-- [ ] **Pendiente**: Diseño de interfaz gráfica nativa (WPF)
-- [ ] **Pendiente**: Implementación de UI moderna
-- [ ] **Pendiente**: Sistema de temas y personalización
-- [ ] **Pendiente**: Dashboard interactivo
-- [ ] **Pendiente**: Gráficos y visualizaciones
+### Fase 3 — Interfaz de usuario (parcial)
 
-#### **Semanas 33-40: Funcionalidades Avanzadas**
-- [ ] **Pendiente**: Sistema de plugins
-- [ ] **Pendiente**: API REST para integración
-- [ ] **Pendiente**: Base de datos local (SQLite)
-- [ ] **Pendiente**: Sistema de configuración avanzada
-- [ ] **Pendiente**: Perfiles personalizables
+- [x] Aplicación WPF nativa con navegación por pestañas (7) y tema oscuro propio.
+- [x] Vista **Dashboard**: aplicación/reversión de perfiles y tweaks, recomendaciones según hardware, estado del sistema.
+- [x] Vista **Benchmarks**: ejecución rápida/completa, comparación antes/después y exportación de informes.
+- [ ] **Pendiente**: vistas dedicadas de las 5 pestañas restantes — Auto Config, Perfiles, Tweaks, Monitor y Settings (parte de su funcionalidad ya es accesible desde Dashboard, pero sin vista propia).
+- [ ] **Pendiente**: acceso en UI a la reversión por catálogo (el comando existe en el ViewModel, sin botón que lo enlace).
+- [ ] **Pendiente**: gráficos y visualizaciones del monitor.
+- [ ] **Pendiente**: conmutador de tema en la interfaz (el modo oscuro ya existe vía `ThemeService` con persistencia en `UserSettings`; falta la selección de tema desde la UI).
 
-### 🗓️ **Fase 4: Expansión (Meses 13-18)**
+### Fase 4 — Funcionalidades avanzadas (Propuesto — no comprometido)
 
-#### **Semanas 49-56: Multiplataforma**
-- [ ] **Pendiente**: Soporte para Linux (WSL)
-- [ ] **Pendiente**: Soporte para macOS
-- [ ] **Pendiente**: Arquitectura de microservicios
-- [ ] **Pendiente**: Containerización (Docker)
-- [ ] **Pendiente**: Cloud deployment
+- [ ] Sistema de plugins.
+- [ ] Base de datos local (SQLite) para histórico de ejecuciones y métricas.
+- [ ] Configuración avanzada y perfiles definidos por el usuario.
+- [ ] API local para integración con terceros.
 
-### 🗓️ **Fase 5: Ecosistema (Meses 19-24)**
-- [ ] **Pendiente**: Marketplace de plugins
-- [ ] **Pendiente**: Sistema de distribución
-- [ ] **Pendiente**: Comunidad de desarrolladores
-- [ ] **Pendiente**: Documentación interactiva
-- [ ] **Pendiente**: Tutoriales y guías
+### Fase 5 — Expansión (Propuesto — no comprometido)
 
-#### **Semanas 57-64: Ecosistema**
-- [ ] **Pendiente**: Marketplace de plugins
-- [ ] **Pendiente**: Sistema de distribución
-- [ ] **Pendiente**: Comunidad de desarrolladores
-- [ ] **Pendiente**: Documentación interactiva
-- [ ] **Pendiente**: Tutoriales y guías
+- [ ] Distribución con actualizador propio y firma de código.
+- [ ] Comunidad y contribución externa (guiada por `CONTRIBUTING.md`).
+- [ ] Soporte para entornos empresariales.
 
-#### **Semanas 65-72: Enterprise**
-- [ ] **Pendiente**: Soporte para entornos empresariales
-- [ ] **Pendiente**: Gestión centralizada
-- [ ] **Pendiente**: Reporting y analytics
-- [ ] **Pendiente**: Integración con sistemas empresariales
-- [ ] **Pendiente**: Soporte técnico empresarial
+## Hitos
 
-## 🚀 Hitos Clave del Proyecto
+### Alcanzados
 
-### 🎯 **Hito 1: Sistema Estable (Mes 3)**
-- **Objetivo**: Sistema consolidado y estable
-- **Entregables**:
-  - Código refactorizado y limpio
-  - Testing automatizado implementado
-  - Documentación completa
-  - Sistema de logging robusto
+- **Hito 1 — Aplicación nativa v13.0.0** (enero de 2026): reescritura completa en C#/.NET 9 + WPF (MVVM) con motor de ejecución y catálogos JSON.
+- **Hito 2 — Calidad y CI** (octubre de 2026): suite de 28 pruebas, pipeline de CI en GitHub y repositorio público `SabaTech-dev/LJokerL_TTV`.
 
-### 🎯 **Hito 2: Interfaz Moderna (Mes 6)**
-- **Objetivo**: Interfaz gráfica nativa funcional
-- **Entregables**:
-  - Aplicación WPF funcional
-  - Dashboard interactivo
-  - Sistema de temas
-  - Configuración visual
+### Siguientes (gobernados por TODO.md)
 
-### 🎯 **Hito 3: Sistema Inteligente (Mes 12)**
-- **Objetivo**: Capacidades de ML implementadas
-- **Entregables**:
-  - Algoritmos de ML funcionales
-  - Optimización automática
-  - Análisis predictivo
-  - Recomendaciones inteligentes
+- **Cierre de P0** (documentación coherente: README, guía de usuario, dependencias, roadmap).
+- **P1** (seguridad, higiene del repositorio, consolidación de infraestructura de agentes).
+- **P2** (calidad técnica: xUnit, estrategia de `Resources/`, configuración centralizada).
 
-### 🎯 **Hito 4: Plataforma Multiplataforma (Mes 18)**
-- **Objetivo**: Soporte completo multiplataforma
-- **Entregables**:
-  - Versiones para Windows, Linux, macOS
-  - Arquitectura de microservicios
-  - API REST completa
-  - Ecosistema de plugins
+Una vez cerrado TODO.md, los candidatos naturales son completar las vistas pendientes de la Fase 3 y la suite de `ExecutionEngine` (Fase 2).
 
-## 🔧 Tecnologías y Herramientas
+## Trazabilidad
 
-### 🛠️ **Stack Tecnológico Actual**
-- **Lenguaje**: PowerShell 5.1+
-- **Sistema Operativo**: Windows 11/10
-- **APIs**: WMI, Registry, Performance Counters
-- **Interfaz**: Web (HTML/CSS/JavaScript)
+| Fecha | Hito | Estado |
+|---|---|---|
+| ago-2025 | Era PowerShell (scripts `.ps1`) | **Sustituida** |
+| ene-2026 | Reescritura completa en C#/.NET 9 + WPF (MVVM), versión v13.0.0 | Vigente |
+| may-2026 | Catálogos actualizados (`tweaks.json`, `profiles.json` 2026.03) | Vigente |
+| oct-2026 | Auditoría documental, repositorio público en GitHub, CI y pipeline de tareas (TODO.md) | Vigente |
 
-### 🚀 **Stack Tecnológico Futuro**
-- **Lenguaje**: C# (.NET 6+), PowerShell Core
-- **Frameworks**: WPF, ASP.NET Core
-- **Base de Datos**: SQLite, PostgreSQL
-- **Machine Learning**: ML.NET, TensorFlow.NET
-- **Containerización**: Docker, Kubernetes
-- **Cloud**: Azure, AWS
-
-### 🔧 **Herramientas de Desarrollo**
-- **IDE**: Visual Studio 2022, VS Code
-- **Testing**: MSTest, NUnit, Playwright
-- **CI/CD**: GitHub Actions, Azure DevOps
-- **Documentación**: Markdown, DocFX, Swagger
-- **Gestión de Proyectos**: Azure Boards, Jira
-
-## 📊 Métricas de Éxito
-
-### 🎯 **Métricas Técnicas**
-- **Cobertura de Testing**: >90%
-- **Tiempo de Respuesta**: <200ms para operaciones críticas
-- **Uptime**: >99.9%
-- **Tasa de Errores**: <0.1%
-- **Performance**: Mejora del 20%+ en benchmarks
-
-### 📈 **Métricas de Negocio**
-- **Usuarios Activos**: 10,000+ en 12 meses
-- **Satisfacción del Usuario**: >4.5/5
-- **Tasa de Retención**: >80%
-- **Adopción Empresarial**: 100+ empresas en 18 meses
-- **Revenue**: Modelo freemium con opciones premium
-
-### 🔍 **Métricas de Calidad**
-- **Bugs Críticos**: 0 en producción
-- **Tiempo de Resolución**: <24h para bugs críticos
-- **Documentación**: 100% de funcionalidades documentadas
-- **Accesibilidad**: Cumplimiento WCAG 2.1 AA
-- **Seguridad**: Auditoría de seguridad anual
-
-## 🚨 Riesgos y Mitigaciones
-
-### ⚠️ **Riesgos Técnicos**
-
-#### **Riesgo: Complejidad de ML**
-- **Probabilidad**: Media
-- **Impacto**: Alto
-- **Mitigación**: 
-  - Implementación gradual
-  - Uso de frameworks probados
-  - Testing extensivo
-  - Fallbacks a métodos tradicionales
-
-#### **Riesgo: Compatibilidad Multiplataforma**
-- **Probabilidad**: Alta
-- **Impacto**: Medio
-- **Mitigación**:
-  - Desarrollo incremental por plataforma
-  - Testing en múltiples entornos
-  - Uso de tecnologías cross-platform
-  - Documentación detallada de limitaciones
-
-### 💰 **Riesgos de Negocio**
-
-#### **Riesgo: Competencia del Mercado**
-- **Probabilidad**: Media
-- **Impacto**: Alto
-- **Mitigación**:
-  - Diferenciación clara del producto
-  - Innovación continua
-  - Comunidad activa de usuarios
-  - Soporte técnico superior
-
-#### **Riesgo: Cambios en Windows**
-- **Probabilidad**: Baja
-- **Impacto**: Alto
-- **Mitigación**:
-  - Monitoreo de cambios de Microsoft
-  - Testing en versiones beta
-  - Arquitectura flexible
-  - Actualizaciones rápidas
-
-## 🤝 Colaboración y Comunidad
-
-### 👥 **Equipo de Desarrollo**
-- **Líder del Proyecto**: LJokerL_TTV
-- **Desarrolladores**: 2-3 desarrolladores senior
-- **QA Engineers**: 1-2 especialistas en testing
-- **DevOps Engineer**: 1 especialista en infraestructura
-- **UX/UI Designer**: 1 diseñador de experiencia de usuario
-
-### 🌐 **Comunidad de Usuarios**
-- **Foro de Usuarios**: Plataforma de discusión y soporte
-- **GitHub**: Código abierto para componentes no críticos
-- **Discord/Slack**: Comunidad en tiempo real
-- **YouTube**: Tutoriales y demostraciones
-- **Blog**: Artículos técnicos y actualizaciones
-
-### 🔧 **Contribuciones Externas**
-- **Programa de Beta Testers**: Usuarios que prueban versiones tempranas
-- **Programa de Plugins**: Desarrolladores que crean extensiones
-- **Programa de Traducción**: Comunidad que traduce a diferentes idiomas
-- **Programa de Documentación**: Contribuciones a la documentación
-
-## 📋 Próximos Pasos Inmediatos
-
-### ✅ **Esta Semana (Completado)**
-- [x] Análisis estratégico del proyecto
-- [x] Documentación de arquitectura
-- [x] Análisis de dependencias
-- [x] Creación de README.md
-
-### ✅ **Semanas Recientes (Completado)**
-- [x] Validación de propuestas del mapping (Reports/Tweaks2_Validation_Status.md)
-- [x] Consolidación de catálogos Config (tweaks, services, apps, profiles)
-- [x] Integración Core + UI WPF (Apply/Revert perfiles + tweaks + logs)
-- [x] Rollback/seguridad (snapshot de registro en logs + rollback catálogo)
-- [x] Testing final (unit + smoke + UI con Program.cs runner)
-- [x] Advanced Tweaks UI (filtros de riesgo/categoría + Apply/Revert individual)
-- [x] Auditoría de código y seguridad → modelos + loader + engine + logging
-- [x] Identificación de duplicaciones → cleanup de scripts viejos + unified configs
-- [x] Plan de refactorización detallado → ROADMAP actualizado
-- [x] Setup de entorno de testing → test runner custom en src/LJokerL.Tests
-
-### 🔄 **Próximas 2 Semanas (Prioridades)**
-- [ ] Mejorar manejo de errores globales → unificar try/catch y validaciones
-- [ ] Tests automatizados unitarios → ampliar Program.cs con tests de ExecutionEngine, ConfigLoader, filters
-- [ ] Hardware detection en C# → módulo en Core para CPU/GPU/RAM
-- [ ] Reglas de hardware → conectar Config/hardware_rules.json con detección real
-
-### 🎯 **Próximo Mes**
-- [ ] Integración UI + recomendaciones automáticas basadas en hardware rules
-- [ ] Empaquetado → build release + installer (Inno/NSIS) + portable
-- [ ] Documentación final → guías de usuario + actualización README
-
-## 🔮 Visión a Largo Plazo
-
-### 🚀 **Año 3: Liderazgo del Mercado**
-- **Posición**: Líder en optimización de sistemas
-- **Mercado**: Windows, Linux, macOS, Enterprise
-- **Tecnología**: IA avanzada, cloud-native, edge computing
-- **Ecosistema**: 1000+ plugins, 100,000+ usuarios
-
-### 🌟 **Año 5: Plataforma Universal**
-- **Alcance**: Todas las plataformas principales
-- **Inteligencia**: IA predictiva y adaptativa
-- **Integración**: Ecosistema completo de herramientas
-- **Impacto**: Revolución en la optimización de sistemas
+La era PowerShell (ago-2025) fue sustituida por completo por la aplicación C#/WPF; cualquier mención a scripts `.ps1` como interfaz o lenguaje actual de la aplicación es obsoleta.
 
 ---
 
-**📋 Nota**: Este roadmap es un documento vivo que se actualiza regularmente basado en el progreso del proyecto, feedback de usuarios y cambios en el mercado. La flexibilidad y adaptabilidad son clave para el éxito del proyecto.
+Este roadmap se actualiza con el progreso real del proyecto. Cambios de alcance o de dirección se registran primero en TODO.md y se reflejan aquí.
