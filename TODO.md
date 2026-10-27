@@ -4,6 +4,19 @@
 > Convenciones — **Tipo**: IMPLEMENTAR (crear), MODIFICAR (editar existente), ELIMINAR (borrar o archivar). **Prioridad**: P0 crítico, P1 importante, P2 optimización. **Esfuerzo**: S (<1 h), M (1-4 h), L (>4 h).
 > Regla de dependencia: ninguna acción de tipo ELIMINAR se ejecuta antes de P0-1 (primer commit de respaldo en Git).
 
+## Estado de ejecución — 27/10/2026
+
+**Completadas y fusionadas en `develop`** (pipeline completo: DoR → worktree → TDD cuando aplica → RDD → jueces ciegos → CI → PR): P0-1 y P1-1 (bootstrap del repositorio público con CI y protección de rama), P0-3 (PR #2), P0-4 (PR #3), P0-5 (PR #4), P0-7 (PR #5), P1-4 (PR #6), P1-3 (PR #7), P1-9 (PR #8), P2-3 (PR #9), P2-7 (PR #10), P2-6 (PR #11).
+
+**Bloqueadas por el revisor nativo de RDD** (el CLI `claude` que invoca gentle-ai no tiene sesión iniciada; desbloqueo: ejecutar `claude` y completar `/login`, luego reanudar cada transacción con `gentle-ai review status --lineage=<id> --next-transition` desde su worktree):
+
+- **P0-2** — PR #1 abierto, CI verde, jueces sin hallazgos severos; transacción `review-c87fe45d98454b41` (worktree `p0-2-selected-profile`); tras completar la revisión, actualizar rama y fusionar.
+- **P0-6** — cambios listos sin commit (worktree `p0-6-buildinstr`); transacción `review-e0b24f9a9efe0a2f`.
+- **P1-2** — SECURITY.md y CONTRIBUTING.md listos sin commit (worktree `p1-2-security`); transacción `review-c1b4a7794c668878`.
+- **P1-5** — 5 informes movidos a `Reports/archive/` sin commit (worktree `p1-5-archive-reports`); transacción `review-b79f44c01b117823`.
+- **P1-8** — PR #12 abierto; corrección de jueces (añadir `LJOKERL_VRR_OVERRIDE` y `LJOKERL_LOG_EXPORT_PATH`) lista sin commit (worktree `p1-8-envexample`); transacción `review-e1c60ad3f3505a4f`.
+- **P1-6, P1-7, P2-1, P2-2, P2-4, P2-5** — no iniciadas: sus cambios (consolidación de agentes, borrados, configuración .NET, código) disparan lentes de revisión y requieren el mismo desbloqueo.
+
 ## Tabla resumen
 
 | ID | Acción | Tipo | Prioridad | Esfuerzo | Riesgo |
