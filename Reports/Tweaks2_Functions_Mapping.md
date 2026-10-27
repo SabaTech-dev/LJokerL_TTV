@@ -1,0 +1,623 @@
+# Mapping de Functions (tweaks2) -> acciones reales
+
+Este documento mapea cada Function del inventario `Reports/Tweaks2_Functions_Inventory.md`
+con implementaciones encontradas en el repo. Si no existe implementacion, queda marcado
+como NO_ENCONTRADO para posterior investigacion.
+
+Formato por entrada:
+- Function: <Nombre>
+  - Estado: IMPLEMENTADO | PARCIAL | NO_ENCONTRADO
+  - Ubicacion: <ruta archivo(s)>
+  - Acciones: <registro/servicio/tarea/comando>
+
+## Core / Inicial
+- Function: InitialActions
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: Logging
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: Start-Logging -> crea log en `C:\LJokerL_TTV\Logs\...`
+- Function: CreateRestorePoint
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: Enable-ComputerRestore + Checkpoint-Computer
+
+## Privacy & Telemetry
+- Function: DiagTrackService
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: Servicio `DiagTrack` stop + disabled
+- Function: DiagnosticDataLevel
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection\AllowTelemetry = 0
+- Function: ErrorReporting
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: Servicio `WerSvc` stop + disabled
+- Function: FeedbackFrequency
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKCU\Software\Microsoft\Siuf\Rules\NumberOfSIUFInPeriod = 0
+    - HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection\DoNotShowFeedbackNotifications = 1
+- Function: ScheduledTasks
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones:
+    - \Microsoft\Windows\Customer Experience Improvement Program\Consolidator (Disable)
+    - \Microsoft\Windows\Customer Experience Improvement Program\UsbCeip (Disable)
+    - \Microsoft\Windows\Application Experience\Microsoft Compatibility Appraiser (Disable)
+    - \Microsoft\Windows\Application Experience\ProgramDataUpdater (Disable)
+    - \Microsoft\Windows\Autochk\Proxy (Disable)
+    - \Microsoft\Windows\DiskDiagnostic\Microsoft-Windows-DiskDiagnosticDataCollector (Disable)
+    - \Microsoft\Windows\Maps\MapsToastTask (Disable)
+    - \Microsoft\Windows\Windows Error Reporting\QueueReporting (Disable)
+- Function: SigninInfo
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\DisableAutomaticRestartSignOn = 1
+- Function: LanguageListAccess
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Control Panel\International\User Profile\HttpAcceptLanguageOptOut = 1
+- Function: AdvertisingID
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo\Enabled = 0
+- Function: WindowsWelcomeExperience
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SubscribedContent-310093Enabled = 0
+- Function: WindowsTips
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SubscribedContent-338389Enabled = 0
+- Function: SettingsSuggestedContent
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SystemPaneSuggestionsEnabled = 0
+    - HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SubscribedContent-338393Enabled = 0
+- Function: AppsSilentInstalling
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SilentInstalledAppsEnabled = 0
+- Function: WhatsNewInWindows
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SubscribedContent-338387Enabled = 0
+- Function: TailoredExperiences
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Privacy\TailoredExperiencesWithDiagnosticDataEnabled = 0
+- Function: BingSearch
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Search\BingSearchEnabled = 0
+
+## UI & Personalization / Explorer
+- Function: ThisPC
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel\{20D04FE0-3AEA-1069-A2D8-08002B30309D} = 0
+- Function: CheckBoxes
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\AutoCheckSelect = 1
+- Function: HiddenItems
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Hidden = 1
+- Function: FileExtensions
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\HideFileExt = 0
+- Function: MergeConflicts
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowMergeConflicts = 1
+- Function: OpenFileExplorerTo
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\LaunchTo = 1 (This PC) / 2 (Quick access)
+- Function: FileExplorerCompactMode
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\UseCompactMode = 1
+- Function: OneDriveFileExplorerAd
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowSyncProviderNotifications = 0
+- Function: SnapAssist
+  - Estado: PARCIAL
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1; Propuesto (no en repo)
+  - Acciones:
+    - HKCU\Control Panel\Desktop\WindowArrangementActive = 1
+    - HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\SnapAssist = 1
+- Function: FileTransferDialog
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\OperationStatusManager\EnthusiastMode = 1
+- Function: RecycleBinDeleteConfirmation
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\ConfirmFileDelete = 1
+- Function: QuickAccessRecentFiles
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ShowRecent = 0
+- Function: QuickAccessFrequentFolders
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ShowFrequent = 0
+- Function: TaskbarAlignment
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarAl = 0 (0 izquierda, 1 centro)
+- Function: TaskbarWidgets
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDa = 0
+    - HKLM\SOFTWARE\Policies\Microsoft\Dsh\AllowNewsAndInterests = 0
+- Function: TaskbarSearch
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Search\SearchboxTaskbarMode = 0
+- Function: SearchHighlights
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\SearchSettings\IsDynamicSearchBoxEnabled = 0
+- Function: TaskViewButton
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowTaskViewButton = 0
+- Function: SecondsInSystemClock
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowSecondsInSystemClock = 1
+- Function: ClockInNotificationCenter
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideClock = 0
+- Function: TaskbarCombine
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarGlomLevel = 2
+- Function: UnpinTaskbarShortcuts -Shortcuts
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: TaskbarEndTask
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarEndTask = 1
+- Function: ControlPanelView
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\StartupPage = 0
+    - HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ControlPanel\AllItemsIconView = 0
+- Function: WindowsColorMode
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize\SystemUsesLightTheme = 0
+- Function: AppColorMode
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize\AppsUseLightTheme = 0
+- Function: FirstLogonAnimation
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\EnableFirstLogonAnimation = 0
+- Function: JPEGWallpapersQuality
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Control Panel\Desktop\JPEGImportQuality = 100
+- Function: ShortcutsSuffix
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\NamingTemplates\ShortcutNameTemplate = "%s.lnk"
+- Function: PrtScnSnippingTool
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Control Panel\Keyboard\PrintScreenKeyForSnippingEnabled = 1
+- Function: AppsLanguageSwitch
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: AeroShaking
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\DisallowShaking = 1
+- Function: Cursors
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: FolderGroupBy
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: NavigationPaneExpand
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\NavPaneExpandToCurrentFolder = 1
+- Function: RecentlyAddedStartApps
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer\HideRecentlyAddedApps = 1
+- Function: MostUsedStartApps
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Start_TrackProgs = 0
+- Function: StartRecommendedSection
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer\HideRecommendedSection = 1
+- Function: StartRecommendationsTips
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Start_IrisRecommendations = 0
+- Function: StartAccountNotifications
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Start_AccountNotifications = 0
+- Function: StartLayout
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer\StartLayoutFile = <ruta>
+    - HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer\LockedStartLayout = 1
+
+## OneDrive
+- Function: OneDrive
+  - Estado: PARCIAL
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1; Propuesto (no en repo)
+  - Acciones:
+    - Debloat remove Appx package Microsoft.OneDriveSync
+    - HKLM\SOFTWARE\Policies\Microsoft\Windows\OneDrive\DisableFileSyncNGSC = 1
+
+## System
+- Function: StorageSense
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy\01 = 0
+- Function: Hibernation
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - powercfg -h off
+    - HKLM\SYSTEM\CurrentControlSet\Control\Power\HibernateEnabled = 0
+- Function: Win32LongPathsSupport
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SYSTEM\CurrentControlSet\Control\FileSystem\LongPathsEnabled = 1
+- Function: BSoDStopError
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SYSTEM\CurrentControlSet\Control\CrashControl\AutoReboot = 0
+- Function: AdminApprovalMode
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\FilterAdministratorToken = 1
+- Function: DeliveryOptimization
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization\DODownloadMode = 0
+- Function: WindowsManageDefaultPrinter
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows NT\CurrentVersion\Windows\LegacyDefaultPrinterMode = 1
+- Function: WindowsFeatures
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: dism /online /disable-feature /featurename:<Nombre> /NoRestart
+- Function: WindowsCapabilities
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: dism /online /remove-capability /capabilityname:<Nombre> /NoRestart
+- Function: UpdateMicrosoftProducts
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AllowMUUpdateService = 1
+- Function: RestartNotification
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings\RestartNotificationsAllowed2 = 0
+- Function: RestartDeviceAfterUpdate
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU\NoAutoRebootWithLoggedOnUsers = 1
+- Function: ActiveHours
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings\ActiveHoursStart = <0-23>
+    - HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings\ActiveHoursEnd = <0-23>
+- Function: WindowsLatestUpdate
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings\IsContinuousInnovationOptedIn = 0
+- Function: PowerPlan
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1, PC_TOP.ps1
+  - Acciones: powercfg /import + powercfg /setactive <GUID>
+- Function: NetworkAdaptersSavePower
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: Set-NetAdapterPowerManagement -Name <adapter> -AllowComputerToTurnOffDevice Disabled
+- Function: InputMethod
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: Set-UserShellFolderLocation
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\<Folder> = <Ruta>
+- Function: LatestInstalled.NET
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: WinPrtScrFolder
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\{B7BEDE81-DF94-4682-A7D8-57A52620B86F} = <Ruta>
+- Function: RecommendedTroubleshooting
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: ReservedStorage
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\ReserveManager\ShippedWithReserves = 0
+- Function: F1HelpPage
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: NumLock
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: HKU\.DEFAULT\Control Panel\Keyboard\InitialKeyboardIndicators = 2
+- Function: CapsLock
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: StickyShift
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Control Panel\Accessibility\StickyKeys\Flags = 506
+- Function: Autoplay
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers\DisableAutoplay = 1
+- Function: ThumbnailCacheRemoval
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: del /q /f "%LocalAppData%\Microsoft\Windows\Explorer\thumbcache_*.db"
+- Function: SaveRestartableApps
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\RestartApps = 0
+- Function: RestorePreviousFolders
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\PersistBrowsers = 1
+- Function: NetworkDiscovery
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: netsh advfirewall firewall set rule group="Network Discovery" new enable=No
+
+## File Associations / Terminal
+- Function: Set-Association
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: dism /online /Import-DefaultAppAssociations:<ruta>
+- Function: Export-Associations
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: dism /online /Export-DefaultAppAssociations:<ruta>
+- Function: Import-Associations
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: dism /online /Import-DefaultAppAssociations:<ruta>
+- Function: DefaultTerminalApp
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKCU\Console\DelegationConsole = {2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}
+    - HKCU\Console\DelegationTerminal = {2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}
+
+## Runtimes / Instalacion
+- Function: Install-VCRedist
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - winget install Microsoft.VCRedist.2015+.x64
+    - winget install Microsoft.VCRedist.2015+.x86
+- Function: Install-DotNetRuntimes
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - winget install Microsoft.DotNet.Runtime.8
+    - winget install Microsoft.DotNet.DesktopRuntime.8
+
+## System Misc
+- Function: RKNBypass
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: PreventEdgeShortcutCreation
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\DisableEdgeDesktopShortcutCreation = 1
+- Function: RegistryBackup
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: reg export HKLM\SOFTWARE <ruta>
+
+## WSL / UWP
+- Function: Install-WSL
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - dism /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+    - dism /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+    - wsl --install
+- Function: Uninstall-UWPApps
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1
+  - Acciones: Get-AppxPackage | Remove-AppxPackage
+- Function: Uninstall-UWPApps -ForAllUsers
+  - Estado: PARCIAL
+  - Ubicacion: Resources\QuitarGameBar.ps1
+  - Acciones: Get-AppxPackage -AllUsers *GameBar* | Remove-AppxPackage -AllUsers
+
+## Gaming
+- Function: XboxGameBar
+  - Estado: IMPLEMENTADO
+  - Ubicacion: Resources\QuitarGameBar.ps1
+  - Acciones:
+    - HKLM\SOFTWARE\Policies\Microsoft\Windows\GameDVR\AllowGameDVR = 0
+    - HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR\AppCaptureEnabled = 0
+    - HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR\GameDVR_Enabled = 0
+    - Servicio `GameBarPresenceWriter` stop + disabled
+    - Tareas: \Microsoft\XblGameSave\XblGameSaveTask, \Microsoft\XblGameSave\XblGameSaveTaskLogon, \Microsoft\Windows\GameBarPresenceWriter
+- Function: XboxGameTips
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: GPUScheduling
+  - Estado: IMPLEMENTADO
+  - Ubicacion: LJokerL_TTV_Custom_Config_PRO_ADAPTIVE.ps1, PC_TOP.ps1
+  - Acciones: HKLM\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\HwSchMode = 2
+
+## Scheduled Tasks
+- Function: CleanupTask
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: SoftwareDistributionTask
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: TempTask
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+
+## Defender & Security
+- Function: NetworkProtection
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: Set-MpPreference -EnableNetworkProtection Enabled
+- Function: PUAppsDetection
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: Set-MpPreference -PUAProtection Enabled
+- Function: DefenderSandbox
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: setx /M MP_FORCE_USE_SANDBOX 1
+- Function: DismissMSAccount
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: DismissSmartScreenFilter
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKLM\SOFTWARE\Policies\Microsoft\Windows\System\EnableSmartScreen = 0
+    - HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\SmartScreenEnabled = Off
+- Function: EventViewerCustomView
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: PowerShellModulesLogging
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging\EnableModuleLogging = 0
+- Function: PowerShellScriptsLogging
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging = 0
+    - HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription\EnableTranscripting = 0
+- Function: AppsSmartScreen
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\AppHost\EnableWebContentEvaluation = 0
+- Function: SaveZoneInformation
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments\SaveZoneInformation = 1
+- Function: WindowsSandbox
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: dism /online /disable-feature /featurename:Containers-DisposableClientVM /NoRestart
+- Function: DNSoverHTTPS
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters\EnableAutoDoh = 0
+- Function: LocalSecurityAuthority
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SYSTEM\CurrentControlSet\Control\Lsa\RunAsPPL = 1
+
+## Context Menu
+- Function: MSIExtractContext
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCR\Msi.Package\shell\Extract\command = msiexec /a "%1" /qb TARGETDIR="%TEMP%\\%~n1"
+- Function: CABInstallContext
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCR\CABFolder\Shell\RunAs\command = cmd /c DISM /Online /Add-Package /PackagePath:"%1"
+- Function: EditWithClipchampContext
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCR\SystemFileAssociations\video\shell\Edit\LegacyDisable = ""
+- Function: EditWithPhotosContext
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCR\SystemFileAssociations\image\shell\edit\LegacyDisable = ""
+- Function: EditWithPaintContext
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKCR\SystemFileAssociations\image\shell\edit\LegacyDisable = ""
+- Function: PrintCMDContext
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: CompressedFolderNewContext
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: eliminar HKCR\.zip\CompressedFolder\ShellNew
+- Function: MultipleInvokeContext
+  - Estado: NO_ENCONTRADO
+  - Ubicacion: -
+  - Acciones: -
+- Function: UseStoreOpenWith
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer\NoUseStoreOpenWith = 1
+- Function: OpenWindowsTerminalContext
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKCR\Directory\shell\OpenWindowsTerminal\command = wt.exe -d "%V"
+    - HKCR\Directory\Background\shell\OpenWindowsTerminal\command = wt.exe -d "%V"
+- Function: OpenWindowsTerminalAdminContext
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones:
+    - HKCR\Directory\shell\OpenWindowsTerminalAdmin\HasLUAShield = ""
+    - HKCR\Directory\shell\OpenWindowsTerminalAdmin\command = wt.exe -d "%V"
+
+## Update Policies
+- Function: ScanRegistryPolicies
+  - Estado: PARCIAL
+  - Ubicacion: Propuesto (no en repo)
+  - Acciones: gpupdate /force

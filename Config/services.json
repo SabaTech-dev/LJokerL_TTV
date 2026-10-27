@@ -1,0 +1,122 @@
+{
+  "version": "2026.01",
+  "services": [
+    {
+      "id": "diagtrack",
+      "name": "DiagTrack",
+      "displayName": "Connected User Experiences and Telemetry",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Telemetry service. Disabling may reduce diagnostics."
+    },
+    {
+      "id": "dmwappushservice",
+      "name": "dmwappushservice",
+      "displayName": "Device Management Wireless Application Protocol",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Telemetry related."
+    },
+    {
+      "id": "sysmain",
+      "name": "SysMain",
+      "displayName": "SysMain",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Superfetch. Can help on HDDs; disable on SSD/NVMe only."
+    },
+    {
+      "id": "wsearch",
+      "name": "WSearch",
+      "displayName": "Windows Search",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Disable if you do not use indexing."
+    },
+    {
+      "id": "xbox_services",
+      "name": "XblAuthManager",
+      "displayName": "Xbox Live Auth Manager",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Disable only if Xbox features are not used."
+    },
+    {
+      "id": "xbox_game_save",
+      "name": "XblGameSave",
+      "displayName": "Xbox Live Game Save",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Disable only if Xbox features are not used."
+    },
+    {
+      "id": "xbox_net_api",
+      "name": "XboxNetApiSvc",
+      "displayName": "Xbox Live Networking Service",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Disable only if Xbox features are not used."
+    },
+    {
+      "id": "fax",
+      "name": "Fax",
+      "displayName": "Fax",
+      "action": "disable",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Safe to disable on gaming desktops."
+    },
+    {
+      "id": "spooler",
+      "name": "Spooler",
+      "displayName": "Print Spooler",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": ["competitive_latency"],
+      "notes": "Disable only if you never print."
+    },
+    {
+      "id": "wmpnetworksvc",
+      "name": "WMPNetworkSvc",
+      "displayName": "Windows Media Player Network Sharing",
+      "action": "disable",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Media sharing service."
+    },
+    {
+      "id": "wersvc",
+      "name": "WerSvc",
+      "displayName": "Windows Error Reporting",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Disables error reporting service."
+    },
+    {
+      "id": "mapsbroker",
+      "name": "MapsBroker",
+      "displayName": "Downloaded Maps Manager",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": [],
+      "notes": "Disable if you do not use offline maps."
+    },
+    {
+      "id": "lfsvc",
+      "name": "lfsvc",
+      "displayName": "Geolocation Service",
+      "action": "disable",
+      "risk": "advanced",
+      "profiles": [],
+      "notes": "Disable if location services are not needed."
+    }
+  ]
+}

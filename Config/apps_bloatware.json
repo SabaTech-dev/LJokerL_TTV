@@ -1,0 +1,189 @@
+{
+  "version": "2026.01",
+  "apps": [
+    {
+      "id": "xbox_app",
+      "packageName": "Microsoft.XboxApp",
+      "displayName": "Xbox App",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove only if Xbox is not used."
+    },
+    {
+      "id": "xbox_game_overlay",
+      "packageName": "Microsoft.XboxGameOverlay",
+      "displayName": "Xbox Game Overlay",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Removes Xbox Game Bar overlay."
+    },
+    {
+      "id": "xbox_gaming_overlay",
+      "packageName": "Microsoft.XboxGamingOverlay",
+      "displayName": "Xbox Gaming Overlay",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove only if Xbox features are not used."
+    },
+    {
+      "id": "xbox_identity_provider",
+      "packageName": "Microsoft.XboxIdentityProvider",
+      "displayName": "Xbox Identity Provider",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove only if Xbox features are not used."
+    },
+    {
+      "id": "cortana",
+      "packageName": "Microsoft.549981C3F5F10",
+      "displayName": "Cortana",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Deprecated on Windows 11."
+    },
+    {
+      "id": "your_phone",
+      "packageName": "Microsoft.YourPhone",
+      "displayName": "Phone Link",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove if unused."
+    },
+    {
+      "id": "solitaire",
+      "packageName": "Microsoft.MicrosoftSolitaireCollection",
+      "displayName": "Solitaire Collection",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Optional entertainment app."
+    },
+    {
+      "id": "people",
+      "packageName": "Microsoft.People",
+      "displayName": "People",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Optional contact app."
+    },
+    {
+      "id": "maps",
+      "packageName": "Microsoft.WindowsMaps",
+      "displayName": "Maps",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Optional app."
+    },
+    {
+      "id": "news",
+      "packageName": "Microsoft.BingNews",
+      "displayName": "News",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Optional app."
+    },
+    {
+      "id": "weather",
+      "packageName": "Microsoft.BingWeather",
+      "displayName": "Weather",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Optional app."
+    },
+    {
+      "id": "clipchamp",
+      "packageName": "Clipchamp.Clipchamp",
+      "displayName": "Clipchamp",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Optional editor."
+    },
+    {
+      "id": "get_help",
+      "packageName": "Microsoft.GetHelp",
+      "displayName": "Get Help",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove if unused."
+    },
+    {
+      "id": "get_started",
+      "packageName": "Microsoft.Getstarted",
+      "displayName": "Get Started",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove if unused."
+    },
+    {
+      "id": "messaging",
+      "packageName": "Microsoft.Messaging",
+      "displayName": "Messaging",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove if unused."
+    },
+    {
+      "id": "office_hub",
+      "packageName": "Microsoft.MicrosoftOfficeHub",
+      "displayName": "Office Hub",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove if unused."
+    },
+    {
+      "id": "feedback_hub",
+      "packageName": "Microsoft.WindowsFeedbackHub",
+      "displayName": "Feedback Hub",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Optional feedback app."
+    },
+    {
+      "id": "zune_music",
+      "packageName": "Microsoft.ZuneMusic",
+      "displayName": "Groove Music",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Optional media app."
+    },
+    {
+      "id": "zune_video",
+      "packageName": "Microsoft.ZuneVideo",
+      "displayName": "Movies & TV",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Optional media app."
+    },
+    {
+      "id": "skype",
+      "packageName": "Microsoft.SkypeApp",
+      "displayName": "Skype",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove if unused."
+    },
+    {
+      "id": "sound_recorder",
+      "packageName": "Microsoft.WindowsSoundRecorder",
+      "displayName": "Sound Recorder",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove if unused."
+    },
+    {
+      "id": "alarms",
+      "packageName": "Microsoft.WindowsAlarms",
+      "displayName": "Alarms & Clock",
+      "risk": "safe",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove if unused."
+    },
+    {
+      "id": "camera",
+      "packageName": "Microsoft.WindowsCamera",
+      "displayName": "Camera",
+      "risk": "advanced",
+      "profiles": ["competitive_latency", "smooth_vrr"],
+      "notes": "Remove only if you do not use the camera app."
+    }
+  ]
+}

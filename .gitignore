@@ -1,0 +1,100 @@
+# LJokerL_TTV Custom Config PRO - .gitignore
+
+# Build outputs
+bin/
+obj/
+publish/
+output/
+*.exe
+*.dll
+*.pdb
+*.cache
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.vcxproj.filters
+
+# Rider / IntelliJ
+.idea/
+*.sln.iml
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# Test Results
+TestResults/
+[Cc]overage/
+*.coverage
+*.coveragexml
+
+# Benchmark Results (mantener solo ejemplos)
+Benchmarks/Results/*.json
+!Benchmarks/Results/.gitkeep
+
+# Logs
+Logs/
+*.log
+
+# User-specific files
+*.userprefs
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+nul
+null
+
+# Windows image file caches
+*.stackdump
+
+# Configuración local sensible
+.env.local
+.env.*.local
+
+# Archivos de backup
+*.bak
+*.backup
+
+# Archivos de publicación portátil generados
+Output/LJokerL_TTV_Portable_*/
+
+# Archivos de datos de usuario (no versionar datos reales)
+Database/Backups/
+Profiles/*.json
+!Profiles/default.json
+
+# Archivos de registro de ejecución
+*.jsonl
+
+# --- Endurecido (auditoria 2026-10-27, TODO P0-1) ---
+# Secretos y entorno
+.env
+.env.*
+!.env.example
+# Artefactos de analisis ajenos al proyecto
+.unlighthouse/
+.mimosa/
+# Salidas de build locales y empaquetado
+Output/
+# Logs de ejecucion (Logs/ y *.jsonl ya declarados arriba)
+# Editores
+.vscode/
+# Benchmarks generados en runtime
+Benchmarks/
+# Binarios de terceros redistribuidos (politica TODO P2-3: manifest pendiente)
+Resources/**/*.exe
+Resources/**/*.dll
+Resources/**/*.sys
+Resources/**/*.zip
+Resources/**/*.msi
+Resources/**/*.pdb
+Resources/SCEHUB-1.2.0/

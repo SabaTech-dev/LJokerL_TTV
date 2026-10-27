@@ -1,0 +1,2648 @@
+{
+  "version": "2026.01",
+  "tweaks": [
+    {
+      "id": "game_dvr_off",
+      "category": "gaming",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable Game DVR and background capture.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\System\\GameConfigStore",
+          "name": "GameDVR_Enabled",
+          "valueType": "DWORD",
+          "value": 0
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\System\\GameConfigStore",
+          "name": "GameDVR_FSEBehaviorMode",
+          "valueType": "DWORD",
+          "value": 2
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR",
+          "name": "AllowGameDVR",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\System\\GameConfigStore",
+          "name": "GameDVR_Enabled",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\System\\GameConfigStore",
+          "name": "GameDVR_FSEBehaviorMode",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR",
+          "name": "AllowGameDVR",
+          "operation": "delete"
+        }
+      ],
+      "sources": [
+        "https://blurbusters.com/gsync/gsync101-input-lag-tests-and-settings/"
+      ],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "game_mode_on",
+      "category": "gaming",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Enable Game Mode for focused games.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\GameBar",
+          "name": "AllowAutoGameMode",
+          "valueType": "DWORD",
+          "value": 1
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\GameBar",
+          "name": "AutoGameModeEnabled",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\GameBar",
+          "name": "AllowAutoGameMode",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\GameBar",
+          "name": "AutoGameModeEnabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [
+        "https://support.xbox.com/en-US/help/games-apps/game-setup-and-play/use-game-mode-gaming-on-pc"
+      ],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "hags_on",
+      "category": "graphics",
+      "risk": "advanced",
+      "requiresReboot": true,
+      "description": "Enable Hardware Accelerated GPU Scheduling (HAGS).",
+      "conditions": {
+        "gpuVendor": ["NVIDIA", "AMD"],
+        "os": "Windows11"
+      },
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "HwSchMode",
+          "valueType": "DWORD",
+          "value": 2
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "HwSchMode",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "mpo_disable",
+      "category": "graphics",
+      "risk": "advanced",
+      "requiresReboot": true,
+      "description": "Disable Multiplane Overlay only when flicker/stutter occurs.",
+      "conditions": {
+        "gpuVendor": ["NVIDIA"],
+        "symptoms": ["flicker", "stutter"]
+      },
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "DisableMultiPlaneOverlay",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "DisableMultiPlaneOverlay",
+          "operation": "delete"
+        }
+      ],
+      "sources": [
+        "https://nvidia.custhelp.com/app/answers/detail/a_id/5157/"
+      ],
+      "profiles": []
+    },
+    {
+      "id": "mouse_accel_off",
+      "category": "input",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable mouse acceleration for consistent aim.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Mouse",
+          "name": "MouseSpeed",
+          "valueType": "STRING",
+          "value": "0"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Mouse",
+          "name": "MouseThreshold1",
+          "valueType": "STRING",
+          "value": "0"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Mouse",
+          "name": "MouseThreshold2",
+          "valueType": "STRING",
+          "value": "0"
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Mouse",
+          "name": "MouseSpeed",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Mouse",
+          "name": "MouseThreshold1",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Mouse",
+          "name": "MouseThreshold2",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "usb_selective_suspend_off",
+      "category": "input",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable USB selective suspend to avoid input sleep.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "powercfg -setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0"
+        },
+        {
+          "type": "command",
+          "command": "powercfg -setdcvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 0"
+        }
+      ],
+      "revert": [
+        {
+          "type": "command",
+          "command": "powercfg -setacvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1"
+        },
+        {
+          "type": "command",
+          "command": "powercfg -setdcvalueindex SCHEME_CURRENT 2a737441-1930-4402-8d77-b2bebba308a3 48e6b7a6-50f5-4782-a5d4-53bb8f07e226 1"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "advertising_id_off",
+      "category": "privacy",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Advertising ID for apps.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
+          "name": "Enabled",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
+          "name": "Enabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "telemetry_min",
+      "category": "privacy",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Limit diagnostic data collection where supported.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+          "name": "AllowTelemetry",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+          "name": "AllowTelemetry",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "feedback_notifications_off",
+      "category": "privacy",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable Windows feedback prompts and notifications.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Siuf\\Rules",
+          "name": "NumberOfSIUFInPeriod",
+          "valueType": "DWORD",
+          "value": 0
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+          "name": "DoNotShowFeedbackNotifications",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Siuf\\Rules",
+          "name": "NumberOfSIUFInPeriod",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+          "name": "DoNotShowFeedbackNotifications",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "tailored_experiences_off",
+      "category": "privacy",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable tailored experiences based on diagnostic data.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+          "name": "TailoredExperiencesWithDiagnosticDataEnabled",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+          "name": "TailoredExperiencesWithDiagnosticDataEnabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "bing_search_off",
+      "category": "privacy",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Bing web search in Start menu.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "name": "BingSearchEnabled",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "name": "BingSearchEnabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "silent_app_install_off",
+      "category": "privacy",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable silent suggested app installs.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SilentInstalledAppsEnabled",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SilentInstalledAppsEnabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "suggested_content_off",
+      "category": "privacy",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable suggested content in Settings and Start.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SystemPaneSuggestionsEnabled",
+          "valueType": "DWORD",
+          "value": 0
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-338393Enabled",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SystemPaneSuggestionsEnabled",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-338393Enabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "windows_welcome_experience_off",
+      "category": "privacy",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Windows welcome experience after updates.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-310093Enabled",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-310093Enabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "windows_tips_off",
+      "category": "privacy",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Windows tips and suggestions.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-338389Enabled",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-338389Enabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "whats_new_in_windows_off",
+      "category": "privacy",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable What's new and related suggestions.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-338387Enabled",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+          "name": "SubscribedContent-338387Enabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr"]
+    },
+    {
+      "id": "signin_info_off",
+      "category": "privacy",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable automatic sign-in after restart to finish updates.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "name": "DisableAutomaticRestartSignOn",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "name": "DisableAutomaticRestartSignOn",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "language_list_access_off",
+      "category": "privacy",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable access to the user's language list by websites.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\International\\User Profile",
+          "name": "HttpAcceptLanguageOptOut",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\International\\User Profile",
+          "name": "HttpAcceptLanguageOptOut",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "one_drive_sync_off",
+      "category": "privacy",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable OneDrive sync client via policy.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive",
+          "name": "DisableFileSyncNGSC",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive",
+          "name": "DisableFileSyncNGSC",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "show_hidden_items",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Show hidden files and folders in Explorer.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "Hidden",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "Hidden",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "show_file_extensions",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Show file extensions in Explorer.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "HideFileExt",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "HideFileExt",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "check_boxes_on",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Enable item check boxes in Explorer.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "AutoCheckSelect",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "AutoCheckSelect",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "explorer_compact_mode_on",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Enable compact mode in File Explorer.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "UseCompactMode",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "UseCompactMode",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "file_transfer_details_on",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Use detailed file transfer dialog.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\OperationStatusManager",
+          "name": "EnthusiastMode",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\OperationStatusManager",
+          "name": "EnthusiastMode",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "confirm_delete_on",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Show confirmation dialog when deleting files.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "name": "ConfirmFileDelete",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+          "name": "ConfirmFileDelete",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "quick_access_recent_off",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Hide recent files in Quick Access.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+          "name": "ShowRecent",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+          "name": "ShowRecent",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "quick_access_frequent_off",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Hide frequent folders in Quick Access.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+          "name": "ShowFrequent",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer",
+          "name": "ShowFrequent",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "explorer_launch_to_this_pc",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Open File Explorer to This PC.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "LaunchTo",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "LaunchTo",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "sync_provider_notifications_off",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable sync provider notifications in Explorer.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowSyncProviderNotifications",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowSyncProviderNotifications",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "show_merge_conflicts",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Show merge conflicts in Explorer.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowMergeConflicts",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowMergeConflicts",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "nav_pane_expand_current_on",
+      "category": "explorer",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Expand navigation pane to current folder.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "NavPaneExpandToCurrentFolder",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "NavPaneExpandToCurrentFolder",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "taskbar_alignment_left",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Align taskbar to the left.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarAl",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarAl",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "taskbar_widgets_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable taskbar widgets.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarDa",
+          "valueType": "DWORD",
+          "value": 0
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+          "name": "AllowNewsAndInterests",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarDa",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Dsh",
+          "name": "AllowNewsAndInterests",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "taskbar_search_hidden",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Hide the taskbar search box.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "name": "SearchboxTaskbarMode",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Search",
+          "name": "SearchboxTaskbarMode",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "search_highlights_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable search highlights.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+          "name": "IsDynamicSearchBoxEnabled",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+          "name": "IsDynamicSearchBoxEnabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "task_view_button_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Hide the Task View button on taskbar.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowTaskViewButton",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowTaskViewButton",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "show_seconds_clock_on",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Show seconds in the system clock.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowSecondsInSystemClock",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "ShowSecondsInSystemClock",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "taskbar_end_task_on",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Enable End Task on taskbar right-click.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarEndTask",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "TaskbarEndTask",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "control_panel_view_icons",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Open Control Panel in icon view.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel",
+          "name": "StartupPage",
+          "valueType": "DWORD",
+          "value": 0
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel",
+          "name": "AllItemsIconView",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel",
+          "name": "StartupPage",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\ControlPanel",
+          "name": "AllItemsIconView",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "first_logon_animation_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable the first logon animation.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "name": "EnableFirstLogonAnimation",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+          "name": "EnableFirstLogonAnimation",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "jpeg_wallpaper_quality_high",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Increase JPEG wallpaper import quality.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "JPEGImportQuality",
+          "valueType": "DWORD",
+          "value": 100
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "JPEGImportQuality",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "shortcut_suffix_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Remove ' - Shortcut' suffix from new shortcuts.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\NamingTemplates",
+          "name": "ShortcutNameTemplate",
+          "valueType": "STRING",
+          "value": "%s.lnk"
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\NamingTemplates",
+          "name": "ShortcutNameTemplate",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "print_screen_snipping_on",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Use Snipping Tool when pressing Print Screen.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Keyboard",
+          "name": "PrintScreenKeyForSnippingEnabled",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Keyboard",
+          "name": "PrintScreenKeyForSnippingEnabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "hide_recently_added_apps",
+      "category": "ui",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Hide recently added apps in Start.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+          "name": "HideRecentlyAddedApps",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+          "name": "HideRecentlyAddedApps",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "start_most_used_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Hide most used apps in Start.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "Start_TrackProgs",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "Start_TrackProgs",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "start_recommended_off",
+      "category": "ui",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Hide the Recommended section in Start.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+          "name": "HideRecommendedSection",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+          "name": "HideRecommendedSection",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "start_tips_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Start recommendations tips.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "Start_IrisRecommendations",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "Start_IrisRecommendations",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "start_account_notifications_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable account notifications in Start.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "Start_AccountNotifications",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "Start_AccountNotifications",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "disable_aero_shake",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Aero Shake minimize gesture.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "DisallowShaking",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "DisallowShaking",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "long_paths_on",
+      "category": "system",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Enable Win32 long paths support.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem",
+          "name": "LongPathsEnabled",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\FileSystem",
+          "name": "LongPathsEnabled",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "hibernation_off",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable hibernation to reduce disk usage.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "powercfg -h off"
+        }
+      ],
+      "revert": [
+        {
+          "type": "command",
+          "command": "powercfg -h on"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "bsod_auto_reboot_off",
+      "category": "system",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable automatic restart on system crash.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\CrashControl",
+          "name": "AutoReboot",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\CrashControl",
+          "name": "AutoReboot",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "delivery_optimization_off",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable Delivery Optimization peer downloads.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization",
+          "name": "DODownloadMode",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization",
+          "name": "DODownloadMode",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "update_microsoft_products_on",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Enable updates for other Microsoft products via Windows Update.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+          "name": "AllowMUUpdateService",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+          "name": "AllowMUUpdateService",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "manage_default_printer_off",
+      "category": "system",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable automatic default printer management.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows",
+          "name": "LegacyDefaultPrinterMode",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows",
+          "name": "LegacyDefaultPrinterMode",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "default_terminal_windows_terminal",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Set Windows Terminal as the default terminal app.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Console",
+          "name": "DelegationConsole",
+          "valueType": "STRING",
+          "value": "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Console",
+          "name": "DelegationTerminal",
+          "valueType": "STRING",
+          "value": "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}"
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Console",
+          "name": "DelegationConsole",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Console",
+          "name": "DelegationTerminal",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "reserved_storage_off",
+      "category": "system",
+      "risk": "experimental",
+      "requiresReboot": true,
+      "description": "Disable Windows reserved storage.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ReserveManager",
+          "name": "ShippedWithReserves",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ReserveManager",
+          "name": "ShippedWithReserves",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "restart_notifications_off",
+      "category": "system",
+      "risk": "experimental",
+      "requiresReboot": false,
+      "description": "Disable Windows Update restart notifications.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings",
+          "name": "RestartNotificationsAllowed2",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\WindowsUpdate\\UX\\Settings",
+          "name": "RestartNotificationsAllowed2",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "no_auto_reboot_with_logged_on_users",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Prevent auto reboot when users are logged in.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+          "name": "NoAutoRebootWithLoggedOnUsers",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU",
+          "name": "NoAutoRebootWithLoggedOnUsers",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "storage_sense_off",
+      "category": "system",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Storage Sense cleanup.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy",
+          "name": "01",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\StorageSense\\Parameters\\StoragePolicy",
+          "name": "01",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "autoplay_off",
+      "category": "system",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable AutoPlay for all media and devices.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\AutoplayHandlers",
+          "name": "DisableAutoplay",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\AutoplayHandlers",
+          "name": "DisableAutoplay",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "save_restartable_apps_off",
+      "category": "system",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable automatic restart of apps after sign-in.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
+          "name": "RestartApps",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
+          "name": "RestartApps",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "restore_previous_folders_on",
+      "category": "system",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Restore previous folder windows at logon.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "PersistBrowsers",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+          "name": "PersistBrowsers",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "network_discovery_off",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable Network Discovery firewall rules.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "netsh advfirewall firewall set rule group=\"Network Discovery\" new enable=No"
+        }
+      ],
+      "revert": [
+        {
+          "type": "command",
+          "command": "netsh advfirewall firewall set rule group=\"Network Discovery\" new enable=Yes"
+        }
+      ],
+      "sources": [],
+      "profiles": []
+    },
+    {
+      "id": "network_gaming_dns",
+      "category": "network",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Set DNS to Cloudflare (1.1.1.1) for lower latency.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "netsh interface ip set dns name=\"Ethernet\" static 1.1.1.1"
+        },
+        {
+          "type": "command",
+          "command": "netsh interface ip add dns name=\"Ethernet\" 1.0.0.1 index=2"
+        }
+      ],
+      "revert": [
+        {
+          "type": "command",
+          "command": "netsh interface ip set dns name=\"Ethernet\" dhcp"
+        }
+      ],
+      "sources": ["https://www.cloudflare.com/learning/dns/what-is-1.1.1.1/"],
+      "profiles": ["gaming_pro", "streaming", "max_performance", "vr_ready"]
+    },
+    {
+      "id": "nagle_off",
+      "category": "network",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Nagle's algorithm for lower network latency in gaming.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces",
+          "name": "TcpAckFrequency",
+          "valueType": "DWORD",
+          "value": 1
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces",
+          "name": "TcpNoDelay",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces",
+          "name": "TcpAckFrequency",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\Interfaces",
+          "name": "TcpNoDelay",
+          "operation": "delete"
+        }
+      ],
+      "sources": ["https://docs.microsoft.com/en-us/azure/virtual-desktop/ts-faq-network"],
+      "profiles": ["gaming_pro", "streaming", "max_performance", "vr_ready"]
+    },
+    {
+      "id": "tcp_auto_tuning_off",
+      "category": "network",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable TCP auto-tuning for consistent network performance.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "netsh interface tcp set global autotuning=disabled"
+        }
+      ],
+      "revert": [
+        {
+          "type": "command",
+          "command": "netsh interface tcp set global autotuning=normal"
+        }
+      ],
+      "sources": [],
+      "profiles": ["gaming_pro", "streaming", "max_performance", "vr_ready"]
+    },
+    {
+      "id": "priority_high",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Set system responsiveness to high for better gaming performance.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "SystemResponsiveness",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "SystemResponsiveness",
+          "valueType": "DWORD",
+          "value": 20
+        }
+      ],
+      "sources": [],
+      "profiles": ["gaming_pro", "streaming", "max_performance", "vr_ready"]
+    },
+    {
+      "id": "cpu_priority_game",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Set games to high CPU priority.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "GamesPriority",
+          "valueType": "DWORD",
+          "value": 6
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "GamesPriority",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["gaming_pro", "streaming", "max_performance", "vr_ready"]
+    },
+    {
+      "id": "cpu_priority_stream",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Optimize CPU priority for streaming applications.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "GamesPriority",
+          "valueType": "DWORD",
+          "value": 4
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "SystemResponsiveness",
+          "valueType": "DWORD",
+          "value": 10
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "GamesPriority",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "SystemResponsiveness",
+          "valueType": "DWORD",
+          "value": 20
+        }
+      ],
+      "sources": [],
+      "profiles": ["streaming"]
+    },
+    {
+      "id": "gpu_priority",
+      "category": "graphics",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Set GPU scheduling to prefer maximum performance.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "FeatureSetLimit",
+          "valueType": "DWORD",
+          "value": 4294967295
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "FeatureSetLimit",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["gaming_pro", "max_performance", "vr_ready"]
+    },
+    {
+      "id": "disable_indexing",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable Windows Search indexing for better performance.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "sc config WSearch start=disabled"
+        },
+        {
+          "type": "command",
+          "command": "sc stop WSearch"
+        }
+      ],
+      "revert": [
+        {
+          "type": "command",
+          "command": "sc config WSearch start=delayed-auto"
+        }
+      ],
+      "sources": [],
+      "profiles": ["gaming_pro", "max_performance"]
+    },
+    {
+      "id": "superfetch_off",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Disable Superfetch to free up resources for gaming.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "sc config SysMain start=disabled"
+        },
+        {
+          "type": "command",
+          "command": "sc stop SysMain"
+        }
+      ],
+      "revert": [
+        {
+          "type": "command",
+          "command": "sc config SysMain start=auto"
+        }
+      ],
+      "sources": [],
+      "profiles": ["gaming_pro", "max_performance"]
+    },
+    {
+      "id": "prefetch_off",
+      "category": "system",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Prefetch for more consistent performance.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+          "name": "EnablePrefetcher",
+          "valueType": "DWORD",
+          "value": 0
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+          "name": "EnableSuperfetch",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+          "name": "EnablePrefetcher",
+          "valueType": "DWORD",
+          "value": 3
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+          "name": "EnableSuperfetch",
+          "valueType": "DWORD",
+          "value": 3
+        }
+      ],
+      "sources": [],
+      "profiles": ["gaming_pro", "max_performance"]
+    },
+    {
+      "id": "memory_clear_standby",
+      "category": "memory",
+      "risk": "experimental",
+      "requiresReboot": false,
+      "description": "Clear memory standby list periodically for more free RAM.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "EmptyStandbyList"
+        }
+      ],
+      "revert": [],
+      "sources": [],
+      "profiles": ["gaming_pro", "streaming", "max_performance", "low_resources"]
+    },
+    {
+      "id": "visual_effects_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable visual effects for better performance.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "MenuShowDelay",
+          "valueType": "STRING",
+          "value": 0
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "ForegroundLockTimeout",
+          "valueType": "DWORD",
+          "value": 0
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "SmoothScroll",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "MenuShowDelay",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "ForegroundLockTimeout",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "SmoothScroll",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["low_resources"]
+    },
+    {
+      "id": "desktop_composition_off",
+      "category": "graphics",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable Desktop Composition (DWM) for older games.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\DWM",
+          "name": "Composition",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\DWM",
+          "name": "Composition",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "sources": [],
+      "profiles": ["low_resources"]
+    },
+    {
+      "id": "animate_windows_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable window animations.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "UserPreferencesMask",
+          "valueType": "BINARY",
+          "value": "9012030000000000"
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Control Panel\\Desktop",
+          "name": "UserPreferencesMask",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["low_resources"]
+    },
+    {
+      "id": "transparent_effects_off",
+      "category": "ui",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Disable transparency and acrylic effects.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+          "name": "EnableTransparency",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+          "name": "EnableTransparency",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "sources": [],
+      "profiles": ["low_resources"]
+    },
+    {
+      "id": "power_throttle_cpu",
+      "category": "power",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Allow full CPU speed on battery.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100"
+        },
+        {
+          "type": "command",
+          "command": "powercfg -setdcvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 100"
+        }
+      ],
+      "revert": [
+        {
+          "type": "command",
+          "command": "powercfg -setacvalueindex SCHEME_CURRENT SUB_PROCESSOR PROCTHROTTLEMIN 50"
+        }
+      ],
+      "sources": [],
+      "profiles": ["laptop_saver"]
+    },
+    {
+      "id": "screen_brightness_auto",
+      "category": "power",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Enable automatic screen brightness for battery saving.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Control Panel\\Settings\\Definitions\\DeviceBrightness",
+          "name": "EnableAutoBrightness",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Control Panel\\Settings\\Definitions\\DeviceBrightness",
+          "name": "EnableAutoBrightness",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "sources": [],
+      "profiles": ["laptop_saver"]
+    },
+    {
+      "id": "sleep_timeout_short",
+      "category": "power",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Set shorter sleep timeout for battery saving.",
+      "actions": [
+        {
+          "type": "command",
+          "command": "powercfg -change standby-timeout-ac 15"
+        },
+        {
+          "type": "command",
+          "command": "powercfg -change monitor-timeout-ac 5"
+        }
+      ],
+      "revert": [
+        {
+          "type": "command",
+          "command": "powercfg -change standby-timeout-ac 0"
+        },
+        {
+          "type": "command",
+          "command": "powercfg -change monitor-timeout-ac 30"
+        }
+      ],
+      "sources": [],
+      "profiles": ["laptop_saver"]
+    },
+    {
+      "id": "cpu_priority_creator",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Optimize CPU priority for content creation applications.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "SystemResponsiveness",
+          "valueType": "DWORD",
+          "value": 15
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "SystemResponsiveness",
+          "valueType": "DWORD",
+          "value": 20
+        }
+      ],
+      "sources": [],
+      "profiles": ["content_creator"]
+    },
+    {
+      "id": "gpu_priority_creator",
+      "category": "graphics",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Set GPU priority for content creation applications.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "GPUPriority",
+          "valueType": "DWORD",
+          "value": 8
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "GPUPriority",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["content_creator"]
+    },
+    {
+      "id": "memory_prefetch_on",
+      "category": "memory",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Enable memory prefetching for faster application loading.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+          "name": "EnablePrefetcher",
+          "valueType": "DWORD",
+          "value": 3
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management\\PrefetchParameters",
+          "name": "EnableSuperfetch",
+          "valueType": "DWORD",
+          "value": 3
+        }
+      ],
+      "revert": [],
+      "sources": [],
+      "profiles": ["content_creator"]
+    },
+    {
+      "id": "vr_latency_low",
+      "category": "vr",
+      "risk": "experimental",
+      "requiresReboot": true,
+      "description": "Optimize system for VR with lowest latency possible.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "MirrorDriver",
+          "valueType": "DWORD",
+          "value": 0
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "FSEBehavior",
+          "valueType": "DWORD",
+          "value": 2
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "MirrorDriver",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\GraphicsDrivers",
+          "name": "FSEBehavior",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["vr_ready"]
+    },
+    {
+      "id": "vr_prepare_gpu",
+      "category": "vr",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Prepare GPU for VR by reserving resources.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\VR\\PreAllocation",
+          "name": "Enable",
+          "valueType": "DWORD",
+          "value": 1
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\VR\\PreAllocation",
+          "name": "Enable",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "sources": [],
+      "profiles": ["vr_ready"]
+    },
+    {
+      "id": "gpu_priority_stream",
+      "category": "graphics",
+      "risk": "safe",
+      "requiresReboot": false,
+      "description": "Set GPU priority for streaming applications.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "GPUPriority",
+          "valueType": "DWORD",
+          "value": 6
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "GPUPriority",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["streaming"]
+    },
+    {
+      "id": "win32_priority_separation",
+      "category": "system",
+      "risk": "advanced",
+      "requiresReboot": true,
+      "description": "Optimizes Win32 Priority Separation for gaming responsiveness (fixed short quantum with maximum foreground boost).",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
+          "name": "Win32PrioritySeparation",
+          "valueType": "DWORD",
+          "value": 42
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
+          "name": "Win32PrioritySeparation",
+          "operation": "delete"
+        }
+      ],
+      "sources": [
+        "https://blurbusters.com/"
+      ],
+      "profiles": ["competitive_latency", "gaming_pro", "max_performance", "vr_ready"]
+    },
+    {
+      "id": "network_throttling_disabled",
+      "category": "network",
+      "risk": "advanced",
+      "requiresReboot": true,
+      "description": "Disables Network Throttling Index to eliminate packet queuing and latency spikes.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "NetworkThrottlingIndex",
+          "valueType": "DWORD",
+          "value": 4294967295
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile",
+          "name": "NetworkThrottlingIndex",
+          "operation": "delete"
+        }
+      ],
+      "sources": [
+        "https://windowsforum.com/"
+      ],
+      "profiles": ["competitive_latency", "gaming_pro", "max_performance", "vr_ready"]
+    },
+    {
+      "id": "multimedia_gpu_priority",
+      "category": "gaming",
+      "risk": "advanced",
+      "requiresReboot": true,
+      "description": "Optimizes MMCSS Games task priority for GPU scheduling and maximum CPU responsiveness.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "name": "GPU Priority",
+          "valueType": "DWORD",
+          "value": 8
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "name": "Priority",
+          "valueType": "DWORD",
+          "value": 6
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "name": "Scheduling Category",
+          "valueType": "STRING",
+          "value": "High"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "name": "SFIO Priority",
+          "valueType": "STRING",
+          "value": "High"
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "name": "GPU Priority",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "name": "Priority",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "name": "Scheduling Category",
+          "operation": "delete"
+        },
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games",
+          "name": "SFIO Priority",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr", "gaming_pro", "max_performance", "vr_ready", "streaming"]
+    },
+    {
+      "id": "allow_game_dvr_policy",
+      "category": "gaming",
+      "risk": "advanced",
+      "requiresReboot": false,
+      "description": "Forcibly disables Game DVR via registry policies to prevent any background recording stutters.",
+      "actions": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR",
+          "name": "AllowGameDVR",
+          "valueType": "DWORD",
+          "value": 0
+        }
+      ],
+      "revert": [
+        {
+          "type": "registry",
+          "path": "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR",
+          "name": "AllowGameDVR",
+          "operation": "delete"
+        }
+      ],
+      "sources": [],
+      "profiles": ["competitive_latency", "smooth_vrr", "gaming_pro", "max_performance", "vr_ready", "streaming", "content_creator"]
+    }
+  ]
+}

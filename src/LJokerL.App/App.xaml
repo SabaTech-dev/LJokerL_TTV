@@ -1,0 +1,21 @@
+<Application x:Class="LJokerL.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/DarkTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!-- Fallback colors for backward compatibility -->
+            <SolidColorBrush x:Key="BackgroundBrush" Color="#0D1117"/>
+            <SolidColorBrush x:Key="AccentBrush" Color="#FF6B00"/>
+            <SolidColorBrush x:Key="AccentSoftBrush" Color="#C6762B"/>
+            <SolidColorBrush x:Key="SuccessBrush" Color="#00D26A"/>
+            <SolidColorBrush x:Key="WarningBrush" Color="#F39C12"/>
+            <SolidColorBrush x:Key="ErrorBrush" Color="#FF4757"/>
+            <SolidColorBrush x:Key="InfoBrush" Color="#58A6FF"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

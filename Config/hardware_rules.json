@@ -1,0 +1,185 @@
+{
+  "version": "2026.02",
+  "rules": [
+    {
+      "id": "vrr_fps_cap",
+      "name": "VRR Display Optimization",
+      "description": "Optimizes settings for Variable Refresh Rate displays",
+      "when": {
+        "monitorVrr": true
+      },
+      "recommend": {
+        "fpsCapOffset": -3,
+        "vsyncDriver": true,
+        "vsyncInGame": false,
+        "disableFullscreenOptimizations": true
+      }
+    },
+    {
+      "id": "latency_no_vrr",
+      "name": "Low Latency Mode",
+      "description": "Maximum performance for non-VRR displays",
+      "when": {
+        "monitorVrr": false
+      },
+      "recommend": {
+        "vsyncDriver": false,
+        "vsyncInGame": false,
+        "lowLatencyMode": "Ultra",
+        "disableFullscreenOptimizations": true
+      }
+    },
+    {
+      "id": "low_ram_8gb",
+      "name": "8GB RAM Optimization",
+      "description": "Aggressive optimizations for systems with limited RAM",
+      "when": {
+        "ramGbMax": 8
+      },
+      "recommend": {
+        "disableBackgroundApps": true,
+        "pageFileSizeGb": 12,
+        "textureQuality": "Medium",
+        "enableGameMode": true
+      }
+    },
+    {
+      "id": "medium_ram_16gb",
+      "name": "16GB RAM Standard",
+      "description": "Balanced settings for 16GB systems",
+      "when": {
+        "ramGbMin": 9,
+        "ramGbMax": 16
+      },
+      "recommend": {
+        "pageFileSizeGb": 8,
+        "textureQuality": "High",
+        "enableGameMode": true
+      }
+    },
+    {
+      "id": "high_ram_32gb_plus",
+      "name": "32GB+ RAM Maximum Quality",
+      "description": "Maximum quality settings for high-RAM systems",
+      "when": {
+        "ramGbMin": 17
+      },
+      "recommend": {
+        "textureQuality": "Ultra",
+        "enableGameMode": true
+      }
+    },
+    {
+      "id": "intel_hybrid_cpu",
+      "name": "Intel Hybrid CPU Optimization",
+      "description": "Optimizations for Intel 12th gen+ with P-cores and E-cores",
+      "when": {
+        "cpuVendor": "Intel",
+        "cpuCoresMin": 12
+      },
+      "recommend": {
+        "usePCoresOnly": true,
+        "threadDirectorMode": "Enabled",
+        "powerManagement": "MaximumPerformance"
+      }
+    },
+    {
+      "id": "amd_ryzen_optimization",
+      "name": "AMD Ryzen Optimization",
+      "description": "Optimizations for AMD Ryzen processors",
+      "when": {
+        "cpuVendor": "AMD"
+      },
+      "recommend": {
+        "powerManagement": "MaximumPerformance",
+        "enableGameMode": true
+      }
+    },
+    {
+      "id": "low_core_count",
+      "name": "4-6 Core CPU Optimization",
+      "description": "Optimizations for systems with limited CPU cores",
+      "when": {
+        "cpuCoresMax": 6
+      },
+      "recommend": {
+        "disableBackgroundApps": true,
+        "enableGameMode": true,
+        "timerResolution": 5000
+      }
+    },
+    {
+      "id": "high_core_count",
+      "name": "8+ Core CPU Optimization",
+      "description": "Settings for high-core count processors",
+      "when": {
+        "cpuCoresMin": 8
+      },
+      "recommend": {
+        "enableGameMode": true,
+        "timerResolution": 10000
+      }
+    },
+    {
+      "id": "nvidia_low_latency",
+      "name": "NVIDIA Low Latency",
+      "description": "NVIDIA-specific low latency optimizations",
+      "when": {
+        "gpuVendor": "NVIDIA"
+      },
+      "recommend": {
+        "lowLatencyMode": "Ultra",
+        "powerManagement": "MaximumPerformance",
+        "disableFullscreenOptimizations": true
+      }
+    },
+    {
+      "id": "nvidia_low_vram",
+      "name": "NVIDIA 4GB VRAM Optimization",
+      "description": "Settings for NVIDIA cards with limited VRAM",
+      "when": {
+        "gpuVendor": "NVIDIA",
+        "gpuVramMax": 4096
+      },
+      "recommend": {
+        "textureQuality": "Medium"
+      }
+    },
+    {
+      "id": "amd_optimization",
+      "name": "AMD GPU Optimization",
+      "description": "Optimizations for AMD Radeon graphics",
+      "when": {
+        "gpuVendor": "AMD"
+      },
+      "recommend": {
+        "lowLatencyMode": "On",
+        "powerManagement": "MaximumPerformance"
+      }
+    },
+    {
+      "id": "amd_low_vram",
+      "name": "AMD 4GB VRAM Optimization",
+      "description": "Settings for AMD cards with limited VRAM",
+      "when": {
+        "gpuVendor": "AMD",
+        "gpuVramMax": 4096
+      },
+      "recommend": {
+        "textureQuality": "Medium"
+      }
+    },
+    {
+      "id": "intel_gpu_optimization",
+      "name": "Intel Arc Optimization",
+      "description": "Optimizations for Intel Arc and integrated graphics",
+      "when": {
+        "gpuVendor": "Intel"
+      },
+      "recommend": {
+        "textureQuality": "Medium",
+        "powerManagement": "MaximumPerformance"
+      }
+    }
+  ]
+}
