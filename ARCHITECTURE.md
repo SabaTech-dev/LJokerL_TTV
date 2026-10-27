@@ -20,7 +20,8 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
 - **`MainWindow.xaml`**: ventana única con 7 pestañas de navegación (Dashboard, Auto Config,
   Perfiles, Tweaks, Monitor, Benchmarks, Settings), implementadas como `RadioButton`
   conmutados por `DataTrigger`. Vistas con contenido implementado: **Dashboard** y
-  **Benchmarks**; las cinco restantes muestran marcadores de posición.
+  **Benchmarks**; las cinco restantes muestran el área de contenido vacía (el XAML no
+  contiene elementos de placeholder).
 - **`ViewModels/MainViewModel.cs`** (~2500 líneas): orquestador de la aplicación. Carga los
   catálogos JSON al arrancar (`ConfigLoader`), ejecuta la detección de hardware al inicio
   (`HardwareDetector`, con overrides manuales de VRR, GPU, CPU y RAM persistidos en ajustes),
@@ -52,8 +53,9 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
   componente, progreso, deltas y comparaciones).
 - `AutoConfigModels.cs`: motor de autoconfiguración (`AutoConfigResult`,
   `AutoConfigRecommendation`, `AutoConfigRule`, `RuleCondition`, `RuleAction`...).
-- `UserSettings.cs`: preferencias de usuario (modo oscuro, monitorización, overrides de
-  hardware y opciones de benchmark).
+- `UserSettings.cs`: preferencias de usuario: overrides de hardware, opciones de
+  monitorización (habilitación e intervalo) y modo oscuro. La configuración de benchmark
+  (`BenchmarkRunOptions`) no se persiste en ajustes.
 
 ### Services (`src/LJokerL.Core/Services`, 17 ficheros)
 
@@ -75,8 +77,9 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
 - **`AutoConfigurationEngine`**: recomendador de perfil y tweaks; aplica 15 reglas integradas
   (`low_ram_profile`, `laptop_power`, `enable_hags_nvidia`, ...) sobre el perfil extendido de
   hardware y expone el catálogo completo con `GetAllRules`.
-- **`BenchmarkRunner`**: baterías de CPU, memoria, disco (secuencial y aleatorio) y red
-  (ping configurable), con semillas fijas para reproducibilidad y progreso vía `IProgress`.
+- **`BenchmarkRunner`**: baterías de CPU, memoria (secuencial y de acceso aleatorio), disco
+  (solo secuencial) y red (ping configurable), con semillas fijas para reproducibilidad y
+  progreso vía `IProgress`.
 - **`BenchmarkStorage`** / **`BenchmarkComparer`** / **`BenchmarkReportGenerator`**:
   persistencia de resultados en JSON, comparación antes/después con deltas y generación de
   informes en HTML y Markdown.
@@ -110,14 +113,16 @@ Config/*.json (tweaks, services, apps_bloatware, profiles, hardware_rules)
                               Logs/execution.jsonl · Logs/metrics.jsonl
 ```
 
-- Los catálogos viven en `Config/` y se cargan al arrancar; `selected_profile.txt` recuerda
-  el perfil activo.
+- Los catálogos viven en `Config/` y se cargan al arrancar. El perfil activo vive en memoria
+  (`MainViewModel`) y el último aplicado se resuelve desde los contextos del log de
+  ejecución (`ExecutionLogger`, prefijo `profile:{id}:`); `selected_profile.txt` es un
+  artefacto de la era PowerShell (herencia de la v12.5) que ningún código lee ni escribe.
 - La reversión se apoya en el JSONL de ejecución: `RollbackContext` restaura únicamente
   acciones de registro (el resto se marca como no soportado).
 - Los ajustes de usuario se guardan en `%APPDATA%\LJokerL_TTV\settings.json`
   (overridable con `LJOKERL_SETTINGS_PATH`); `App.OnStartup` aplica el tema leyendo la
-  ruta de datos locales (`%LOCALAPPDATA%\LJokerL\settings.json`), divergencia puntual
-  pendiente de unificar en TODO.md.
+  ruta de datos locales (`%LOCALAPPDATA%\LJokerL\settings.json`). Es una divergencia de
+  rutas de ajustes conocida entre ambos puntos de acceso.
 - Los logs se escriben en `Logs/` (ignorados por Git).
 
 ## Infraestructura
