@@ -9,7 +9,7 @@ cada cambio realizado.
 
 ## Requisitos
 
-- Windows 10 (compilación 1809 o superior) o Windows 11, 64 bits.
+- Windows 10 compilación 2004 o superior, o Windows 11, 64 bits.
 - [.NET 9 Desktop Runtime (x64)](https://dotnet.microsoft.com/download/dotnet/9.0).
 - Permisos de **administrador** para aplicar o revertir cambios del sistema. Sin ellos puede abrir
   la aplicación, ver la detección de hardware, monitorizar y ejecutar benchmarks, pero los botones
@@ -21,14 +21,15 @@ cada cambio realizado.
 
 ## Instalación
 
-**Opción A — Instalador (recomendado).** Ejecute `LJokerL_TTV_Installer.exe` (generado con Inno
-Setup 6). El asistente instala la aplicación en `C:\Program Files\LJokerL_TTV`, crea accesos
+**Opción A — Instalador (recomendado).** Ejecute `LJokerL_TTV_Installer_v13.0.exe` (generado con
+Inno Setup 6). El asistente instala la aplicación en `C:\Program Files\LJokerL_TTV`, crea accesos
 directos en el menú Inicio y, si lo desea, en el escritorio, y ofrece abrir la aplicación al
 terminar.
 
 **Opción B — Versión portable.** Descomprima el ZIP portable (`LJokerL_TTV_Portable_v13.0.zip`) en
 cualquier carpeta y ejecute `LJokerL.App.exe`. La aplicación no escribe en el registro de Windows
-salvo cuando usted aplica un perfil; para moverla, copie la carpeta completa (incluye `Config`).
+salvo cuando usted aplica o revierte ajustes; para moverla, copie la carpeta completa (incluye
+`Config`).
 
 Para generar cualquiera de los dos paquetes desde el código fuente, consulte
 `BUILD_INSTRUCTIONS.md` (scripts `Installer/CreateInstaller.ps1` y `Installer/CreatePortable.ps1`).
@@ -134,17 +135,20 @@ variables de entorno opcionales (`LJOKERL_LOG_PATH`, `LJOKERL_METRICS_LOG_PATH`,
 
 ## Revertir cambios
 
-La reversión **existe** y funciona en dos niveles:
+La reversión tiene capacidades distintas según la vía:
 
-- **Rollback por ejecución**: el botón **Revert** del Dashboard restaura los valores de registro
-  guardados como instantánea la última vez que aplicó ese perfil, reactiva los servicios
-  desactivados y reintenta restaurar las aplicaciones eliminadas. Requiere haber aplicado el
+- **Botón Revert (Dashboard)**: restaura **únicamente los valores de registro** que la aplicación
+  del perfil modificó, guardados como instantánea la última vez que aplicó ese perfil. Los
+  servicios desactivados y las aplicaciones desinstaladas **no se restauran** por esta vía: el
+  motor de ejecución los omite como no soportados en la reversión. Requiere haber aplicado el
   perfil desde la propia aplicación (se apoya en su log de ejecución) y permisos de administrador.
-- **Reversión por catálogo**: cada perfil y tweak define en `Config` sus acciones de reversión
-  equivalentes, que el motor de ejecución aplica del mismo modo.
+- **Reversión por catálogo (motor, sin UI)**: cada perfil y tweak define en `Config` sus acciones
+  de reversión equivalentes (incluidos servicios y aplicaciones), y el motor de ejecución sabe
+  aplicarlas. En la versión 13.0 esta reversión **no está expuesta en la interfaz**: no existe
+  ningún botón que la ejecute. Es una capacidad del motor aún no accesible desde la aplicación.
 
-Si un perfil se aplicó fuera de la aplicación (con scripts o manualmente), la aplicación no puede
-revertirlo: no dispone de esa instantánea.
+En ningún caso pueden revertirse cambios aplicados fuera de la aplicación (con scripts o
+manualmente): la aplicación no dispone de esa instantánea.
 
 ## Solución de problemas
 
