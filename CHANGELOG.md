@@ -16,6 +16,18 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - USER_GUIDE: sección de reversión exacta (solo registro; catálogo sin UI), requisitos e instalador corregidos (P0-4, ronda de jueces).
 - ROADMAP reconciliado con el estado real del proyecto (P0-7).
 
+## 13.0-mantenimiento - 2026-02 a 2026-06
+
+### Anadido
+- Scaffolding de agentes de IA del repositorio (`.opencode/` feb 2026; `.github/` con copilot-instructions, agentes y reglas por área en may 2026).
+- Catálogo `Config/profiles.json` v2026.03 con 10 perfiles reales; `Config/tweaks.json` v2026.01; `Resources/WindowsReset.zip` (may 2026).
+
+### Cambios
+- Ajustes finales de documentación y `.gitignore` (16-jun-2026).
+
+### Notas
+- Entradas reconstruidas desde marcas de fecha de archivos (sin historial Git previo al 27-10-2026).
+
 ## [13.0.0] - 2026-01-31
 
 Release inicial "Next Gen" con arquitectura unificada WPF + JSON configs.
@@ -57,5 +69,5 @@ Build en Release con 0 errores y 0 advertencias.
   problemas de compatibilidad no criticos. La aplicacion principal es
   plenamente funcional.
 
-[13.0.0]: https://github.com/ljokerl/ttv-custom-config/releases/tag/v13.0.0
+[13.0.0]: https://github.com/SabaTech-dev/LJokerL_TTV/releases/tag/v13.0.0
 [Unreleased]: https://github.com/SabaTech-dev/LJokerL_TTV/compare/main...develop
