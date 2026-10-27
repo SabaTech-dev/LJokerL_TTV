@@ -14,10 +14,10 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - Guía de usuario reescrita para la aplicación WPF v13.0 (P0-4).
 - USER_GUIDE: sección de reversión exacta (solo registro; catálogo sin UI), requisitos e instalador corregidos (P0-4, ronda de jueces).
 
-## [13.0-mantenimiento] - 2026-02 a 2026-06
+## 13.0-mantenimiento - 2026-02 a 2026-06
 
 ### Anadido
-- Scaffolding de agentes de IA del repositorio (`.opencode/` ene-feb 2026; `.github/` con copilot-instructions, agentes y reglas por área en may 2026).
+- Scaffolding de agentes de IA del repositorio (`.opencode/` feb 2026; `.github/` con copilot-instructions, agentes y reglas por área en may 2026).
 - Catálogo `Config/profiles.json` v2026.03 con 10 perfiles reales; `Config/tweaks.json` v2026.01; `Resources/WindowsReset.zip` (may 2026).
 
 ### Cambios
