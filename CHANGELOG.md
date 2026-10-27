@@ -8,6 +8,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Cambios
+- Eliminadas referencias muertas a Scripts/ y Legacy/ en la configuración de agentes (P1-9).
 - DEPENDENCIES actualizado a v13.0 con inventario real de herramientas externas y política de no versionado de binarios (P0-5).
 - README reescrito: stack real (sin infraestructura ficticia), sin scripts inexistentes, sin secciones duplicadas, perfiles alineados con profiles.json (P0-3).
 - Corregidas imprecisiones de cobertura de pruebas, disparo de CI, estructura del repositorio y requisitos (P0-3, ronda de jueces).
