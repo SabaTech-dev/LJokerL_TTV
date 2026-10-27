@@ -124,6 +124,11 @@ Config/*.json (tweaks, services, apps_bloatware, profiles, hardware_rules)
   ruta de datos locales (`%LOCALAPPDATA%\LJokerL\settings.json`). Es una divergencia de
   rutas de ajustes conocida entre ambos puntos de acceso.
 - Los logs se escriben en `Logs/` (ignorados por Git).
+- Los directorios de ejecución (`Logs/`, `Benchmarks/`) se crean bajo demanda
+  junto al ejecutable y no se versionan; los directorios vacíos locales
+  (`GameProfiles/`, `Updates/`, `Profiles/Templates/`) no forman parte del
+  repositorio. `Database/Components/components_db.json` es el único dato
+  versionado bajo `Database/`.
 
 ## Infraestructura
 

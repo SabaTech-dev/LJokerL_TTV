@@ -139,6 +139,14 @@ LJokerL_TTV/
 └── README.md
 ```
 
+> **Nota:** los directorios de ejecución (`Logs/`, `Benchmarks/` y similares) se
+> crean **bajo demanda** junto al ejecutable y **no se versionan**. Los
+> directorios vacíos que puedan existir en un checkout local (`GameProfiles/`,
+> `Updates/`, `Profiles/Templates/`, `Database/HardwareProfiles/`,
+> `Database/Recommendations/`) **no forman parte del repositorio**: Git no
+> versiona directorios sin ficheros. El único dato versionado bajo `Database/`
+> es `Database/Components/components_db.json`.
+
 ## Logs y trazabilidad
 
 La aplicación escribe sus logs en la carpeta `Logs\` de su propio directorio de
