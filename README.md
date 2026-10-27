@@ -170,9 +170,9 @@ dotnet build LJokerL.sln -c Release
 dotnet run --project src/LJokerL.Tests -c Release
 ```
 
-El runner propio ejecuta 29 pruebas de Modelos, Detectores, Configuración,
-Profiler, AutoConfig y BenchmarkSystem. El motor de ejecución (ExecutionEngine)
-no cuenta actualmente con suite automatizada de pruebas. CI
+El runner propio ejecuta la suite de pruebas de consola (Modelos, Detectores,
+Configuración, Profiler, AutoConfig y BenchmarkSystem). El motor de ejecución
+(ExecutionEngine) no cuenta actualmente con suite automatizada de pruebas. CI
 (`.github/workflows/ci.yml`) ejecuta build en Release y la suite de tests en
 cada push a main/develop y en cada pull request hacia esas ramas.
 
