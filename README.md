@@ -47,7 +47,8 @@ bibliotecas de machine learning. Las ideas aún no implementadas se recogen
 
 ## Requisitos del sistema
 
-- Windows 11.
+- Windows 11 (los ajustes están validados para Windows 11; Windows 10 no cuenta
+  con validación oficial).
 - .NET 9 Runtime (Escritorio/WPF).
 - Privilegios de administrador (necesarios para aplicar cambios en el sistema).
 - PowerShell 5.1+ únicamente para regenerar portable e instalador (`Installer/`).
@@ -129,6 +130,8 @@ LJokerL_TTV/
 │   ├── LJokerL.Core/     # Lógica de negocio: ExecutionEngine, ConfigLoader, HardwareDetector
 │   └── LJokerL.Tests/    # Runner de tests propio de consola
 ├── Config/               # Catálogos JSON (tweaks, profiles, services, apps, hardware_rules)
+├── ComprobarPosiblesNuevosTweaks/ # Material fuente de propuestas de tweaks
+├── Database/Components/  # components_db.json
 ├── Installer/            # CreatePortable.ps1, CreateInstaller.ps1, script Inno Setup
 ├── Reports/              # Informes de validación y auditoría
 ├── Resources/            # Utilidades y recursos de terceros
@@ -167,9 +170,11 @@ dotnet build LJokerL.sln -c Release
 dotnet run --project src/LJokerL.Tests -c Release
 ```
 
-El runner propio cubre la carga de catálogos, las referencias de perfiles y los
-comandos del motor de ejecución. CI (`.github/workflows/ci.yml`) ejecuta build
-en Release y la suite de tests en cada push.
+El runner propio ejecuta 29 pruebas de Modelos, Detectores, Configuración,
+Profiler, AutoConfig y BenchmarkSystem. El motor de ejecución (ExecutionEngine)
+no cuenta actualmente con suite automatizada de pruebas. CI
+(`.github/workflows/ci.yml`) ejecuta build en Release y la suite de tests en
+cada push a main/develop y en cada pull request hacia esas ramas.
 
 Para contribuir: crea una rama de funcionalidad, realiza commits claros y
 abre una pull request con descripción detallada.
