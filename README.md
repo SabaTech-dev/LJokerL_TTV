@@ -187,6 +187,16 @@ cada push a main/develop y en cada pull request hacia esas ramas.
 Para contribuir: crea una rama de funcionalidad, realiza commits claros y
 abre una pull request con descripción detallada.
 
+### Política de documentación
+
+La documentación del proyecto se redacta en español de España; los
+identificadores, la API y los mensajes de la aplicación siguen el idioma del
+código. El CHANGELOG sigue el formato Keep a Changelog. Decisión adoptada: la
+documentación permanece en la raíz del repositorio (no se migra a `docs/`)
+para no romper los enlaces recién consolidados; `BUILD_INSTRUCTIONS.md`
+(inglés): su unificación al español queda como trabajo futuro de traducción
+(la tarea P0-6 corrige únicamente sus rutas).
+
 ## Futuro (no implementado)
 
 Las siguientes líneas se plantean a medio plazo y **no forman parte de la
