@@ -5,6 +5,11 @@ Registro de cambios del proyecto LJokerL_TTV Custom Config PRO.
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/)
 y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
+## [Unreleased]
+
+### Cambios
+- DEPENDENCIES actualizado a v13.0 con inventario real de herramientas externas y política de no versionado de binarios (P0-5).
+
 ## [13.0.0] - 2026-01-31
 
 Release inicial "Next Gen" con arquitectura unificada WPF + JSON configs.
