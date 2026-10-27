@@ -61,8 +61,10 @@ Los proyectos `LJokerL.App` y `LJokerL.Core` no dependen de paquetes NuGet:
 **Política vigente**: los binarios de terceros NO se versionan en el
 repositorio (`Resources/*.exe`, `*.dll`, `*.sys`, `*.zip`, `*.msi`, `*.pdb`
 y `Resources/SCEHUB-1.2.0/` están excluidos por `.gitignore`). Este apartado
-documenta el inventario local auditado; el manifiesto con hashes SHA-256
-queda pendiente como tarea P2-3.
+documenta el inventario local auditado.
+
+**Verificación de integridad**: ver `Resources/MANIFEST.md` (SHA-256,
+generación 27-10-2026).
 
 **Licencias**: todas las herramientas de esta sección son de terceros. NO
 están cubiertas por la licencia MIT del proyecto y su redistribución NO
