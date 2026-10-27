@@ -7,6 +7,9 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Anadido
+- .env.example con las variables de entorno opcionales documentadas (P1-8).
+
 ### Cambios
 - Eliminadas referencias muertas a Scripts/ y Legacy/ en la configuración de agentes (P1-9).
 - ARCHITECTURE reescrito con la estructura real implementada (P1-4).
