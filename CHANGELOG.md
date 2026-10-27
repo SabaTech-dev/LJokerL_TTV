@@ -8,6 +8,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Cambios
+- Política de documentación fijada: español de España, raíz del repo (P2-6).
 - Eliminadas referencias muertas a Scripts/ y Legacy/ en la configuración de agentes (P1-9).
 - ARCHITECTURE reescrito con la estructura real implementada (P1-4).
 - DEPENDENCIES actualizado a v13.0 con inventario real de herramientas externas y política de no versionado de binarios (P0-5).
