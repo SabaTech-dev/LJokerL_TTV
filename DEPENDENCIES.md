@@ -16,15 +16,23 @@
 
 ### 1.1 PowerShell en el motor
 
-`ExecutionEngine` y `HardwareDetector` (LJokerL.Core) invocan PowerShell en
-operaciones concretas de consulta y aplicación. La ruta del ejecutable se
-resuelve en este orden:
+Siete componentes de LJokerL.Core invocan PowerShell en tiempo de ejecución:
+`ExecutionEngine`, `HardwareDetector`, `StorageDetector`, `SystemProfiler`,
+`SoftwareDetector`, `MonitorDetector` y `GpuDetector`.
+
+Los dos primeros (`ExecutionEngine` y `HardwareDetector`) resuelven la ruta
+del ejecutable en este orden:
 
 1. Variable de entorno `LJOKERL_POWERSHELL_PATH` (sobrecarga manual; permite
    apuntar a PowerShell 7 si está instalado).
 2. En su defecto, `powershell.exe` del sistema (Windows PowerShell 5.1).
 
-El resto de la aplicación no depende de PowerShell.
+Los cinco detectores restantes (`StorageDetector`, `SystemProfiler`,
+`SoftwareDetector`, `MonitorDetector` y `GpuDetector`) lanzan `powershell.exe`
+directamente, sin honrar la variable.
+
+**Nota**: fijar `LJOKERL_POWERSHELL_PATH` solo redirige `ExecutionEngine` y
+`HardwareDetector`; no afecta a los demás detectores.
 
 ## 2. Dependencias de desarrollo y compilación
 
@@ -38,6 +46,9 @@ El resto de la aplicación no depende de PowerShell.
 Paquetes NuGet: solo el proyecto de pruebas declara referencias (`xunit`
 2.9.2, `xunit.runner.visualstudio` 2.8.2, `FluentAssertions` 6.12.2,
 `Moq` 4.20.72, `coverlet.collector` 6.0.2, `Microsoft.NET.Test.Sdk` 17.12).
+Dichas `PackageReference` están comentadas en el `.csproj` del proyecto de
+pruebas («Paquetes de testing - habilitar cuando NuGet esté configurado») y
+hoy no se restauran (pendiente de configurar NuGet).
 Los proyectos `LJokerL.App` y `LJokerL.Core` no dependen de paquetes NuGet:
 
 - `System.Management` se carga por reflection y es opcional; sin él, la
@@ -63,7 +74,7 @@ está cubierta: deben obtenerse de sus fuentes originales.
 | `MemTest64.exe` | Sin versión en el nombre | Prueba de estabilidad de memoria RAM. | Terceros |
 | `MPOGPUFIX.exe` | Sin versión en el nombre | Corrección de problemas de Multi-Plane Overlay (MPO) en GPU. | Terceros |
 | `GoInterruptPolicy.exe` | Sin versión en el nombre | Ajuste de afinidad y modo de interrupciones por dispositivo. | Terceros |
-| `CrystalMark3D25_1_0_0.exe` | 25.1.0.0 | Benchmark 3D. | Terceros |
+| `CrystalMark3D25_1_0_0.exe` | 1.0.0 (producto CrystalMark 3D25, edición 2025) | Benchmark 3D. | Terceros |
 | `Counter Control.exe` | Sin versión en el nombre | Gestión de contadores de rendimiento de GPU. | Terceros |
 | `InSpectre.exe` | Sin versión en el nombre | Consulta y gestión de mitigaciones Spectre/Meltdown. | Terceros |
 | `MSI_util_v3.exe` | v3 | Activación de interrupciones señaladas (MSI) por dispositivo. | Terceros |
