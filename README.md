@@ -186,7 +186,8 @@ identificadores, la API y los mensajes de la aplicación siguen el idioma del
 código. El CHANGELOG sigue el formato Keep a Changelog. Decisión adoptada: la
 documentación permanece en la raíz del repositorio (no se migra a `docs/`)
 para no romper los enlaces recién consolidados; `BUILD_INSTRUCTIONS.md`
-(inglés) quedará unificado al español en su revisión pendiente (P0-6).
+(inglés): su unificación al español queda como trabajo futuro de traducción
+(la tarea P0-6 corrige únicamente sus rutas).
 
 ## Futuro (no implementado)
 
