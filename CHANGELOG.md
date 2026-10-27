@@ -5,6 +5,13 @@ Registro de cambios del proyecto LJokerL_TTV Custom Config PRO.
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/es/1.1.0/)
 y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
+## [Unreleased]
+
+### Cambios
+
+- README reescrito: stack real (sin infraestructura ficticia), sin scripts inexistentes, sin secciones duplicadas, perfiles alineados con profiles.json (P0-3).
+- Corregidas imprecisiones de cobertura de pruebas, disparo de CI, estructura del repositorio y requisitos (P0-3, ronda de jueces).
+
 ## [13.0.0] - 2026-01-31
 
 Release inicial "Next Gen" con arquitectura unificada WPF + JSON configs.
@@ -47,3 +54,4 @@ Build en Release con 0 errores y 0 advertencias.
   plenamente funcional.
 
 [13.0.0]: https://github.com/ljokerl/ttv-custom-config/releases/tag/v13.0.0
+[Unreleased]: https://github.com/SabaTech-dev/LJokerL_TTV/compare/main...develop
