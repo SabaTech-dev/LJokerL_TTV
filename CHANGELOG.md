@@ -11,6 +11,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - Resources/MANIFEST.md: manifiesto SHA-256 de las herramientas externas no versionadas (P2-3).
 
 ### Cambios
+- Directorios de runtime (Logs, Benchmarks, vestigios locales) documentados como no versionados (P2-7).
 - Eliminadas referencias muertas a Scripts/ y Legacy/ en la configuración de agentes (P1-9).
 - ARCHITECTURE reescrito con la estructura real implementada (P1-4).
 - DEPENDENCIES actualizado a v13.0 con inventario real de herramientas externas y política de no versionado de binarios (P0-5).
