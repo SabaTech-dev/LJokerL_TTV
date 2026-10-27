@@ -8,6 +8,11 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Cambios
+- README reescrito: stack real (sin infraestructura ficticia), sin scripts inexistentes, sin secciones duplicadas, perfiles alineados con profiles.json (P0-3).
+- Corregidas imprecisiones de cobertura de pruebas, disparo de CI, estructura del repositorio y requisitos (P0-3, ronda de jueces).
+- Guía de usuario reescrita para la aplicación WPF v13.0 (P0-4).
+- USER_GUIDE: sección de reversión exacta (solo registro; catálogo sin UI), requisitos e instalador corregidos (P0-4, ronda de jueces).
+- DEPENDENCIES actualizado a v13.0 con inventario real de herramientas externas y política de no versionado de binarios (P0-5).
 - ROADMAP reconciliado con el estado real del proyecto (P0-7).
 
 ## [13.0.0] - 2026-01-31
@@ -52,3 +57,4 @@ Build en Release con 0 errores y 0 advertencias.
   plenamente funcional.
 
 [13.0.0]: https://github.com/ljokerl/ttv-custom-config/releases/tag/v13.0.0
+[Unreleased]: https://github.com/SabaTech-dev/LJokerL_TTV/compare/main...develop
