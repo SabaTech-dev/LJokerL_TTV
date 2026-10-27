@@ -9,7 +9,7 @@ cada cambio realizado.
 
 ## Requisitos
 
-- Windows 10 compilación 2004 o superior, o Windows 11, 64 bits.
+- Windows 10 compilación 19041 o superior (versión 2004), o Windows 11, 64 bits.
 - [.NET 9 Desktop Runtime (x64)](https://dotnet.microsoft.com/download/dotnet/9.0).
 - Permisos de **administrador** para aplicar o revertir cambios del sistema. Sin ellos puede abrir
   la aplicación, ver la detección de hardware, monitorizar y ejecutar benchmarks, pero los botones
@@ -142,10 +142,11 @@ La reversión tiene capacidades distintas según la vía:
   servicios desactivados y las aplicaciones desinstaladas **no se restauran** por esta vía: el
   motor de ejecución los omite como no soportados en la reversión. Requiere haber aplicado el
   perfil desde la propia aplicación (se apoya en su log de ejecución) y permisos de administrador.
-- **Reversión por catálogo (motor, sin UI)**: cada perfil y tweak define en `Config` sus acciones
-  de reversión equivalentes (incluidos servicios y aplicaciones), y el motor de ejecución sabe
-  aplicarlas. En la versión 13.0 esta reversión **no está expuesta en la interfaz**: no existe
-  ningún botón que la ejecute. Es una capacidad del motor aún no accesible desde la aplicación.
+- **Reversión por catálogo (motor, sin UI)**: los tweaks definen su acción de reversión en
+  `Config/tweaks.json`; la reversión de servicios y aplicaciones la calcula el motor
+  (re-habilitar servicio / re-registrar la aplicación). En la versión 13.0 esta reversión
+  **no está expuesta en la interfaz**: no existe ningún botón que la ejecute. Es una capacidad
+  del motor aún no accesible desde la aplicación.
 
 En ningún caso pueden revertirse cambios aplicados fuera de la aplicación (con scripts o
 manualmente): la aplicación no dispone de esa instantánea.
