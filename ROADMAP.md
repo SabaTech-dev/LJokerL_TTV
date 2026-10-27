@@ -16,7 +16,7 @@ Existe hoy, verificado contra el árbol de fuentes:
 - **Pruebas**: suite propia (`src/LJokerL.Tests`, runner de consola) con 28 pruebas sobre modelos, detector de hardware, catálogos, perfiles, auto-config y sistema de benchmarks; la ejecuta el pipeline de CI.
 - **CI**: `.github/workflows/ci.yml` — `dotnet build -c Release` y `dotnet run --project src/LJokerL.Tests` en `windows-latest` con .NET 9.
 
-**Stack tecnológico actual**: C#/.NET 9 · WPF + MVVM · catálogos JSON · GitHub Actions (CI) · Windows 10/11 con privilegios de administrador (PowerShell solo como dependencia de empaquetado/instalación, no como lenguaje de la aplicación).
+**Stack tecnológico actual**: C#/.NET 9 · WPF + MVVM · catálogos JSON · GitHub Actions (CI) · Windows 10/11 con privilegios de administrador (PowerShell invocado en tiempo de ejecución por siete componentes y también para empaquetado; la lógica de la aplicación es C#/.NET; ver DEPENDENCIES.md).
 
 ## Backlog vivo
 
@@ -45,7 +45,7 @@ Las fases futuras de este roadmap son **Propuestas (no comprometidas)**: no se p
 - [x] Detección de hardware en C# (`HardwareDetector`) conectada a las 14 reglas de `Config/hardware_rules.json`.
 - [x] Rollback automático: snapshot en logs + contexto por perfil + reversión por catálogo a nivel de ViewModel.
 - [x] CI con build y pruebas en cada push/PR (GitHub Actions).
-- [ ] **Pendiente**: suite de pruebas de `ExecutionEngine` (el motor se ejercita de forma indirecta vía auto-config, pero no tiene grupo de pruebas propio).
+- [ ] **Pendiente**: suite de pruebas de `ExecutionEngine` (el motor sin cobertura actual, ni directa ni indirecta, pero no tiene grupo de pruebas propio).
 
 ### Fase 3 — Interfaz de usuario (parcial)
 
@@ -91,7 +91,7 @@ Una vez cerrado TODO.md, los candidatos naturales son completar las vistas pendi
 |---|---|---|
 | ago-2025 | Era PowerShell (scripts `.ps1`) | **Sustituida** |
 | ene-2026 | Reescritura completa en C#/.NET 9 + WPF (MVVM), versión v13.0.0 | Vigente |
-| may-2026 | Catálogos actualizados (`tweaks.json`, `profiles.json` 2026.03) | Vigente |
+| may-2026 | Catálogos actualizados (`tweaks.json` 2026.01, `profiles.json` 2026.03) | Vigente |
 | oct-2026 | Auditoría documental, repositorio público en GitHub, CI y pipeline de tareas (TODO.md) | Vigente |
 
 La era PowerShell (ago-2025) fue sustituida por completo por la aplicación C#/WPF; cualquier mención a scripts `.ps1` como interfaz o lenguaje actual de la aplicación es obsoleta.
