@@ -7,6 +7,9 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Anadido
+- Resources/MANIFEST.md: manifiesto SHA-256 de las herramientas externas no versionadas (P2-3).
+
 ### Cambios
 - Eliminadas referencias muertas a Scripts/ y Legacy/ en la configuración de agentes (P1-9).
 - ARCHITECTURE reescrito con la estructura real implementada (P1-4).
