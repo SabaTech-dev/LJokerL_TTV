@@ -7,6 +7,9 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Anadido
+- Resources/MANIFEST.md: manifiesto SHA-256 de las herramientas externas no versionadas (P2-3).
+
 ### Cambios
 - README reescrito: stack real (sin infraestructura ficticia), sin scripts inexistentes, sin secciones duplicadas, perfiles alineados con profiles.json (P0-3).
 - Corregidas imprecisiones de cobertura de pruebas, disparo de CI, estructura del repositorio y requisitos (P0-3, ronda de jueces).
