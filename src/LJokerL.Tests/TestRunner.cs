@@ -230,6 +230,18 @@ public class TestRunner
             Assert(missingReferences.Count == 0, string.Join("; ", missingReferences));
         });
 
+        Test("SelectedProfileIdExistsInProfiles", () =>
+        {
+            var selectedProfilePath = FindConfigPath("selected_profile.txt");
+            Assert(File.Exists(selectedProfilePath), "Config/selected_profile.txt was not found.");
+
+            var selectedProfile = File.ReadAllText(selectedProfilePath).Trim();
+            Assert(!string.IsNullOrWhiteSpace(selectedProfile), "Config/selected_profile.txt is empty.");
+
+            var profileIds = LoadCatalogIds(FindConfigPath("profiles.json"), "profiles");
+            Assert(profileIds.Contains(selectedProfile), $"Selected profile '{selectedProfile}' was not found in profiles.json.");
+        });
+
         Console.WriteLine();
     }
 
