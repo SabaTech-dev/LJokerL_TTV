@@ -189,6 +189,9 @@ Variables de entorno opcionales: ver `.env.example`.
 Para contribuir: crea una rama de funcionalidad, realiza commits claros y
 abre una pull request con descripción detallada.
 
+- Guía de contribución: [CONTRIBUTING.md](CONTRIBUTING.md).
+- Reporte de vulnerabilidades y política de seguridad: [SECURITY.md](SECURITY.md).
+
 ### Política de documentación
 
 La documentación del proyecto se redacta en español de España; los
