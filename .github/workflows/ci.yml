@@ -19,4 +19,4 @@ jobs:
       - name: Build
         run: dotnet build LJokerL.sln -c Release
       - name: Test
-        run: dotnet run --project src/LJokerL.Tests -c Release
+        run: dotnet test LJokerL.sln -c Release --nologo
