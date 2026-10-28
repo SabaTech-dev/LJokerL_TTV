@@ -21,13 +21,13 @@ dotnet publish src/LJokerL.App -c Release
 #### 2. Create Portable Version
 ```powershell
 # Run the portable creation script
-.\CreatePortable.ps1
+Installer/CreatePortable.ps1
 ```
 
 #### 3. Create Installer (requires Inno Setup)
 ```powershell
 # Run the installer creation script
-.\CreateInstaller.ps1
+Installer/CreateInstaller.ps1
 ```
 
 ## Output Structure
