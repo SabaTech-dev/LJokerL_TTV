@@ -16,6 +16,7 @@ public class OsVersionCheckTests
     [InlineData(17763, WindowsBuildSupport.Unsupported)]
     [InlineData(14393, WindowsBuildSupport.Unsupported)]
     [InlineData(0, WindowsBuildSupport.Unsupported)]
+    [InlineData(19040, WindowsBuildSupport.Unsupported)]
     [InlineData(18999, WindowsBuildSupport.Unsupported)]
     public void Decide_classifies_windows_builds(int buildNumber, WindowsBuildSupport expected)
     {

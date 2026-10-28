@@ -57,7 +57,7 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
   monitorización (habilitación e intervalo) y modo oscuro. La configuración de benchmark
   (`BenchmarkRunOptions`) no se persiste en ajustes.
 
-### Services (`src/LJokerL.Core/Services`, 18 ficheros)
+### Services (`src/LJokerL.Core/Services`, 19 ficheros)
 
 - **`ConfigLoader`**: carga los catálogos de `Config/*.json` en un `ConfigBundle` único
   (tweaks, servicios, apps, perfiles y reglas de hardware).
