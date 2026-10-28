@@ -13,7 +13,7 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
 | --- | --- | --- |
 | `src/LJokerL.App` | `WinExe` WPF | Interfaz de usuario, ViewModel principal y servicios de presentación. |
 | `src/LJokerL.Core` | Librería de clases | Modelos de dominio y servicios: detección de hardware, ejecución de optimizaciones, autoconfiguración, benchmarks y métricas. |
-| `src/LJokerL.Tests` | `Exe` de consola | Suite de tests propia (`TestRunner.cs`), sin framework externo; se ejecuta con `dotnet run`. |
+| `src/LJokerL.Tests` | Biblioteca de tests xUnit | Suite de tests xUnit; se ejecuta con `dotnet test`. |
 
 ## LJokerL.App (capa de presentación)
 
@@ -155,7 +155,7 @@ Config/*.json (tweaks, services, apps_bloatware, profiles, hardware_rules)
 - **Sin dependencias NuGet activas**: `LJokerL.App` y `LJokerL.Core` no referencian paquetes;
   las referencias de testing de `LJokerL.Tests` permanecen comentadas a la espera de
   configurar la restauración de NuGet (ver [DEPENDENCIES.md](DEPENDENCIES.md)).
-- **Suite de tests propia de consola**: `TestRunner.cs` cubre modelos, detectores, carga de
+- **Suite de tests xUnit**: ejecutada con `dotnet test`, cubre modelos, detectores, carga de
   configuración, profiler, autoconfiguración y sistema de benchmarks. `ExecutionEngine` no
   tiene cobertura automatizada (muta el registro y servicios reales).
 
