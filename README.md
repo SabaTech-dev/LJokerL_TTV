@@ -139,6 +139,14 @@ LJokerL_TTV/
 └── README.md
 ```
 
+> **Nota:** los directorios de ejecución (`Logs/`, `Benchmarks/` y similares) se
+> crean **bajo demanda** junto al ejecutable y **no se versionan**. Los
+> directorios vacíos que puedan existir en un checkout local (`GameProfiles/`,
+> `Updates/`, `Profiles/Templates/`, `Database/HardwareProfiles/`,
+> `Database/Recommendations/`) **no forman parte del repositorio**: Git no
+> versiona directorios sin ficheros. El único dato versionado bajo `Database/`
+> es `Database/Components/components_db.json`.
+
 ## Logs y trazabilidad
 
 La aplicación escribe sus logs en la carpeta `Logs\` de su propio directorio de
@@ -180,6 +188,16 @@ Variables de entorno opcionales: ver `.env.example`.
 
 Para contribuir: crea una rama de funcionalidad, realiza commits claros y
 abre una pull request con descripción detallada.
+
+### Política de documentación
+
+La documentación del proyecto se redacta en español de España; los
+identificadores, la API y los mensajes de la aplicación siguen el idioma del
+código. El CHANGELOG sigue el formato Keep a Changelog. Decisión adoptada: la
+documentación permanece en la raíz del repositorio (no se migra a `docs/`)
+para no romper los enlaces recién consolidados; `BUILD_INSTRUCTIONS.md`
+(inglés): su unificación al español queda como trabajo futuro de traducción
+(la tarea P0-6 corrige únicamente sus rutas).
 
 ## Futuro (no implementado)
 
