@@ -15,6 +15,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 ### Cambios
 - Skills de dominio unicas migradas a .github/skills (gaming-optimizer, registry-security, forum-trends) (P1-6, jueces).
 - Infraestructura de agentes IA consolidada en .github/; .agent/ y .opencode/ eliminados (P1-6).
+- CreatePortable copia la documentacion vigente desde la raiz al empaquetar (P2-4).
 - LJokerL.Core sin UseWindowsForms y sin Class1.cs (P2-2).
 - .editorconfig, global.json y version centralizada en Directory.Build.props (P2-1).
 - env example: nota de uso real y valores de VRR (P1-8, jueces).
