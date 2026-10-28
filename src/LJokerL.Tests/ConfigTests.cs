@@ -48,6 +48,19 @@ public class ConfigTests
     }
 
     [Fact]
+    public void Selected_profile_id_exists_in_profiles()
+    {
+        var selectedProfilePath = TestHelpers.FindConfigPath("selected_profile.txt");
+        var id = File.ReadAllText(selectedProfilePath).Trim();
+        Assert.False(string.IsNullOrWhiteSpace(id), "selected_profile.txt is empty or missing.");
+
+        var profilesPath = TestHelpers.FindConfigPath("profiles.json");
+        var ids = TestHelpers.LoadCatalogIds(profilesPath, "profiles");
+
+        Assert.True(ids.Contains(id), $"Selected profile '{id}' was not found in profiles.json");
+    }
+
+    [Fact]
     public void Profile_references_resolve_to_existing_tweak_service_and_app_ids()
     {
         var profilesPath = TestHelpers.FindConfigPath("profiles.json");
