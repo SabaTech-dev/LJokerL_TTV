@@ -12,6 +12,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - Resources/MANIFEST.md: manifiesto SHA-256 de las herramientas externas no versionadas (P2-3).
 
 ### Cambios
+- env example: nota de uso real y valores de VRR (P1-8, jueces).
 - TODO.md actualizado con el estado de ejecución del plan (completadas, bloqueadas y desbloqueo).
 - Política de documentación fijada: español de España, raíz del repo (P2-6).
 - Directorios de runtime (Logs, Benchmarks, vestigios locales) documentados como no versionados (P2-7).
