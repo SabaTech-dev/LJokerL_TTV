@@ -9,6 +9,10 @@ on:
 jobs:
   build-and-test:
     runs-on: windows-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,3 +24,14 @@ jobs:
         run: dotnet build LJokerL.sln -c Release
       - name: Test
         run: dotnet test LJokerL.sln -c Release --nologo
+      - name: SBOM
+        run: dotnet tool install --global CycloneDX && dotnet cyclonedx LJokerL.sln -c Release -F Json -o sbom
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom/
+      - name: Attest SBOM
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: sbom/bom.json
