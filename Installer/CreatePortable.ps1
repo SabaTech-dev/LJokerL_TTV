@@ -5,14 +5,14 @@
 .DESCRIPTION
     Packages the published application into a portable ZIP file
 .NOTES
-    Version: 13.0
+    Version: 13.0.1
     Date: 2026-01-31
 #>
 
 [CmdletBinding()]
 param(
     [string]$Configuration = "Release",
-    [string]$Version = "13.0"
+    [string]$Version = "13.0.1"
 )
 
 $ErrorActionPreference = "Stop"

@@ -5,7 +5,7 @@
 
 ## Estado actual (verificado)
 
-**LJokerL_TTV v13.0.0** es una aplicación de escritorio **C#/.NET 9 con WPF (patrón MVVM)**, publicada en GitHub (`SabaTech-dev/LJokerL_TTV`) con integración continua (GitHub Actions: build Release + suite de pruebas en cada push/PR a `main`/`develop`).
+**LJokerL_TTV v13.0.1** es una aplicación de escritorio **C#/.NET 9 con WPF (patrón MVVM)**, publicada en GitHub (`SabaTech-dev/LJokerL_TTV`) con integración continua (GitHub Actions: build Release + suite de pruebas en cada push/PR a `main`/`develop`).
 
 Existe hoy, verificado contra el árbol de fuentes:
 
@@ -90,9 +90,10 @@ Una vez cerrado TODO.md, los candidatos naturales son completar las vistas pendi
 | Fecha | Hito | Estado |
 |---|---|---|
 | ago-2025 | Era PowerShell (scripts `.ps1`) | **Sustituida** |
-| ene-2026 | Reescritura completa en C#/.NET 9 + WPF (MVVM), versión v13.0.0 | Vigente |
+| ene-2026 | Reescritura completa en C#/.NET 9 + WPF (MVVM), versión v13.0.0 | **Sustituida** |
 | may-2026 | Catálogos actualizados (`tweaks.json` 2026.01, `profiles.json` 2026.03) | Vigente |
 | oct-2026 | Auditoría documental, repositorio público en GitHub, CI y pipeline de tareas (TODO.md) | Vigente |
+| 28-10-2026 | v13.0.1 (plan de auditoría completado, suite xUnit, release pública) | Vigente |
 
 La era PowerShell (ago-2025) fue sustituida por completo por la aplicación C#/WPF; cualquier mención a scripts `.ps1` como interfaz o lenguaje actual de la aplicación es obsoleta.
 

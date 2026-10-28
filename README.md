@@ -1,4 +1,4 @@
-# LJokerL_TTV Custom Config PRO v13.0 — WPF Control Center
+# LJokerL_TTV Custom Config PRO v13.0.1 — WPF Control Center
 
 Aplicación de escritorio para Windows 11, escrita en C#/.NET 9 con WPF y patrón
 MVVM, que centraliza la aplicación y la reversión de optimizaciones del sistema
@@ -12,7 +12,7 @@ Windows 11. Todas las operaciones (aplicar o revertir) pasan por un motor único
 previo del registro, lo que permite revertir cualquier perfil o tweak individual
 de forma fiable.
 
-El estado actual del proyecto es la versión **13.0.0**. Consulta
+El estado actual del proyecto es la versión **13.0.1**. Consulta
 [CHANGELOG.md](CHANGELOG.md) para el historial de cambios y
 [ROADMAP.md](ROADMAP.md) para la evolución planificada.
 
@@ -73,7 +73,7 @@ Ejecuta `LJokerL.App.exe` desde
 powershell -ExecutionPolicy Bypass -File Installer/CreatePortable.ps1
 ```
 
-Genera `Output/LJokerL_TTV_Portable_v13.0.zip` con la aplicación y sus
+Genera `Output/LJokerL_TTV_Portable_v13.0.1.zip` con la aplicación y sus
 catálogos.
 
 ### Instalador (Inno Setup)

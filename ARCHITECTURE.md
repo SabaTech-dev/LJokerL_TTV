@@ -1,6 +1,6 @@
 # Arquitectura — LJokerL_TTV Custom Config PRO
 
-> Documento de referencia de la estructura real implementada en la versión 13.0.
+> Documento de referencia de la estructura real implementada en la versión 13.0.1.
 > Cualquier componente citado aquí existe en el árbol de fuentes (`src/`). El trabajo
 > pendiente se gestiona exclusivamente en [TODO.md](TODO.md).
 
