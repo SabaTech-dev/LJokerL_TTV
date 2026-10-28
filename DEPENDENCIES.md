@@ -1,232 +1,126 @@
-# 🔗 Análisis de Dependencias - LJokerL_TTV Custom Config PRO
+# Dependencias — LJokerL_TTV Custom Config PRO
 
-## 📋 Resumen Ejecutivo
+- **Versión del documento**: 13.0.0 (alineada con `src/LJokerL.App/LJokerL.App.csproj` y `CHANGELOG.md`).
+- **Plataforma**: aplicación WPF (.NET 9) para Windows.
 
-Este documento analiza las dependencias del sistema **LJokerL_TTV Custom Config PRO v12.5 WPF**, identificando componentes críticos, dependencias externas y relaciones internas entre módulos.
+## 1. Dependencias en tiempo de ejecución
 
-## 🎯 Dependencias del Sistema Operativo
+| Dependencia | Requisito | Notas |
+| --- | --- | --- |
+| Windows 11 | Objetivo principal | Windows 10 2004+ puede funcionar, pero no está validado por CI ni pruebas. |
+| .NET Desktop Runtime | 9.0 x64 (`net9.0-windows`) | Incluye WPF. |
+| Privilegios de administrador | Obligatorios | El motor ejecuta cambios de registro, servicios y procesos. |
+| PowerShell 5.1+ | Condicional | Solo para las operaciones del motor que lo invocan (apartado 1.1). |
+| Servicio WMI (Winmgmt) | Recomendado | Detección de hardware y métricas; si falta, el sistema degrada con valores por defecto. |
+| Contadores de rendimiento («GPU Engine») | Recomendados | Monitor de uso de GPU; sin ellos las métricas se muestran parciales. |
 
-### 🪟 **Windows 11/10**
-- **Versión Mínima**: Windows 10 (Build 19041)
-- **Versión Recomendada**: Windows 11 (Build 22000+)
-- **Arquitectura**: x64 (64-bit)
-- **Edición**: Pro, Enterprise, Education (recomendado)
+### 1.1 PowerShell en el motor
 
-### 🔧 **PowerShell (Legacy)**
-- **Uso**: Solo para scripts en `Legacy/`
-- **Versión Mínima**: PowerShell 5.1
-- **Execution Policy**: RemoteSigned o Unrestricted
+Siete componentes de LJokerL.Core invocan PowerShell en tiempo de ejecución:
+`ExecutionEngine`, `HardwareDetector`, `StorageDetector`, `SystemProfiler`,
+`SoftwareDetector`, `MonitorDetector` y `GpuDetector`.
 
-### 🚀 **.NET Runtime (WPF)**
-- **Versión Mínima**: .NET 9
-- **Componentes**:
-  - WPF (UI nativa)
-  - System.Management (WMI)
-  - System.Diagnostics.PerformanceCounter
+Los dos primeros (`ExecutionEngine` y `HardwareDetector`) resuelven la ruta
+del ejecutable en este orden:
 
-## 🖥️ Dependencias de Hardware
+1. Variable de entorno `LJOKERL_POWERSHELL_PATH` (sobrecarga manual; permite
+   apuntar a PowerShell 7 si está instalado).
+2. En su defecto, `powershell.exe` del sistema (Windows PowerShell 5.1).
 
-### 🔍 **Componentes Detectados**
-- **CPU**: Procesador compatible con x64
-- **GPU**: Tarjeta gráfica con drivers actualizados
-- **RAM**: Mínimo 4GB, recomendado 8GB+
-- **Almacenamiento**: 2GB+ espacio libre
-- **Red**: Adaptador de red funcional
+Los cinco detectores restantes (`StorageDetector`, `SystemProfiler`,
+`SoftwareDetector`, `MonitorDetector` y `GpuDetector`) lanzan `powershell.exe`
+directamente, sin honrar la variable.
 
-### 📊 **Requisitos de Rendimiento**
-- **CPU**: Single-thread performance > 1000 (PassMark)
-- **GPU**: Compatible con DirectX 11+
-- **RAM**: Velocidad mínima 2133 MHz
-- **Almacenamiento**: SSD recomendado para mejor rendimiento
+**Nota**: fijar `LJOKERL_POWERSHELL_PATH` solo redirige `ExecutionEngine` y
+`HardwareDetector`; no afecta a los demás detectores.
 
-## 🔌 Dependencias Externas
+## 2. Dependencias de desarrollo y compilación
 
-### 🛠️ **Herramientas de Terceros**
-- **NVIDIA Profile Inspector**: Para optimizaciones de GPU NVIDIA
-- **MSI Utility**: Para overclocking y monitoreo
-- **Autoruns**: Para gestión de procesos de inicio
-- **Windows Update Blocker**: Para control de actualizaciones
+| Herramienta | Versión | Uso |
+| --- | --- | --- |
+| .NET SDK | 9.0 | Compilación, pruebas y publicación (`dotnet`). |
+| Inno Setup | 6.x | Generación del instalador mediante `iscc` (ver `BUILD_INSTRUCTIONS.md`). |
+| PowerShell | 5.1+ | Scripts de empaquetado y automatización. |
+| git | Versión actual | Control de versiones y CI. |
 
-### 📦 **Librerías y Frameworks**
-- **NuGet**:
-  - System.Management
-  - System.Diagnostics.PerformanceCounter
-- **APIs del Sistema**:
-  - Windows Management Instrumentation (WMI)
-  - Windows Registry API
-  - Windows Performance Counters
-  - Windows Event Log
+Paquetes NuGet: solo el proyecto de pruebas declara referencias (`xunit`
+2.9.2, `xunit.runner.visualstudio` 2.8.2, `FluentAssertions` 6.12.2,
+`Moq` 4.20.72, `coverlet.collector` 6.0.2, `Microsoft.NET.Test.Sdk` 17.12).
+Dichas `PackageReference` están comentadas en el `.csproj` del proyecto de
+pruebas («Paquetes de testing - habilitar cuando NuGet esté configurado») y
+hoy no se restauran (pendiente de configurar NuGet).
+Los proyectos `LJokerL.App` y `LJokerL.Core` no dependen de paquetes NuGet:
 
-### 🌐 **Servicios del Sistema**
-- **Windows Services**:
-  - Windows Management Instrumentation (Winmgmt)
-  - Windows Performance Counter Library
-  - Windows Event Log
-  - Windows Registry Service
+- `System.Management` se carga por reflection y es opcional; sin él, la
+  temperatura de CPU muestra «N/A».
+- El uso de GPU se lee de la categoría «GPU Engine» de los contadores de
+  rendimiento de Windows; no requiere SDK del fabricante.
 
-## 🔄 Dependencias Internas del Sistema
+## 3. Herramientas externas en `Resources/`
 
-### 📊 **Mapa de Dependencias**
-```
-LJokerL.App (WPF)
-├── LJokerL.Core
-│   ├── ExecutionEngine (registry/command/services/apps)
-│   ├── HardwareDetector + HardwareRuleEvaluator
-│   ├── SystemMetricsService (monitoring)
-│   └── BenchmarkRunner/Storage/Comparer
-└── Config/*.json (tweaks/services/apps/profiles/hardware_rules)
+**Política vigente**: los binarios de terceros NO se versionan en el
+repositorio (`Resources/*.exe`, `*.dll`, `*.sys`, `*.zip`, `*.msi`, `*.pdb`
+y `Resources/SCEHUB-1.2.0/` están excluidos por `.gitignore`). Este apartado
+documenta el inventario local auditado.
 
-Legacy (PowerShell)
-└── retirado en v12.5 (disponible solo en versiones anteriores)
-```
+**Verificación de integridad**: ver `Resources/MANIFEST.md` (SHA-256,
+generación 27-10-2026).
 
-### 🔗 **Relaciones de Dependencia**
+**Licencias**: todas las herramientas de esta sección son de terceros. NO
+están cubiertas por la licencia MIT del proyecto y su redistribución NO
+está cubierta: deben obtenerse de sus fuentes originales.
 
-#### **Dependencias Críticas (Hard Dependencies)**
-- **LJokerL.App** → **LJokerL.Core**: La UI depende de servicios y modelos principales
-- **ExecutionEngine** → **Config JSON**: Requiere catálogos de tweaks/servicios/apps
-- **Monitoring** → **WMI/Performance Counters**: Métricas en tiempo real
-- **Benchmark** → **System APIs**: Pruebas de CPU/RAM/Disk/Network
+| Herramienta | Versión conocida | Propósito | Licencia |
+| --- | --- | --- | --- |
+| `NVCleanstall_1.19.0.exe` | 1.19.0 | Instalación limpia y personalizada de drivers NVIDIA. | Terceros |
+| `MemTest64.exe` | Sin versión en el nombre | Prueba de estabilidad de memoria RAM. | Terceros |
+| `MPOGPUFIX.exe` | Sin versión en el nombre | Corrección de problemas de Multi-Plane Overlay (MPO) en GPU. | Terceros |
+| `GoInterruptPolicy.exe` | Sin versión en el nombre | Ajuste de afinidad y modo de interrupciones por dispositivo. | Terceros |
+| `CrystalMark3D25_1_0_0.exe` | 1.0.0 (producto CrystalMark 3D25, edición 2025) | Benchmark 3D. | Terceros |
+| `Counter Control.exe` | Sin versión en el nombre | Gestión de contadores de rendimiento de GPU. | Terceros |
+| `InSpectre.exe` | Sin versión en el nombre | Consulta y gestión de mitigaciones Spectre/Meltdown. | Terceros |
+| `MSI_util_v3.exe` | v3 | Activación de interrupciones señaladas (MSI) por dispositivo. | Terceros |
+| `winscript-portable.exe` | Sin versión en el nombre | Scripts de optimización y limpieza de Windows (portable). | Terceros |
+| `autoruns.exe` | Sin versión en el nombre | Inventario y gestión de programas, servicios y tareas de autoarranque. | Terceros |
+| `Windows_Update_Blocker.exe` | Sin versión en el nombre | Bloqueo o rehabilitación del servicio de Windows Update. | Terceros |
+| `TCPOptimizer.exe` | Sin versión en el nombre | Ajuste de parámetros de la pila TCP/IP de Windows. | Terceros |
+| `PresentMon-2.4.1-x64.exe` | 2.4.1 | Captura y análisis de métricas de presentación de fotogramas (ETW). | Terceros |
+| `innoextract.exe` | Sin versión en el nombre | Extracción del contenido de instaladores creados con Inno Setup. | Terceros |
+| `NVPI-R.exe` | Sin versión en el nombre | Inspector y edición de perfiles del driver NVIDIA. | Terceros |
+| `PowerSettingsExplorer.exe` | Sin versión en el nombre | Exploración y ajuste de atributos ocultos de planes de energía de Windows. | Terceros |
+| `Optimizer_tmp.exe` | Sin versión en el nombre | Utilidad de optimización y ajuste de Windows (nombre con sufijo `tmp`, provisional). | Terceros |
+| `WindowsReset.zip` | Sin versión en el nombre | Utilidades de restablecimiento de Windows. | Terceros |
+| `ThrottleStop_9.7.3.zip` | 9.7.3 | Monitorización y gestión de throttling y límites de frecuencia de CPU. | Terceros |
+| `ActualizarNvidiaDLSS/` | Sin versión en el nombre | DLLs de NVIDIA DLSS (dlss/dlssd/dlssg, ~142 MB) para actualizar DLSS en el sistema. | Terceros |
+| `SCEHUB-1.2.0/` | 1.2.0 | Conjunto de utilidades (~18 MB) que incluye `UEFITool.exe`. | Terceros |
+| `Regedits & Profiles/` | Sin versión en el nombre | Ajustes de registro (`.reg`) y perfiles NVIDIA (`.nip`). | Terceros |
 
-#### **Dependencias Opcionales (Soft Dependencies)**
-- **Optimization Scripts (Legacy)** → **Hardware Database**: Pueden funcionar con valores por defecto
-- **Monitoring UI** → **Performance Counters**: Funciona con valores "N/A" si faltan contadores
-- **Installer (Legacy)** → **All Scripts**: Puede instalar parcialmente si algunos scripts fallan
+Las filas sin versión no la declaran en el nombre de archivo; verifíquese en
+el origen de cada herramienta. El inventario corresponde al listado auditado
+del directorio `Resources/`: los binarios no están en el árbol de git, por lo
+que la verificación se realiza contra ese listado y el directorio local
+(`git ls-files Resources/` frente a `Resources/`).
 
-## 🚨 Dependencias Críticas y Puntos de Fallo
+## 4. Catálogos de datos internos (`Config/`)
 
-### ❌ **Puntos de Fallo Críticos**
-1. **WMI Service Down**: Bloquea toda la detección de hardware
-2. **Registry Access Denied**: Impide configuraciones del sistema
-3. **PowerShell Execution Policy**: Bloquea ejecución de scripts
-4. **Administrator Privileges**: Requerido para todas las operaciones
+Dependencias de datos de primera parte, versionadas en el repositorio y
+consumidas por el motor:
 
-### ⚠️ **Puntos de Fallo Secundarios**
-1. **Hardware Detection Failure**: Sistema funciona con valores por defecto
-2. **Profile Loading Error**: Usa perfil básico estándar
-3. **Monitoring Counters Missing**: Muestra métricas parciales
-4. **Logging Directory Full**: Continúa sin logging
+- `tweaks.json` — catálogo de tweaks.
+- `services.json` — catálogo de servicios.
+- `apps_bloatware.json` — catálogo de aplicaciones bloatware.
+- `profiles.json` — perfiles de optimización.
+- `hardware_rules.json` — reglas contextuales de detección de hardware.
+- `selected_profile.txt` — estado local del perfil seleccionado (no es contrato).
 
-## 🔧 Gestión de Dependencias
+## 5. APIs y servicios de Windows utilizados
 
-### 📋 **Verificación de Dependencias**
-```powershell
-# Verificación de PowerShell
-if ($PSVersionTable.PSVersion.Major -lt 5) {
-    throw "PowerShell 5.1+ requerido"
-}
-
-# Verificación de privilegios
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    throw "Privilegios de administrador requeridos"
-}
-
-# Verificación de servicios WMI
-try {
-    Get-WmiObject -Class Win32_ComputerSystem | Out-Null
-} catch {
-    throw "Servicio WMI no disponible"
-}
-```
-
-### 🛡️ **Manejo de Fallos de Dependencias**
-```powershell
-# Fallback para hardware detection
-function Get-HardwareInfo {
-    try {
-        # Intento de detección automática
-        return Get-AutomaticHardwareInfo
-    } catch {
-        Write-Warning "Detección automática falló, usando valores por defecto"
-        return Get-DefaultHardwareInfo
-    }
-}
-
-# Fallback para perfiles
-function Get-OptimizationProfile {
-    try {
-        return Get-HardwareBasedProfile
-    } catch {
-        Write-Warning "Perfil basado en hardware no disponible, usando perfil estándar"
-        return Get-StandardProfile
-    }
-}
-```
-
-## 📊 Análisis de Impacto de Dependencias
-
-### 🔴 **Alto Impacto**
-- **WMI Service**: Bloquea 90% de funcionalidades
-- **Registry Access**: Impide 70% de optimizaciones
-- **Admin Privileges**: Bloquea 100% de funcionalidades
-
-### 🟡 **Impacto Medio**
-- **Hardware Detection**: Reduce efectividad en 40%
-- **Profile System**: Reduce personalización en 30%
-- **Monitoring UI**: Reduce monitoreo en 25%
-
-### 🟢 **Bajo Impacto**
-- **CSS Styles**: Solo afecta apariencia visual
-- **Logging**: No afecta funcionalidad principal
-- **Backup System**: No crítico para operación
-
-## 🚀 Estrategias de Mitigación
-
-### 🛡️ **Prevención de Fallos**
-1. **Verificación Previa**: Check de dependencias antes de ejecución
-2. **Fallbacks Robustos**: Alternativas para cada dependencia crítica
-3. **Graceful Degradation**: Sistema funciona con funcionalidad reducida
-4. **User Notifications**: Información clara sobre problemas de dependencias
-
-### 🔄 **Recuperación Automática**
-1. **Service Restart**: Reinicio automático de servicios críticos
-2. **Permission Elevation**: Solicitud automática de privilegios
-3. **Alternative Methods**: Uso de métodos alternativos cuando sea posible
-4. **Configuration Reset**: Restauración de configuraciones por defecto
-
-## 📈 Monitoreo de Dependencias
-
-### 🔍 **Métricas de Monitoreo**
-- **WMI Service Status**: Disponibilidad del servicio
-- **Registry Access Success Rate**: Tasa de éxito de acceso al registro
-- **Admin Privilege Validation**: Verificación de permisos
-- **Hardware Detection Accuracy**: Precisión de detección de hardware
-
-### 📊 **Alertas y Notificaciones**
-- **Critical Dependencies**: Alertas inmediatas para dependencias críticas
-- **Performance Impact**: Notificaciones sobre degradación de rendimiento
-- **User Guidance**: Instrucciones para resolver problemas de dependencias
-- **System Health**: Estado general del sistema de dependencias
-
-## 🔮 Evolución de Dependencias
-
-### 📅 **Versión Actual (v12.0)**
-- **PowerShell Native**: Sin dependencias externas de paquetes
-- **Windows APIs**: Uso de APIs nativas del sistema
-- **Third-party Tools**: Herramientas opcionales para funcionalidades avanzadas
-
-### 🚀 **Versión Futura (v13.0+)**
-- **WPF/.NET**: Interfaz gráfica nativa
-- **SQLite**: Base de datos local para configuraciones
-- **NuGet Packages**: Librerías para funcionalidades avanzadas
-- **Cross-platform**: Soporte para Linux y macOS
-
-## 📋 Checklist de Verificación de Dependencias
-
-### ✅ **Pre-Instalación**
-- [ ] Windows 11/10 x64 verificado
-- [ ] PowerShell 5.1+ disponible
-- [ ] Privilegios de administrador confirmados
-- [ ] Servicios WMI funcionando
-- [ ] Acceso al registro verificado
-
-### ✅ **Post-Instalación**
-- [ ] Todas las dependencias críticas verificadas
-- [ ] Fallbacks configurados correctamente
-- [ ] Sistema de monitoreo activo
-- [ ] Alertas configuradas
-- [ ] Documentación de dependencias actualizada
+- Windows Management Instrumentation (WMI), cargado por reflection.
+- Contadores de rendimiento de Windows (categoría «GPU Engine»).
+- Registro de Windows, control de servicios y gestión de procesos.
 
 ---
 
-**📋 Nota**: Este análisis de dependencias es fundamental para garantizar la estabilidad y confiabilidad del sistema. Las dependencias críticas deben ser monitoreadas continuamente y tener estrategias de mitigación implementadas.
+**Nota**: la diferencia entre `git ls-files Resources/` y el contenido del
+directorio local es esperada: los binarios de terceros se excluyen por
+`.gitignore` según la política del apartado 3.

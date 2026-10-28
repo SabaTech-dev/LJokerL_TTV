@@ -29,4 +29,4 @@ This workflow guides the process of creating a new release of the LJokerL_TTV Cu
    - Check that `Config` and `Reports` folders are included.
 
 6. **Create Release Package**
-   - Zip the publish output plus `Config`, `Reports`, and `Legacy` (optional).
+   - Zip the publish output plus `Config` and `Reports`.

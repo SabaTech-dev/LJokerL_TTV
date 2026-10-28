@@ -1,235 +1,166 @@
-# 🏗️ Arquitectura del Sistema LJokerL_TTV Custom Config PRO
+# Arquitectura — LJokerL_TTV Custom Config PRO
 
-## 📋 Visión General de la Arquitectura
+> Documento de referencia de la estructura real implementada en la versión 13.0.
+> Cualquier componente citado aquí existe en el árbol de fuentes (`src/`). El trabajo
+> pendiente se gestiona exclusivamente en [TODO.md](TODO.md).
 
-**LJokerL_TTV Custom Config PRO** es un sistema de optimización de Windows basado en C# WPF con persistencia JSON para proporcionar optimizaciones curadas, reversibles y con rollback completo.
+## Visión general
 
-## 🎯 Principios Arquitectónicos
+Solución .NET 9 (`LJokerL.sln`, `net9.0-windows`) de optimización de Windows para gaming,
+construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres proyectos:
 
-### 🔧 **Modularidad**
-- **Componentes Independientes**: Cada funcionalidad está encapsulada en módulos separados
-- **Interfaces Claras**: APIs bien definidas entre componentes
-- **Bajo Acoplamiento**: Mínima dependencia entre módulos
-- **Alta Cohesión**: Funcionalidades relacionadas agrupadas lógicamente
+| Proyecto | Tipo | Contenido |
+| --- | --- | --- |
+| `src/LJokerL.App` | `WinExe` WPF | Interfaz de usuario, ViewModel principal y servicios de presentación. |
+| `src/LJokerL.Core` | Librería de clases | Modelos de dominio y servicios: detección de hardware, ejecución de optimizaciones, autoconfiguración, benchmarks y métricas. |
+| `src/LJokerL.Tests` | `Exe` de consola | Suite de tests propia (`TestRunner.cs`), sin framework externo; se ejecuta con `dotnet run`. |
 
-### 🧠 **Inteligencia Adaptativa**
-- **Detección Automática**: Análisis inteligente del hardware del sistema
-- **Perfiles Dinámicos**: Selección automática de optimizaciones óptimas
-- **Aprendizaje Continuo**: Mejora de recomendaciones basadas en resultados
-- **Personalización**: Adaptación a patrones de uso específicos
+## LJokerL.App (capa de presentación)
 
-### 🚀 **Escalabilidad**
-- **Arquitectura Extensible**: Fácil adición de nuevos perfiles y optimizaciones
-- **Gestión de Recursos**: Uso eficiente de memoria y CPU
-- **Procesamiento Paralelo**: Operaciones concurrentes cuando es posible
+- **`MainWindow.xaml`**: ventana única con 7 pestañas de navegación (Dashboard, Auto Config,
+  Perfiles, Tweaks, Monitor, Benchmarks, Settings), implementadas como `RadioButton`
+  conmutados por `DataTrigger`. Vistas con contenido implementado: **Dashboard** y
+  **Benchmarks**; las cinco restantes muestran el área de contenido vacía (el XAML no
+  contiene elementos de placeholder).
+- **`ViewModels/MainViewModel.cs`** (~2500 líneas): orquestador de la aplicación. Carga los
+  catálogos JSON al arrancar (`ConfigLoader`), ejecuta la detección de hardware al inicio
+  (`HardwareDetector`, con overrides manuales de VRR, GPU, CPU y RAM persistidos en ajustes),
+  aplica y revierte perfiles y tweaks (`ExecutionEngine`), gobierna la monitorización en vivo
+  (`SystemMetricsService`, intervalo configurable, pausa/reanudación, logging de métricas),
+  lanza benchmarks con progreso y comparación antes/después, genera recomendaciones de
+  autoconfiguración y ofrece visor de logs de ejecución con filtros, paginación y exportación.
+- **`ViewModels/ObservableObject.cs` y `RelayCommand.cs`**: soporte MVVM mínimo propio
+  (notificación de cambios y comandos), sin frameworks externos.
+- **`Services/ThemeService.cs`**: servicio estático que alterna entre tema claro y oscuro
+  sustituyendo los pinceles de `Application.Resources` y notifica mediante el evento
+  `ThemeChanged`. La preferencia (`UserSettings.DarkMode`) se persiste en el JSON de ajustes
+  y se aplica en el arranque desde `App.OnStartup`.
 
-## 🏛️ Arquitectura de Alto Nivel
+## LJokerL.Core (dominio y servicios)
 
-```
-┌─────────────────────────────────────────────┐
-│                    LJokerL TTV Custom Config PRO            │
-│                         v13.0 UNIFIED CORE WPF               │
-└─────────────────────────────────────────────┘
-                                 │
-                     ┌───────────┴───────────┐
-                     │                       │
-             ┌───────▼────────┐     ┌─────────▼────────┐
-             │   Core System │     │   WPF Interface  │
-             │   (C#)      │     │     (C#)        │
-             └───────┬────────┘     └───────────┬─────────┘
-                     │                       │
-         ┌───────────▼────────┐     ┌─────────▼────────┐
-         │ Hardware Detection   │     │ Optimization   │
-         │      System          │     │   Engine        │
-         │   (Pendiente)      │     │                  │
-         └───────────┬────────┘     └──────────────────┘
-                     │                       │
-         ┌───────────▼────────┐     ┌─────────▼────────┐
-         │    Config JSONs      │     │  Profile/Log View  │
-         │   (tweaks,          │     │  (MainWindow.xaml  │
-         │    services, apps,      │     │   + MainViewModel) │
-         │    profiles,            │     │                  │
-         │ hardware_rules)        │     │                  │
-         └─────────────────┘     └───────────────────┘
-```
+### Models (`src/LJokerL.Core/Models`, 7 ficheros)
 
-## 🔧 Componentes del Sistema
+- `ConfigModels.cs`: catálogos y definiciones (`TweakCatalog`, `TweakDefinition`,
+  `ActionDefinition`, `ServiceCatalog`, `ServiceDefinition`, `AppCatalog`,
+  `AppPackageDefinition`, `ProfileCatalog`, `ProfileDefinition`, `HardwareRuleCatalog`...).
+- `HardwareModels.cs`: instantánea base de hardware (`HardwareSnapshot`, `CpuInfo`,
+  `GpuInfo`, `MemoryInfo`, `OsInfo`, `MonitorInfo`).
+- `HardwareModelsExtended.cs`: perfil ampliado (`ExtendedHardwareSnapshot`, información de
+  placa, módulos de RAM, adaptadores de red, alimentación, entorno software y apps de gaming).
+- `MonitoringModels.cs`: métricas en vivo (`SystemMetricsSnapshot` y métricas de CPU, GPU,
+  memoria, disco, red y procesos).
+- `BenchmarkModels.cs`: resultados de benchmark (`BenchmarkRunResult`, resultados por
+  componente, progreso, deltas y comparaciones).
+- `AutoConfigModels.cs`: motor de autoconfiguración (`AutoConfigResult`,
+  `AutoConfigRecommendation`, `AutoConfigRule`, `RuleCondition`, `RuleAction`...).
+- `UserSettings.cs`: preferencias de usuario: overrides de hardware, opciones de
+  monitorización (habilitación e intervalo) y modo oscuro. La configuración de benchmark
+  (`BenchmarkRunOptions`) no se persiste en ajustes.
 
-### 🖥️ **Core System (C# WPF)**
-- **Lenguaje**: C# (.NET 9)
-- **Arquitectura**: MVVM con módulos separados
-- **Gestión de Estado**: ConfigLoader + ExecutionEngine con logs JSONL
-- **Manejo de Errores**: Try/catch robusto con logging detallado
-- **Modularidad**: Proyectos separados (Core + App + Tests)
+### Services (`src/LJokerL.Core/Services`, 17 ficheros)
 
-### 🍁 **Config Persistence (JSON)**
-- **Tweaks Catalog**: `Config/tweaks.json` - Optimizaciones curadas con riesgo y revert
-- **Profiles**: `Config/profiles.json` - Competitive Latency / Smooth VRR con referencias
-- **Services Catalog**: `Config/services.json` - Servicios con acciones revert
-- **Apps Bloatware Catalog**: `Config/apps_bloatware.json` - Apps UWP a remover/instalar
-- **Hardware Rules**: `Config/hardware_rules.json` - Reglas de recomendación por hardware
+- **`ConfigLoader`**: carga los catálogos de `Config/*.json` en un `ConfigBundle` único
+  (tweaks, servicios, apps, perfiles y reglas de hardware).
+- **`ExecutionEngine`**: núcleo de aplicación de cambios. Ejecuta acciones de tipo `registry`
+  (con captura previa del valor en un `RegistrySnapshot`) y `command`; habilita/deshabilita
+  servicios de Windows; elimina y restaura paquetes Appx invocando PowerShell. Registra cada
+  acción en JSONL por contexto y soporta **rollback limitado a acciones de registro**.
+- **`HardwareDetector`**: instantánea rápida de CPU, GPU, RAM, SO y monitor al arranque,
+  con override opcional de VRR.
+- **`GpuDetector`** / **`StorageDetector`** / **`SoftwareDetector`** / **`MonitorDetector`**:
+  detección detallada de GPU (principal y lista), unidades de almacenamiento, entorno
+  software (runtimes y apps de gaming) y monitores conectados.
+- **`SystemProfiler`**: perfil extendido combinando WMI y PowerShell (`Win32_Processor`,
+  `Win32_PhysicalMemory`, `Get-NetAdapter`...) para poblar `ExtendedHardwareSnapshot`.
+- **`HardwareRuleEvaluator`**: evalúa las reglas contextuales de `Config/hardware_rules.json`
+  (14 reglas sobre pantalla, RAM, CPU y GPU) contra un `HardwareSnapshot`.
+- **`AutoConfigurationEngine`**: recomendador de perfil y tweaks; aplica 15 reglas integradas
+  (`low_ram_profile`, `laptop_power`, `enable_hags_nvidia`, ...) sobre el perfil extendido de
+  hardware y expone el catálogo completo con `GetAllRules`.
+- **`BenchmarkRunner`**: baterías de CPU, memoria (secuencial y de acceso aleatorio), disco
+  (solo secuencial) y red (ping configurable), con semillas fijas para reproducibilidad y
+  progreso vía `IProgress`.
+- **`BenchmarkStorage`** / **`BenchmarkComparer`** / **`BenchmarkReportGenerator`**:
+  persistencia de resultados en JSON, comparación antes/después con deltas y generación de
+  informes en HTML y Markdown.
+- **`SystemMetricsService`**: muestreo de uso de CPU, GPU (contadores de rendimiento de la
+  categoría `GPU Engine`), memoria, disco y red; temperatura de CPU vía WMI dinámico por
+  reflection (se activa si `System.Management` está disponible).
+- **`SystemMetricsLogger`**: volcado de métricas a `Logs/metrics.jsonl`.
+- **`ExecutionLogger`** (dentro de `ExecutionEngine.cs`): registro JSONL de cada acción en
+  `Logs/execution.jsonl`, con valor previo, resultado y error.
+- **`UserSettingsService`**: carga y guarda `UserSettings` como JSON.
 
-### 🎮 **UI WPF (Preview)**
-- **MainWindow.xaml**: Profiles panel + Stats + Actions + Advanced Tweaks con filtros
-- **MainViewModel.cs**: Lógica MVVM con comandos para aplicar/revert perfiles y tweaks individuales
-- **RelayCommand.cs**: Implementación ICommand básica
-- **Test Runner**: `src/LJokerL.Tests/Program.cs` - Runner custom cubriendo config, execution y logging
+## Flujo de datos
 
-### 🔍 **Hardware Detection System**
-- **Estado**: Pendiente (módulo en Core)
-- **Componentes Detectados**: CPU, GPU, RAM, Almacenamiento
-- **Métodos de Detección**: WMI (Windows Management Instrumentation), APIs nativas
-- **Herramientas de terceros**: Cuando sea necesario
-
-### ⚡ **Optimization Engine**
-- **Implementación**: ExecutionEngine en C# con acciones registry/command/service/app
-- **Logging**: ExecutionLogger con JSONL persistente y snapshot
-- **Rollback**: Revert por perfil desde log (registry snapshot) o revert catálogo completo
-
-### 📊 **Profile Management System**
-- **Perfiles Predefinidos**: Competitive Latency / Smooth VRR
-- **Clasificación por Riesgo**: SAFE / ADVANCED / EXPERIMENTAL
-- **Referencias a Catálogos**: Tweaks, Services, Apps para cada perfil
-
-### 🌐 **Web Interface**
-- **Estado**: Pendiente (interfaz web en roadmap)
-- **Funcionalidades**: Monitoreo en tiempo real, visualización de métricas
-
-## 🔄 Flujo de Datos del Sistema
-
-### 📥 **Entrada del Sistema**
-```
-Hardware Detection (Pendiente) → Profile Selection → Optimization Engine → System Validation
-```
-
-### 🔄 **Proceso de Optimización**
-1. **Detección**: Análisis completo del hardware del sistema
-2. **Análisis**: Clasificación y evaluación de componentes
-3. **Selección**: Elección del perfil de optimización óptimo
-4. **Aplicación**: Implementación de optimizaciones específicas
-5. **Validación**: Verificación de cambios aplicados
-6. **Logging**: Registro de todas las operaciones
-
-### 📤 **Salida del Sistema**
-- Configuraciones optimizadas del sistema
-- Logs detallados de todas las operaciones (JSONL)
-- Métricas de rendimiento y benchmarks
-- Reportes de optimización aplicada
-
-## 🗄️ Estructura de Datos
-
-### 📊 **Hardware Database Schema**
-- CPU Information, GPU Information, RAM Information, Storage Information
-
-### 🔧 **Configuration Profiles**
-```powershell
-# Profile Structure
-$Profile = @{
-    Name = "Competitive Latency"
-    Description = "Mínima latencia para gaming competitivo"
-    Tweaks = @("game_dvr_off", "game_mode_on", "hags_on", ...)
-    Services = @("wersvc", "mapsbroker", ...)
-    Apps = @("get_help", "get_started", ...)
-    PowerProfile = "High Performance"
-}
+```text
+Config/*.json (tweaks, services, apps_bloatware, profiles, hardware_rules)
+        │
+        ▼
+  ConfigLoader.LoadAll ──► ConfigBundle ──► MainViewModel
+        │                                      │
+        │            HardwareDetector / SystemProfiler (arranque)
+        │                                      │
+        ▼                                      ▼
+  UserSettings (%APPDATA%)            ExecutionEngine
+                                              │
+                        ┌─────────────────────┼─────────────────────┐
+                        ▼                     ▼                     ▼
+                 Registro (snapshot)     Servicios de Windows    Appx (PowerShell)
+                        │                     │                     │
+                        └─────────────────────┴─────────────────────┘
+                                              ▼
+                              Logs/execution.jsonl · Logs/metrics.jsonl
 ```
 
-## 🚀 Patrones de Diseño Implementados
+- Los catálogos viven en `Config/` y se cargan al arrancar. El perfil activo vive en memoria
+  (`MainViewModel`) y el último aplicado se resuelve desde los contextos del log de
+  ejecución (`ExecutionLogger`, prefijo `profile:{id}:`); `selected_profile.txt` es un
+  artefacto de la era PowerShell (herencia de la v12.5) que ningún código lee ni escribe.
+- La reversión se apoya en el JSONL de ejecución: `RollbackContext` restaura únicamente
+  acciones de registro (el resto se marca como no soportado).
+- Los ajustes de usuario se guardan en `%APPDATA%\LJokerL_TTV\settings.json`
+  (overridable con `LJOKERL_SETTINGS_PATH`); `App.OnStartup` aplica el tema leyendo la
+  ruta de datos locales (`%LOCALAPPDATA%\LJokerL\settings.json`). Es una divergencia de
+  rutas de ajustes conocida entre ambos puntos de acceso.
+- Los logs se escriben en `Logs/` (ignorados por Git).
+- Los directorios de ejecución (`Logs/`, `Benchmarks/`) se crean bajo demanda
+  junto al ejecutable y no se versionan; los directorios vacíos locales
+  (`GameProfiles/`, `Updates/`, `Profiles/Templates/`) no forman parte del
+  repositorio. `Database/Components/components_db.json` es el único dato
+  versionado bajo `Database/`.
 
-### 🔧 **Factory Pattern**
-- **Uso**: Creación de perfiles de optimización
-- **Implementación**: Funciones que generan configuraciones específicas
-- **Beneficio**: Fácil adición de nuevos perfiles
+## Infraestructura
 
-### 📊 **Strategy Pattern**
-- **Uso**: Selección de algoritmos de optimización
-- **Implementación**: Diferentes estrategias por tipo de hardware
-- **Beneficio**: Flexibilidad en la aplicación de optimizaciones
+- **Empaquetado** (`Installer/`): `CreateInstaller.ps1` y `CreatePortable.ps1` generan las
+  variantes instalador y portable; `LJokerL_TTV_Installer.iss` define el paquete con
+  Inno Setup.
+- **CI** (`.github/workflows/ci.yml`): GitHub Actions en `windows-latest` con .NET 9;
+  `dotnet build LJokerL.sln -c Release` y `dotnet run --project src/LJokerL.Tests -c Release`.
+  Se dispara en push y pull request hacia `main` y `develop`.
+- **Repositorio**: público en GitHub (`SabaTech-dev/LJokerL_TTV`); la rama `develop` está
+  protegida.
 
-### 🔍 **Observer Pattern**
-- **Uso**: Monitoreo de cambios en el sistema
-- **Implementación**: Eventos y callbacks
-- **Beneficio**: Notificación automática de cambios
+## Decisiones técnicas
 
-### 🗄️ **Repository Pattern**
-- **Uso**: Acceso a datos de hardware y configuraciones
-- **Implementación**: Funciones centralizadas para acceso a datos
-- **Beneficio**: Separación de lógica de negocio y acceso a datos
+- **MVVM ligero**: sin frameworks MVVM ni DI externos; `ObservableObject` y `RelayCommand`
+  propios en la capa App.
+- **Catálogos JSON desacoplados del código**: tweaks, servicios, apps, perfiles y reglas se
+  editan en `Config/` sin recompilar; el motor solo conoce los esquemas de `ConfigModels.cs`.
+- **PowerShell invocado como proceso externo**: 7 componentes lanzan procesos `powershell`
+  (`ExecutionEngine`, `HardwareDetector`, `GpuDetector`, `StorageDetector`,
+  `SoftwareDetector`, `MonitorDetector`, `SystemProfiler`). La ruta del ejecutable puede
+  sobrescribirse con `LJOKERL_POWERSHELL_PATH`, respetada hoy por `ExecutionEngine` y
+  `HardwareDetector`.
+- **Sin dependencias NuGet activas**: `LJokerL.App` y `LJokerL.Core` no referencian paquetes;
+  las referencias de testing de `LJokerL.Tests` permanecen comentadas a la espera de
+  configurar la restauración de NuGet (ver [DEPENDENCIES.md](DEPENDENCIES.md)).
+- **Suite de tests propia de consola**: `TestRunner.cs` cubre modelos, detectores, carga de
+  configuración, profiler, autoconfiguración y sistema de benchmarks. `ExecutionEngine` no
+  tiene cobertura automatizada (muta el registro y servicios reales).
 
-## 🔒 Consideraciones de Seguridad
+## Trabajo futuro
 
-### 🛡️ **Manejo de Privilegios**
-- **Requisito**: Privilegios de Administrador
-- **Validación**: Verificación de permisos antes de operaciones críticas
-- **Logging**: Registro de todas las operaciones privilegiadas
-- **Rollback**: Capacidad de revertir cambios en caso de error
-
-### 🔐 **Validación de Entrada**
-- **Sanitización**: Limpieza de todos los inputs del usuario
-- **Validación**: Verificación de parámetros antes de procesamiento
-- **Escapado**: Prevención de inyección de código
-- **Auditoría**: Logging de todas las operaciones de usuario
-
-## 📝 **Trazabilidad**
-
-### 📝 **Logs Detallados**
-- **Logs JSONL**: Registro de todas las operaciones con timestamp
-- **Timestamps**: Marcas de tiempo precisas para auditoría
-- **User Tracking**: Identificación del usuario que ejecuta operaciones
-- **Change History**: Historial completo de cambios realizados
-
-### 📈 **Consideraciones de Rendimiento**
-
-### ⚡ **Optimizaciones del Sistema**
-- **Procesamiento Asíncrono**: Operaciones no bloqueantes cuando es posible
-- **Caché Inteligente**: Almacenamiento de resultados para reutilización
-- **Lazy Loading**: Carga de recursos solo cuando son necesarios
-- **Batch Processing**: Agrupación de operaciones relacionadas
-
-### 🔍 **Monitoreo de Rendimiento**
-- **Métricas en Tiempo Real**: Monitoreo continuo del sistema
-- **Alertas Automáticas**: Notificaciones de problemas de rendimiento
-- **Benchmarking**: Medición de mejoras aplicadas
-- **Análisis de Tendencias**: Identificación de patrones de uso
-
-## 🔄 Mantenibilidad y Extensibilidad
-
-### 📝 **Código Limpio**
-- **Estándares**: Seguimiento de mejores prácticas de C#
-- **Documentación**: Comentarios detallados y documentación inline
-- **Modularidad**: Funciones pequeñas y enfocadas
-- **Naming Conventions**: Nombres descriptivos y consistentes
-
-### 🔧 **Configuración Externa**
-- **Archivos de Configuración**: Parámetros configurables sin modificar código
-- **Variables de Entorno**: Configuración flexible por entorno
-- **Perfiles de Usuario**: Personalización individual
-- **Templates**: Plantillas reutilizables para configuraciones comunes
-
-### 🚀 **Extensibilidad**
-- **Plugin System**: Arquitectura preparada para extensiones
-- **API Design**: Interfaces bien definidas para integración
-- **Custom Profiles**: Capacidad de crear perfiles personalizados
-- **Third-party Integration**: Soporte para herramientas externas
-
-## 🎯 Roadmap de Mejoras Arquitectónicas
-
-### 🔮 **Versión 13.0**
-- **Interfaz Gráfica Nativa**: Aplicación WPF funcional
-- **Base de Datos Config**: JSON configs cacheados + ExecutionEngine con rollback
-- **Sistema de Testing**: Runner custom en C# cubriendo config, execution y logging
-
-### 🚀 **Versión 14.0**
-- **Soporte Multiplataforma**: Extensión a Linux (WSL)
-- **Arquitectura de Microservicios**: Separación de componentes en servicios
-- **API REST Completa**: Integración con sistemas externos
-- **Ecosistema de Plugins**: Marketplace de plugins
-
-### 🧠 **Versión 15.0**
-- **Machine Learning**: Optimizaciones basadas en IA
-- **Análisis Predictivo**: Anticipación de problemas de rendimiento
-- **Optimización Automática**: Ajustes automáticos sin intervención del usuario
-- **Recomendaciones Inteligentes**: Aprendizaje de patrones de uso
-
----
-**📋 Nota**: Esta arquitectura está diseñada para ser robusta, mantenible y extensible, permitiendo futuras mejoras y adaptaciones a nuevas tecnologías y requisitos.
+El trabajo pendiente, priorizado y con criterios de aceptación, se mantiene en
+[TODO.md](TODO.md). Este documento no duplica esa lista: aquí solo se describe lo que
+existe y funciona en el árbol de fuentes.
