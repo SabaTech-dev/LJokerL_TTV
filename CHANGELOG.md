@@ -7,6 +7,10 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Anadido
+
+- SECURITY.md y CONTRIBUTING.md: políticas de seguridad y contribución (P1-2).
+
 ### Cambios
 
 - README reescrito: stack real (sin infraestructura ficticia), sin scripts inexistentes, sin secciones duplicadas, perfiles alineados con profiles.json (P0-3).

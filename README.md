@@ -179,6 +179,9 @@ cada push a main/develop y en cada pull request hacia esas ramas.
 Para contribuir: crea una rama de funcionalidad, realiza commits claros y
 abre una pull request con descripción detallada.
 
+- Guía de contribución: [CONTRIBUTING.md](CONTRIBUTING.md).
+- Reporte de vulnerabilidades y política de seguridad: [SECURITY.md](SECURITY.md).
+
 ## Futuro (no implementado)
 
 Las siguientes líneas se plantean a medio plazo y **no forman parte de la
