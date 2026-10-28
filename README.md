@@ -121,6 +121,12 @@ de configuración, `2` ejecución real aún no soportada por CLI. En esta fase,
 el plan de acciones sin tocar el sistema); la ejecución real por CLI llega en
 la siguiente iteración (M2).
 
+> **Nota:** la app es una aplicación de ventanas (WinExe): al ejecutarla desde
+> una terminal interactiva la salida de texto puede no mostrarse; usa
+> redirección (`LJokerL.App.exe --list-profiles > perfiles.txt`) o el código de
+> salida (0/1/2), que siempre funciona. La CLI respeta `LJOKERL_CONFIG_PATH`
+> para redirigir la raíz de configuración (ver `.env.example`).
+
 ## Perfiles disponibles
 
 Los perfiles se definen en `Config/profiles.json` (versión 2026.03). Los diez

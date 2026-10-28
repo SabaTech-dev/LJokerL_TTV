@@ -190,6 +190,11 @@ Por seguridad, la ejecución real de apply/revert por CLI no está disponible:
 sin `--dry-run` estos comandos no tocan el sistema y devuelven el código de
 salida `2`. La ejecución real por CLI llega en la siguiente iteración (M2).
 
+> **Nota:** la app es una aplicación de ventanas (WinExe): al ejecutarla desde
+> una terminal interactiva la salida de texto puede no mostrarse; usa
+> redirección (`LJokerL.App.exe --list-profiles > perfiles.txt`) o el código de
+> salida (0/1/2), que siempre funciona.
+
 ## Solución de problemas
 
 | Síntoma | Causa y solución |
