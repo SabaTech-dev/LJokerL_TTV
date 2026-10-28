@@ -125,9 +125,9 @@ En la primera ejecucion, la aplicacion:
 
 SUPPORT / SOPORTE
 =================
-For support, visit: https://github.com/ljokerl/ttv-custom-config
+For support, visit: https://github.com/SabaTech-dev/LJokerL_TTV
 
-Para soporte, visita: https://github.com/ljokerl/ttv-custom-config
+Para soporte, visita: https://github.com/SabaTech-dev/LJokerL_TTV
 
 LICENSE / LICENCIA
 ==================

@@ -1,10 +1,12 @@
 ; LJokerL_TTV Custom Config PRO v13.0.1 Installer Script
 ; Inno Setup 6.x
 
+#ifndef AppVersion
+  #define AppVersion "13.0.1"
+#endif
 #define AppName "LJokerL TTV Custom Config PRO"
-#define AppVersion "13.0.1"
 #define AppPublisher "LJokerL_TTV"
-#define AppURL "https://github.com/ljokerl/ttv-custom-config"
+#define AppURL "https://github.com/SabaTech-dev/LJokerL_TTV"
 #define AppExeName "LJokerL.App.exe"
 
 [Setup]
@@ -17,11 +19,12 @@ AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
 DefaultDirName={autopf}\LJokerL_TTV
 DisableProgramGroupPage=yes
-LicenseFile=LICENSE.txt
-InfoBeforeFile=README.md
-OutputDir=..\..\Output
-OutputBaseFilename=LJokerL_TTV_Installer_v13.0.1
-SetupIconFile=..\..\Resources\icon.ico
+LicenseFile=..\LICENSE.txt
+InfoBeforeFile=..\README.md
+OutputDir=..\Output
+OutputBaseFilename=LJokerL_TTV_Installer_v{#AppVersion}
+; icono no versionado; descomentar y aportar icon.ico para usarlo
+; SetupIconFile=..\Resources\icon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -37,12 +40,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1; Check: not IsAdminInstallMode
 
 [Files]
-Source: "..\..\src\LJokerL.App\bin\Release\net9.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\..\Config\*"; DestDir: "{app}\Config"; Flags: ignoreversion recursesubdirs
-Source: "..\..\Resources\*"; DestDir: "{app}\Resources"; Flags: ignoreversion recursesubdirs
-Source: "..\..\README.md"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\USER_GUIDE.md"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion; Check: FileExists
+Source: "..\src\LJokerL.App\bin\Release\net9.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\Config\*"; DestDir: "{app}\Config"; Flags: ignoreversion recursesubdirs
+Source: "..\Resources\*"; DestDir: "{app}\Resources"; Flags: ignoreversion recursesubdirs
+Source: "..\README.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\USER_GUIDE.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion; Check: FileExists
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExeName}"

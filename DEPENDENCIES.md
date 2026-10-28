@@ -111,7 +111,7 @@ consumidas por el motor:
 - `apps_bloatware.json` — catálogo de aplicaciones bloatware.
 - `profiles.json` — perfiles de optimización.
 - `hardware_rules.json` — reglas contextuales de detección de hardware.
-- `selected_profile.txt` — estado local del perfil seleccionado (no es contrato).
+- `selected_profile.txt` — artefacto legacy de la era PowerShell conservado por compatibilidad y blindado por la prueba de regresión `Selected_profile_id_exists_in_profiles` (no es contrato).
 
 ## 5. APIs y servicios de Windows utilizados
 

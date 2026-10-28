@@ -28,7 +28,7 @@ Este documento describe el proceso para proponer cambios.
 
    ```bash
    dotnet build LJokerL.sln -c Release
-   dotnet run --project src/LJokerL.Tests -c Release
+   dotnet test LJokerL.sln -c Release --nologo
    ```
 
 4. **Pull Request**: abre la PR contra `develop`. La CI
