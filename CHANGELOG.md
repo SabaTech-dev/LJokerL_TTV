@@ -22,6 +22,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - Guía de usuario reescrita para la aplicación WPF v13.0 (P0-4).
 - USER_GUIDE: sección de reversión exacta (solo registro; catálogo sin UI), requisitos e instalador corregidos (P0-4, ronda de jueces).
 - ROADMAP reconciliado con el estado real del proyecto (P0-7).
+- BUILD_INSTRUCTIONS: rutas correctas de los scripts de empaquetado (P0-6).
 
 ## 13.0-mantenimiento - 2026-02 a 2026-06
 
