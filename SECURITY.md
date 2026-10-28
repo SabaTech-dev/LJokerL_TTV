@@ -48,6 +48,12 @@ exponer el detalle público. No incluyas detalles explotables en texto público
 
 - **Snapshot de registro** antes de aplicar cualquier cambio: los valores
   previos se registran en el log de ejecución.
+- **Punto de restauración del sistema** (M1, activado por defecto): antes de
+  aplicar un perfil se crea un punto de restauración de Windows
+  (`MODIFY_SETTINGS`). Es defensa en profundidad junto al snapshot por acción:
+  si la creación falla, el perfil no se aplica (fail-safe); si ya existe un
+  punto con menos de 24 h, se reutiliza (límite de Windows, un punto por
+  24 h). Configurable en el Dashboard.
 - **Rollback limitado al registro**: la reversión reconstruye el estado previo
   desde ese snapshot; no toca nada fuera del ámbito aplicado.
 - **Sin telemetría**: la aplicación no envía datos a ningún servicio. Única

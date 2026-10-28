@@ -8,6 +8,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Anadido
+- Punto de restauración del sistema antes de aplicar (configurable, fail-safe: no aplica si falla su creación) (M1).
 - ROADMAP: backlog de mejoras competitivas derivado de deep research de 12+ herramientas (M1-M4).
 
 ### Corregido

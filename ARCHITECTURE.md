@@ -87,6 +87,12 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
   categoría `GPU Engine`), memoria, disco y red; temperatura de CPU vía WMI dinámico por
   reflection (se activa si `System.Management` está disponible).
 - **`SystemMetricsLogger`**: volcado de métricas a `Logs/metrics.jsonl`.
+- **`SystemRestoreService`**: punto de restauración del sistema fail-safe antes de aplicar un
+  perfil (M1). Detecta si Restaurar sistema está habilitado (registro `DisableSR`), consulta el
+  último punto vía CIM `root\default` `SystemRestore` (reflection) y crea el punto con
+  `Checkpoint-Computer -RestorePointType MODIFY_SETTINGS`. La decisión (proceder, reutilizar un
+  punto reciente de menos de 24 h o bloquear la aplicación si falla la creación) vive en la clase
+  pura `SystemRestoreGate`, cubierta por la matriz de decisión de `RestoreGateTests`.
 - **`ExecutionLogger`** (dentro de `ExecutionEngine.cs`): registro JSONL de cada acción en
   `Logs/execution.jsonl`, con valor previo, resultado y error.
 - **`UserSettingsService`**: carga y guarda `UserSettings` como JSON.

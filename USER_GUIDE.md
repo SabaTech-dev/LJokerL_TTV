@@ -83,6 +83,17 @@ servicios y elimina las aplicaciones del perfil una a una, registrando cada acci
 ejecución, y muestra el resultado en **Status** (acciones realizadas o errores, con la ruta del
 log).
 
+**Punto de restauración (activado por defecto).** Antes de aplicar un perfil, la aplicación crea
+un punto de restauración de Windows del tipo «modificar configuración», de forma que puedas
+volver atrás desde el Restaurar sistema de Windows si algo no va bien. Ten en cuenta:
+
+- Windows solo permite crear un punto de restauración cada 24 horas. Si ya existe uno reciente,
+  la aplicación lo reutiliza y no crea otro (aparece una nota en **Status**).
+- Si la creación del punto falla (por ejemplo, porque Restaurar sistema está deshabilitado en tu
+  equipo), el perfil **no se aplica**: es una protección a favor de tu sistema.
+- Puedes desactivar este comportamiento con la casilla «Crear punto de restauración antes de
+  aplicar» del Dashboard.
+
 En la versión actual, las tarjetas de perfil del Dashboard aún no admiten selección con clic; los
 botones **Apply Selected** y **Revert** avisan con «No profile selected» hasta que esa
 interacción esté disponible.

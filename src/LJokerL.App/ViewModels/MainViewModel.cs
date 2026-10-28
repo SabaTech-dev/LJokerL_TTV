@@ -234,6 +234,22 @@ public sealed class MainViewModel : ObservableObject
         }
     }
 
+    private bool _createRestorePointBeforeApply = true;
+    public bool CreateRestorePointBeforeApply
+    {
+        get => _createRestorePointBeforeApply;
+        set
+        {
+            if (_createRestorePointBeforeApply == value)
+            {
+                return;
+            }
+            _createRestorePointBeforeApply = value;
+            OnPropertyChanged();
+            PersistRestorePointSetting();
+        }
+    }
+
     private double _cpuUsagePercent;
     public double CpuUsagePercent
     {
@@ -1093,6 +1109,31 @@ public sealed class MainViewModel : ObservableObject
             return;
         }
 
+        var restoreNote = string.Empty;
+        if (_settings.CreateRestorePointBeforeApply)
+        {
+            var restoreService = new SystemRestoreService();
+            var systemRestoreEnabled = restoreService.IsEnabled();
+            var lastPointUtc = systemRestoreEnabled ? restoreService.GetLastRestorePointUtc() : null;
+            var hasRecentPoint = lastPointUtc.HasValue &&
+                                 DateTime.UtcNow - lastPointUtc.Value < SystemRestoreGate.CreationCooldown;
+
+            var creationSucceeded = hasRecentPoint;
+            if (systemRestoreEnabled && !hasRecentPoint)
+            {
+                creationSucceeded = restoreService.TryCreate($"LJokerL_TTV {SelectedProfile.Name}", out _);
+            }
+
+            var gate = SystemRestoreGate.Decide(true, systemRestoreEnabled, lastPointUtc, DateTime.UtcNow, creationSucceeded);
+            if (gate.Decision == SystemRestoreDecision.SkipFailSafe)
+            {
+                LastActionStatus = gate.Message;
+                return;
+            }
+
+            restoreNote = gate.Message;
+        }
+
         var errors = new List<string>();
         var actionCount = 0;
         var contextId = CreateProfileContextId(SelectedProfile.Id);
@@ -1151,11 +1192,13 @@ public sealed class MainViewModel : ObservableObject
 
         if (errors.Count == 0)
         {
-            LastActionStatus = $"Perfil aplicado: {SelectedProfile.Name}. Acciones: {actionCount}. Log: {LogPath}";
+            LastActionStatus = $"Perfil aplicado: {SelectedProfile.Name}. Acciones: {actionCount}. Log: {LogPath}" +
+                               (restoreNote.Length > 0 ? $" {restoreNote}" : string.Empty);
         }
         else
         {
-            LastActionStatus = $"Perfil aplicado con errores ({errors.Count}). Ver log: {LogPath}";
+            LastActionStatus = $"Perfil aplicado con errores ({errors.Count}). Ver log: {LogPath}" +
+                               (restoreNote.Length > 0 ? $" {restoreNote}" : string.Empty);
         }
 
         RefreshLogs();
@@ -1446,8 +1489,10 @@ public sealed class MainViewModel : ObservableObject
         _monitorIntervalMs = intervalSeconds * 1000;
         _isMonitoringEnabled = _settings.MonitoringEnabled;
         _metricsLoggingEnabled = _settings.MetricsLoggingEnabled;
+        _createRestorePointBeforeApply = _settings.CreateRestorePointBeforeApply;
         OnPropertyChanged(nameof(IsMonitoringEnabled));
         OnPropertyChanged(nameof(MetricsLoggingEnabled));
+        OnPropertyChanged(nameof(CreateRestorePointBeforeApply));
         OnPropertyChanged(nameof(MonitoringToggleLabel));
         UpdateMonitoringState();
     }
@@ -1457,6 +1502,12 @@ public sealed class MainViewModel : ObservableObject
         _settings.MonitoringEnabled = _isMonitoringEnabled;
         _settings.MetricsLoggingEnabled = _metricsLoggingEnabled;
         _settings.MonitoringIntervalSeconds = Math.Max(1, _monitorIntervalMs / 1000);
+        _settingsService.Save(_settings);
+    }
+
+    private void PersistRestorePointSetting()
+    {
+        _settings.CreateRestorePointBeforeApply = _createRestorePointBeforeApply;
         _settingsService.Save(_settings);
     }
 
