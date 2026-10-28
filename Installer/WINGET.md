@@ -12,7 +12,7 @@ Guía para publicar LJokerL TTV Custom Config PRO en el catálogo oficial
    (manifiesto monolítico, `ManifestType: singleton`).
 3. Sustituye `<SHA256>` por el hash del paso 1 y ajusta la versión y la URL
    de la release si procede.
-4. Valida el YAML con [winget-validate](https://aka.ms/winget-validate)
+4. Valida el YAML con [winget-validate](https://learn.microsoft.com/windows/package-manager/winget/validate)
    (`winget-validate <archivo>.yaml`) o con el esquema JSON de la primera línea.
 5. Abre una PR hacia `microsoft/winget-pkgs`; su CI valida el manifiesto y un
    revisor lo aprueba.
@@ -24,13 +24,14 @@ Los switches silenciosos son de Inno Setup de serie; la clave
 modo. Copia, descomenta y sustituye los placeholders:
 
 ```yaml
-# yaml-language-server: $schema=https://aka.ms/winget-manifest.singleton.1.6.0.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/microsoft/winget-cli/main/schemas/JSON/manifests/v1.6.0/manifest.singleton.1.6.0.json
 PackageIdentifier: SabaTechDev.LJokerL_TTV
 PackageVersion: 13.0.1
+PackageLocale: es-ES
 PackageName: LJokerL TTV Custom Config PRO
 Publisher: SabaTechDev
 # License: MIT
-# LicenseUrl: https://github.com/SabaTech-dev/LJokerL_TTV/blob/develop/LICENSE
+# LicenseUrl: https://github.com/SabaTech-dev/LJokerL_TTV/blob/main/LICENSE.txt
 # ShortDescription: Centro de control de tweaks y perfiles para streaming de Twitch.
 # Tags:
 #   - twitch
