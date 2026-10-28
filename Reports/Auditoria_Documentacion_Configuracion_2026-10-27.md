@@ -93,11 +93,11 @@ Leyenda: [VIGENTE] fiel al estado actual · [PARCIAL] mezcla contenido vigente y
 | `CHANGELOG.md` | [PARCIAL] | Única entrada (13.0.0, 31-ene) pese a cambios hasta junio |
 | `USER_GUIDE.md` | [DESFASE] | Describe la v12.5 de consola (menú por tecla, auto-updater, perfiles inexistentes) |
 | `DEPENDENCIES.md` | [DESFASE] | Tres versiones internas (12.0/12.5/13.0); directorio `Legacy/` inexistente |
-| `Reports/Tweaks2_Functions_Mapping.md` | [OBSOLETO] | Mapea funciones de un script eliminado |
-| `Reports/Critical_Dependencies_Analysis.md` | [OBSOLETO] | Análisis de la era PowerShell |
-| `Reports/Duplication_Analysis_Report.md` | [OBSOLETO] | Duplicaciones de scripts ya eliminados |
-| `Reports/Refactoring_Detailed_Plan.md` | [OBSOLETO] | Plan de arquitectura .psm1 abandonada |
-| `Reports/Security_Audit_Initial.md` | [OBSOLETO] | Auditoría de scripts eliminados |
+| `Reports/archive/Tweaks2_Functions_Mapping.md` | [OBSOLETO] | Mapea funciones de un script eliminado |
+| `Reports/archive/Critical_Dependencies_Analysis.md` | [OBSOLETO] | Análisis de la era PowerShell |
+| `Reports/archive/Duplication_Analysis_Report.md` | [OBSOLETO] | Duplicaciones de scripts ya eliminados |
+| `Reports/archive/Refactoring_Detailed_Plan.md` | [OBSOLETO] | Plan de arquitectura .psm1 abandonada |
+| `Reports/archive/Security_Audit_Initial.md` | [OBSOLETO] | Auditoría de scripts eliminados |
 | `Output/LJokerL_TTV_Portable_v13.0/*.md` | [DESFASE] | Copias congeladas de los docs raíz dentro del portable |
 | `.unlighthouse/` | [AJENO] | Informes de webs ajenas |
 
@@ -139,7 +139,7 @@ Leyenda: [VIGENTE] fiel al estado actual · [PARCIAL] mezcla contenido vigente y
 | D-12 | USER_GUIDE.md:29-36; Config/selected_profile.txt | Perfiles documentados y perfil seleccionado inexistentes en `profiles.json` (10 ids distintos) | Crítica |
 | D-13 | README.md:198 vs 452 | Dos rutas de logs contradictorias dentro del mismo documento | Media |
 | D-14 | .github/agents/orquestador/memory.md, changelog.md | Referencias a `Scripts/Apply-Win11-SmoothVRR-RTX4080.ps1` y `Scripts/state/` inexistentes | Media |
-| D-15 | Reports/Tweaks2_Functions_Mapping.md y 3 informes más | Miles de referencias a scripts PowerShell eliminados | Media |
+| D-15 | Reports/archive/Tweaks2_Functions_Mapping.md y 3 informes más | Miles de referencias a scripts PowerShell eliminados | Media |
 | D-16 | .agent/workflows/deploy_release.md (paso 6) | Referencia a `Legacy` inexistente | Baja |
 | D-17 | USER_GUIDE.md:42, 65 | Describe la UI de consola (tecla [A]) de la era anterior, no la app WPF | Alta |
 | D-18 | copilot-instructions.md:19; ExecutionEngine.cs:547; HardwareDetector.cs:186 | `LJOKERL_POWERSHELL_PATH` se usa en código pero no existe documentación de dónde definirla ni `.env.example` | Media |
@@ -214,11 +214,11 @@ Leyenda: [VIGENTE] fiel al estado actual · [PARCIAL] mezcla contenido vigente y
 | Reports/Tweaks2_Validation_Status.md | ES | VIGENTE |
 | Reports/Tweak_Verification_Report_2026.md | ES | VIGENTE |
 | Reports/Tweaks2_Functions_Inventory.md | ES | HISTÓRICO |
-| Reports/Tweaks2_Functions_Mapping.md | ES | OBSOLETO |
-| Reports/Critical_Dependencies_Analysis.md | ES | OBSOLETO |
-| Reports/Duplication_Analysis_Report.md | ES | OBSOLETO |
-| Reports/Refactoring_Detailed_Plan.md | ES | OBSOLETO |
-| Reports/Security_Audit_Initial.md | ES | OBSOLETO |
+| Reports/archive/Tweaks2_Functions_Mapping.md | ES | OBSOLETO |
+| Reports/archive/Critical_Dependencies_Analysis.md | ES | OBSOLETO |
+| Reports/archive/Duplication_Analysis_Report.md | ES | OBSOLETO |
+| Reports/archive/Refactoring_Detailed_Plan.md | ES | OBSOLETO |
+| Reports/archive/Security_Audit_Initial.md | ES | OBSOLETO |
 | Output/LJokerL_TTV_Portable_v13.0/*.md | ES/EN | DESFASE (copias congeladas) |
 | ComprobarPosiblesNuevosTweaks/tweaks1.md, tweaks2.md | ES | Material fuente |
 | Resources/SCEHUB-1.2.0/README.md | EN | Terceros |

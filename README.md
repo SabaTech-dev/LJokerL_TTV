@@ -184,8 +184,13 @@ Configuración, Profiler, AutoConfig y BenchmarkSystem). El motor de ejecución
 (`.github/workflows/ci.yml`) ejecuta build en Release y la suite de tests en
 cada push a main/develop y en cada pull request hacia esas ramas.
 
+Variables de entorno opcionales: ver `.env.example`.
+
 Para contribuir: crea una rama de funcionalidad, realiza commits claros y
 abre una pull request con descripción detallada.
+
+- Guía de contribución: [CONTRIBUTING.md](CONTRIBUTING.md).
+- Reporte de vulnerabilidades y política de seguridad: [SECURITY.md](SECURITY.md).
 
 ### Política de documentación
 
