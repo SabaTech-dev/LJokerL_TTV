@@ -250,6 +250,22 @@ public sealed class MainViewModel : ObservableObject
         }
     }
 
+    private bool _enableGameWatcher;
+    public bool EnableGameWatcher
+    {
+        get => _enableGameWatcher;
+        set
+        {
+            if (_enableGameWatcher == value)
+            {
+                return;
+            }
+            _enableGameWatcher = value;
+            OnPropertyChanged();
+            PersistGameWatcherSetting();
+        }
+    }
+
     private double _cpuUsagePercent;
     public double CpuUsagePercent
     {
@@ -768,6 +784,9 @@ public sealed class MainViewModel : ObservableObject
     public ICommand PrevLogPageCommand => _prevLogPageCommand;
 
     private readonly Dictionary<string, string> _lastProfileRunIds = new(StringComparer.OrdinalIgnoreCase);
+    private readonly GameWatcherService? _gameWatcherService;
+    private string? _lastAppliedProfileId;
+    private bool _watcherAdminNoticeLogged;
     private bool _suppressOverrideUpdates;
 
     public MainViewModel()
@@ -818,9 +837,66 @@ public sealed class MainViewModel : ObservableObject
         InitializeOsOverrides();
         InitializeLogFilters();
         InitializeMonitoring();
+        _gameWatcherService = CreateGameWatcherService();
+        if (_settings.EnableGameWatcher)
+        {
+            _gameWatcherService.Start();
+        }
         RefreshBenchmarkRuns();
         RefreshLogs();
         LoadConfigAsync();
+    }
+
+    public void StopGameWatcher()
+    {
+        _gameWatcherService?.Dispose();
+    }
+
+    private GameWatcherService CreateGameWatcherService()
+    {
+        return new GameWatcherService(
+            () => _settings.EnableGameWatcher,
+            () => _bundle?.GameWatcher,
+            () => _lastAppliedProfileId,
+            HandleGameWatcherDecision);
+    }
+
+    private void HandleGameWatcherDecision(GameWatcherDecision decision)
+    {
+        if (decision.Action != GameWatcherAction.Apply || string.IsNullOrWhiteSpace(decision.ProfileId))
+        {
+            return;
+        }
+
+        if (!IsAdministrator())
+        {
+            if (_watcherAdminNoticeLogged)
+            {
+                return;
+            }
+
+            _watcherAdminNoticeLogged = true;
+            _uiContext.Post(_ =>
+            {
+                LastActionStatus = "Watcher de juegos: juego detectado, pero se requiere permiso de administrador para aplicar el perfil.";
+            }, null);
+            return;
+        }
+
+        _uiContext.Post(_ =>
+        {
+            var profileId = decision.ProfileId;
+            var match = Profiles.FirstOrDefault(p => string.Equals(p.Id, profileId, StringComparison.OrdinalIgnoreCase));
+            if (match == null)
+            {
+                LastActionStatus = $"Watcher de juegos: el perfil '{profileId}' no existe en profiles.json.";
+                return;
+            }
+
+            SelectedProfile = match;
+            ApplySelectedProfile();
+            LastActionStatus = $"Watcher de juegos: {decision.Reason}.";
+        }, null);
     }
 
     private async void LoadConfigAsync()
@@ -1224,6 +1300,7 @@ public sealed class MainViewModel : ObservableObject
 
         if (errors.Count == 0)
         {
+            _lastAppliedProfileId = SelectedProfile.Id;
             LastActionStatus = $"{osWarning}Perfil aplicado: {SelectedProfile.Name}. Acciones: {actionCount}. Log: {LogPath}" +
                                (restoreNote.Length > 0 ? $" {restoreNote}" : string.Empty);
         }
@@ -1571,9 +1648,11 @@ public sealed class MainViewModel : ObservableObject
         _isMonitoringEnabled = _settings.MonitoringEnabled;
         _metricsLoggingEnabled = _settings.MetricsLoggingEnabled;
         _createRestorePointBeforeApply = _settings.CreateRestorePointBeforeApply;
+        _enableGameWatcher = _settings.EnableGameWatcher;
         OnPropertyChanged(nameof(IsMonitoringEnabled));
         OnPropertyChanged(nameof(MetricsLoggingEnabled));
         OnPropertyChanged(nameof(CreateRestorePointBeforeApply));
+        OnPropertyChanged(nameof(EnableGameWatcher));
         OnPropertyChanged(nameof(MonitoringToggleLabel));
         UpdateMonitoringState();
     }
@@ -1590,6 +1669,21 @@ public sealed class MainViewModel : ObservableObject
     {
         _settings.CreateRestorePointBeforeApply = _createRestorePointBeforeApply;
         _settingsService.Save(_settings);
+    }
+
+    private void PersistGameWatcherSetting()
+    {
+        _settings.EnableGameWatcher = _enableGameWatcher;
+        _settingsService.Save(_settings);
+        if (_enableGameWatcher)
+        {
+            _watcherAdminNoticeLogged = false;
+            _gameWatcherService?.Start();
+        }
+        else
+        {
+            _gameWatcherService?.Stop();
+        }
     }
 
     private void UpdateMonitoringState()

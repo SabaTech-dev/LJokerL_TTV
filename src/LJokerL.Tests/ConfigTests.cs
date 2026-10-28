@@ -87,6 +87,51 @@ public class ConfigTests
     }
 
     [Fact]
+    public void Game_watcher_catalog_is_valid_and_profiles_resolve()
+    {
+        var watcherPath = TestHelpers.FindConfigPath("game_watcher.json");
+        Assert.True(File.Exists(watcherPath), $"game_watcher.json was not found at '{watcherPath}'.");
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            ReadCommentHandling = JsonCommentHandling.Skip
+        };
+        var catalog = JsonSerializer.Deserialize<GameWatcherCatalog>(File.ReadAllText(watcherPath), options);
+        Assert.NotNull(catalog);
+
+        using var watcherDocument = JsonDocument.Parse(File.ReadAllText(watcherPath));
+        var rawMappings = watcherDocument.RootElement.TryGetProperty("mappings", out var mappingsElement)
+            && mappingsElement.ValueKind == JsonValueKind.Array
+                ? mappingsElement.EnumerateArray().ToList()
+                : new List<JsonElement>();
+
+        Assert.Equal(rawMappings.Count, catalog!.Mappings.Count);
+
+        var profilesPath = TestHelpers.FindConfigPath("profiles.json");
+        var profileIds = TestHelpers.LoadCatalogIds(profilesPath, "profiles");
+
+        for (var index = 0; index < catalog.Mappings.Count; index++)
+        {
+            var mapping = catalog.Mappings[index];
+            Assert.False(string.IsNullOrWhiteSpace(mapping.ProcessName),
+                $"Mapping at index {index} has an empty processName.");
+            Assert.False(string.IsNullOrWhiteSpace(mapping.ProfileId),
+                $"Mapping '{mapping.ProcessName}' has an empty profileId.");
+
+            var omitted = !rawMappings[index].TryGetProperty("enabled", out _);
+            if (omitted)
+            {
+                Assert.True(mapping.Enabled,
+                    $"Mapping '{mapping.ProcessName}' omits 'enabled' but did not default to true.");
+            }
+
+            Assert.True(profileIds.Contains(mapping.ProfileId),
+                $"Mapping '{mapping.ProcessName}' references profile '{mapping.ProfileId}' which does not exist in profiles.json.");
+        }
+    }
+
+    [Fact]
     public void Affects_labels_only_on_matching_tweaks()
     {
         var path = TestHelpers.FindConfigPath("tweaks.json");

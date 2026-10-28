@@ -67,6 +67,14 @@ public sealed class ConfigLoader
             errors.Add(ruleError);
         }
 
+        var gameWatcher = TryLoad(Path.Combine(configRoot, "game_watcher.json"), out GameWatcherCatalog? gameWatcherCatalog, out var gameWatcherError)
+            ? gameWatcherCatalog
+            : new GameWatcherCatalog();
+        if (gameWatcherError != null)
+        {
+            errors.Add(gameWatcherError);
+        }
+
         return new ConfigBundle
         {
             Tweaks = tweaks,
@@ -74,6 +82,7 @@ public sealed class ConfigLoader
             Services = services,
             Apps = apps,
             HardwareRules = hardwareRules,
+            GameWatcher = gameWatcher,
             Errors = errors
         };
     }
@@ -116,5 +125,6 @@ public sealed class ConfigBundle
     public ServiceCatalog? Services { get; set; }
     public AppCatalog? Apps { get; set; }
     public HardwareRuleCatalog? HardwareRules { get; set; }
+    public GameWatcherCatalog? GameWatcher { get; set; }
     public List<string> Errors { get; set; } = new();
 }
