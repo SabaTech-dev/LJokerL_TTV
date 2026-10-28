@@ -13,6 +13,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - Resources/MANIFEST.md: manifiesto SHA-256 de las herramientas externas no versionadas (P2-3).
 
 ### Cambios
+- TODO.md actualizado con el estado de cierre del plan (28/10/2026).
 - Skills de dominio unicas migradas a .github/skills (gaming-optimizer, registry-security, forum-trends) (P1-6, jueces).
 - Infraestructura de agentes IA consolidada en .github/; .agent/ y .opencode/ eliminados (P1-6).
 - CreatePortable copia la documentacion vigente desde la raiz al empaquetar (P2-4).
