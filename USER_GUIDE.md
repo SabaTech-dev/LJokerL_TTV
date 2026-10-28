@@ -10,6 +10,12 @@ cada cambio realizado.
 ## Requisitos
 
 - Windows 10 compilación 19041 o superior (versión 2004), o Windows 11, 64 bits.
+  En Windows 11 (build 22000 o superior) la aplicación está totalmente soportada. En
+  Windows 10 (build 19041–21999) puede aplicar perfiles, pero al hacerlo verá el aviso
+  «AVISO: build de Windows 10 sin validación oficial; el resultado no está garantizado»:
+  la combinación no ha sido validada oficialmente, úsela bajo su responsabilidad. En builds
+  anteriores a 19041 la aplicación de perfiles está bloqueada con el mensaje
+  «Build de Windows no soportada».
 - [.NET 9 Desktop Runtime (x64)](https://dotnet.microsoft.com/download/dotnet/9.0).
 - Permisos de **administrador** para aplicar o revertir cambios del sistema. Sin ellos puede abrir
   la aplicación, ver la detección de hardware, monitorizar y ejecutar benchmarks, pero los botones

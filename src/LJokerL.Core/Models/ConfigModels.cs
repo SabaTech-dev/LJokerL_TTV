@@ -15,6 +15,8 @@ public sealed class TweakDefinition
     public string Category { get; set; } = "";
     public string Risk { get; set; } = "";
     public bool RequiresReboot { get; set; }
+    public bool? AffectsDefender { get; set; }
+    public bool? AffectsUpdate { get; set; }
     public string Description { get; set; } = "";
     public ConditionsDefinition? Conditions { get; set; }
     public List<ActionDefinition> Actions { get; set; } = new();

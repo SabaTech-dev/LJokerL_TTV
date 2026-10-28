@@ -11,6 +11,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - Modo dry-run: vista previa del plan de acciones por perfil sin aplicar nada (M1).
 - Punto de restauración del sistema antes de aplicar (configurable, fail-safe: no aplica si falla su creación) (M1).
 - ROADMAP: backlog de mejoras competitivas derivado de deep research de 12+ herramientas (M1-M4).
+- Chequeo de build de Windows antes de aplicar (Win11 soportado; Win10 19041+ con aviso de no validado) y etiquetas del catálogo "afecta a Defender/Windows Update" (M1).
 - CI publica SBOM CycloneDX con attestation de procedencia en cada ejecución (M1).
 
 ### Corregido
