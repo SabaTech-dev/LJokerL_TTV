@@ -1,6 +1,6 @@
 # Dependencias — LJokerL_TTV Custom Config PRO
 
-- **Versión del documento**: 13.0.0 (alineada con `src/LJokerL.App/LJokerL.App.csproj` y `CHANGELOG.md`).
+- **Versión del documento**: 13.0.1 (alineada con `src/LJokerL.App/LJokerL.App.csproj` y `CHANGELOG.md`).
 - **Plataforma**: aplicación WPF (.NET 9) para Windows.
 
 ## 1. Dependencias en tiempo de ejecución

@@ -12,7 +12,7 @@
 [CmdletBinding()]
 param(
     [string]$Configuration = "Release",
-    [string]$Version = "13.0"
+    [string]$Version = "13.0.1"
 )
 
 $ErrorActionPreference = "Stop"
@@ -72,7 +72,7 @@ if (-not (Test-Path $InnoScript)) {
 # Create temporary modified script with version
 $TempScript = Join-Path $env:TEMP "LJokerL_TTV_Installer_temp.iss"
 $ScriptContent = Get-Content $InnoScript -Raw
-$ScriptContent = $ScriptContent -replace '#define AppVersion "13.0"', "#define AppVersion `"$Version`""
+$ScriptContent = $ScriptContent -replace '#define AppVersion "13.0.1"', "#define AppVersion `"$Version`""
 $ScriptContent | Out-File -FilePath $TempScript -Encoding UTF8
 
 try {

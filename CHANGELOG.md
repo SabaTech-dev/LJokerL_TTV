@@ -7,6 +7,8 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+## [13.0.1] - 2026-10-28
+
 ### Anadido
 - SECURITY.md y CONTRIBUTING.md: políticas de seguridad y contribución (P1-2).
 - .env.example con las variables de entorno opcionales documentadas (P1-8).
@@ -92,5 +94,6 @@ Build en Release con 0 errores y 0 advertencias.
   problemas de compatibilidad no criticos. La aplicacion principal es
   plenamente funcional.
 
+[13.0.1]: https://github.com/SabaTech-dev/LJokerL_TTV/compare/v13.0.0...v13.0.1
 [13.0.0]: https://github.com/SabaTech-dev/LJokerL_TTV/releases/tag/v13.0.0
 [Unreleased]: https://github.com/SabaTech-dev/LJokerL_TTV/compare/main...develop

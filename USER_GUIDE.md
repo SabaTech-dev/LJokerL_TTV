@@ -1,7 +1,7 @@
-# Guía de usuario — LJokerL_TTV Custom Config PRO v13.0
+# Guía de usuario — LJokerL_TTV Custom Config PRO v13.0.1
 
 Bienvenido a **LJokerL Control Center**, la aplicación de escritorio (WPF) de la suite LJokerL_TTV
-Custom Config PRO. Esta guía describe la versión **13.0** tal y como funciona hoy: detección de
+Custom Config PRO. Esta guía describe la versión **13.0.1** tal y como funciona hoy: detección de
 hardware, perfiles de optimización, monitorización en vivo y benchmarks, con registro completo de
 cada cambio realizado.
 
@@ -21,12 +21,12 @@ cada cambio realizado.
 
 ## Instalación
 
-**Opción A — Instalador (recomendado).** Ejecute `LJokerL_TTV_Installer_v13.0.exe` (generado con
+**Opción A — Instalador (recomendado).** Ejecute `LJokerL_TTV_Installer_v13.0.1.exe` (generado con
 Inno Setup 6). El asistente instala la aplicación en `C:\Program Files\LJokerL_TTV`, crea accesos
 directos en el menú Inicio y, si lo desea, en el escritorio, y ofrece abrir la aplicación al
 terminar.
 
-**Opción B — Versión portable.** Descomprima el ZIP portable (`LJokerL_TTV_Portable_v13.0.zip`) en
+**Opción B — Versión portable.** Descomprima el ZIP portable (`LJokerL_TTV_Portable_v13.0.1.zip`) en
 cualquier carpeta y ejecute `LJokerL.App.exe`. La aplicación no escribe en el registro de Windows
 salvo cuando usted aplica o revierte ajustes; para moverla, copie la carpeta completa (incluye
 `Config`).
@@ -144,7 +144,7 @@ La reversión tiene capacidades distintas según la vía:
   perfil desde la propia aplicación (se apoya en su log de ejecución) y permisos de administrador.
 - **Reversión por catálogo (motor, sin UI)**: los tweaks definen su acción de reversión en
   `Config/tweaks.json`; la reversión de servicios y aplicaciones la calcula el motor
-  (re-habilitar servicio / re-registrar la aplicación). En la versión 13.0 esta reversión
+  (re-habilitar servicio / re-registrar la aplicación). En la versión 13.0.1 esta reversión
   **no está expuesta en la interfaz**: no existe ningún botón que la ejecute. Es una capacidad
   del motor aún no accesible desde la aplicación.
 
