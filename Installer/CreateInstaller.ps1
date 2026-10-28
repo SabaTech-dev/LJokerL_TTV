@@ -5,7 +5,7 @@
 .DESCRIPTION
     Builds the application and creates an installer using Inno Setup
 .NOTES
-    Version: 13.0
+    Version: 13.0.1
     Requires: Inno Setup 6.x (iscc.exe)
 #>
 

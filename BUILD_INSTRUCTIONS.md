@@ -1,4 +1,4 @@
-# LJokerL_TTV Custom Config PRO v13.0 - Build Scripts
+# LJokerL_TTV Custom Config PRO v13.0.1 - Build Scripts
 
 ## Build Instructions
 
@@ -32,9 +32,9 @@ Installer/CreateInstaller.ps1
 
 ## Output Structure
 
-### Portable Version (`Output/LJokerL_TTV_Portable_v13.0/`)
+### Portable Version (`Output/LJokerL_TTV_Portable_v13.0.1/`)
 ```
-LJokerL_TTV_Portable_v13.0/
+LJokerL_TTV_Portable_v13.0.1/
 ├── LJokerL.App.exe          # Main application
 ├── LJokerL.Core.dll         # Core library
 ├── Config/                  # Configuration files
@@ -77,7 +77,7 @@ Same structure as portable, but installed in Program Files with:
 
 ## Version History
 
-### v13.0 (Current)
+### v13.0.1 (Current)
 - Migrated to WPF native UI (no more PowerShell/Web)
 - Added real-time monitoring dashboard
 - Added benchmark comparison system

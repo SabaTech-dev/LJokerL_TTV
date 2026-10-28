@@ -5,7 +5,7 @@
 .DESCRIPTION
     Packages the published application into a portable ZIP file
 .NOTES
-    Version: 13.0
+    Version: 13.0.1
     Date: 2026-01-31
 #>
 
