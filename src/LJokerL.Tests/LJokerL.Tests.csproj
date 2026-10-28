@@ -13,11 +13,7 @@
     <AnalysisLevel>latest</AnalysisLevel>
     <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    
-    <!-- Metadata -->
-    <AssemblyVersion>13.0.0.0</AssemblyVersion>
-    <FileVersion>13.0.0.0</FileVersion>
-    <Version>13.0.0</Version>
+
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
