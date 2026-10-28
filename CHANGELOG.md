@@ -14,6 +14,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Cambios
 - LJokerL.Core sin UseWindowsForms y sin Class1.cs (P2-2).
+- .editorconfig, global.json y version centralizada en Directory.Build.props (P2-1).
 - env example: nota de uso real y valores de VRR (P1-8, jueces).
 - TODO.md actualizado con el estado de ejecución del plan (completadas, bloqueadas y desbloqueo).
 - Política de documentación fijada: español de España, raíz del repo (P2-6).
