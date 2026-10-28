@@ -56,6 +56,9 @@ exponer el detalle público. No incluyas detalles explotables en texto público
   medir latencia; no transmite información del usuario.
 - **Logs locales JSONL**: `Logs\execution.jsonl` y `Logs\metrics.jsonl` se
   escriben únicamente en el directorio de instalación de la aplicación.
+- **SBOM en CI**: cada ejecución de CI publica una SBOM CycloneDX como artefacto
+  y la firma con attestations de build (procedencia verificable con
+  `gh attestation verify`).
 
 ## Aviso
 
