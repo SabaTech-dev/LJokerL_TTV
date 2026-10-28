@@ -19,11 +19,12 @@ AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
 DefaultDirName={autopf}\LJokerL_TTV
 DisableProgramGroupPage=yes
-LicenseFile=LICENSE.txt
-InfoBeforeFile=README.md
-OutputDir=..\..\Output
+LicenseFile=..\LICENSE.txt
+InfoBeforeFile=..\README.md
+OutputDir=..\Output
 OutputBaseFilename=LJokerL_TTV_Installer_v{#AppVersion}
-SetupIconFile=..\..\Resources\icon.ico
+; icono no versionado; descomentar y aportar icon.ico para usarlo
+; SetupIconFile=..\Resources\icon.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -39,12 +40,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1; Check: not IsAdminInstallMode
 
 [Files]
-Source: "..\..\src\LJokerL.App\bin\Release\net9.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "..\..\Config\*"; DestDir: "{app}\Config"; Flags: ignoreversion recursesubdirs
-Source: "..\..\Resources\*"; DestDir: "{app}\Resources"; Flags: ignoreversion recursesubdirs
-Source: "..\..\README.md"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\USER_GUIDE.md"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion; Check: FileExists
+Source: "..\src\LJokerL.App\bin\Release\net9.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\Config\*"; DestDir: "{app}\Config"; Flags: ignoreversion recursesubdirs
+Source: "..\Resources\*"; DestDir: "{app}\Resources"; Flags: ignoreversion recursesubdirs
+Source: "..\README.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\USER_GUIDE.md"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\LICENSE.txt"; DestDir: "{app}"; Flags: ignoreversion; Check: FileExists
 
 [Icons]
 Name: "{autoprograms}\{#AppName}"; Filename: "{app}\{#AppExeName}"
