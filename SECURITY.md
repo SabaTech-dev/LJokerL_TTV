@@ -19,13 +19,11 @@ Sistemas afectados: Windows 11 y Windows 10 (build 19041 o superior).
 
 ## Cómo reportar una vulnerabilidad
 
-**Canal preferido**: el informe privado de vulnerabilidades de GitHub de este
+**Canal único**: el informe privado de vulnerabilidades de GitHub de este
 repositorio (`SabaTech-dev/LJokerL_TTV`), disponible en la pestaña
 *Security* → *Report a vulnerability*. Permite una conversación privada sin
-exponer el detalle público.
-
-**Alternativa**: abre un issue marcándolo como confidencial y con la etiqueta
-de seguridad, evitando incluir detalles explotables en el texto público.
+exponer el detalle público. No incluyas detalles explotables en texto público
+(issues, discusiones o comentarios).
 
 **Plazos objetivo de respuesta**:
 
@@ -52,8 +50,10 @@ de seguridad, evitando incluir detalles explotables en el texto público.
   previos se registran en el log de ejecución.
 - **Rollback limitado al registro**: la reversión reconstruye el estado previo
   desde ese snapshot; no toca nada fuera del ámbito aplicado.
-- **Sin telemetría**: ningún dato sale de la máquina; la aplicación no realiza
-  conexiones de red.
+- **Sin telemetría**: la aplicación no envía datos a ningún servicio. Única
+  excepción: la prueba de red del benchmark completo envía pings ICMP (por
+  defecto a 8.8.8.8, 1.1.1.1 y 208.67.222.222; objetivos configurables) para
+  medir latencia; no transmite información del usuario.
 - **Logs locales JSONL**: `Logs\execution.jsonl` y `Logs\metrics.jsonl` se
   escriben únicamente en el directorio de instalación de la aplicación.
 
