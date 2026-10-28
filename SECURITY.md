@@ -69,6 +69,15 @@ exponer el detalle público. No incluyas detalles explotables en texto público
   si la creación falla, el perfil no se aplica (fail-safe); si ya existe un
   punto con menos de 24 h, se reutiliza (límite de Windows, un punto por
   24 h). Configurable en el Dashboard.
+- **Watcher de juegos** (M2, opt-in, desactivado por defecto): si el usuario lo
+  activa en el Dashboard, la aplicación aplica automáticamente el perfil
+  mapeado en `Config/game_watcher.json` al detectar el proceso del juego. Es
+  la única función que aplica cambios sin un clic explícito por perfil, por lo
+  que pasa por exactamente los mismos gates que la aplicación manual
+  (permisos de administrador, build de Windows soportada y punto de
+  restauración previo). Sin administrador no aplica nada y lo indica una sola
+  vez; el catálogo de fábrica no contiene ninguna entrada activa; y el sondeo
+  solo funciona con la app abierta.
 - **Vista previa (dry-run) antes de aplicar** (M1): el plan de acciones del perfil se deriva
   de los catálogos por una función pura (`DryRunPlanner`) y se muestra al usuario sin ejecutar
   nada. Es la primera defensa de la cadena: permite revisar exactamente qué se tocaría

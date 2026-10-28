@@ -25,6 +25,10 @@ El estado actual del proyecto es la versión **13.0.1**. Consulta
 - **Punto de restauración del sistema antes de aplicar** (configurable, fail-safe: no aplica si falla su creación).
 - **Modo dry-run**: vista previa del plan de acciones por perfil (registro, servicios y apps,
   con riesgo y reversibilidad) sin aplicar nada ni requerir administrador.
+- **Watcher de juegos (opt-in)**: si se activa en el Dashboard, sondea los procesos cada 5 s y
+  aplica automáticamente el perfil mapeado en `Config/game_watcher.json` al detectar el proceso
+  de un juego, pasando por los mismos gates de seguridad que una aplicación manual
+  (administrador, build de Windows y punto de restauración).
 - **Rollback** por perfil (desde el log JSONL) o por catálogo (tweaks,
   servicios y apps con acción de reversión propia).
 - **Detección de hardware** (CPU, GPU, RAM, display) con 14 reglas contextuales,

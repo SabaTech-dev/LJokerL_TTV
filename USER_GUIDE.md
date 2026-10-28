@@ -122,6 +122,37 @@ interacción esté disponible.
   **Comparar** para ver el resumen de diferencias y **Reporte Profesional** para generar un
   informe HTML en `Benchmarks/Reports`, que se abre automáticamente en su navegador.
 
+### 4. Watcher de juegos (opt-in)
+
+El watcher de juegos aplica automáticamente un perfil cuando detecta que se está ejecutando un
+juego. Está **desactivado por defecto**; usted decide activarlo:
+
+1. Edite `Config/game_watcher.json` junto al ejecutable y mapee el proceso del juego al perfil
+   deseado, con `"enabled": true`. Ejemplo:
+
+   ```json
+   {
+     "version": "2026.10",
+     "mappings": [
+       { "processName": "cyberpunk2077", "profileId": "gaming_pro", "enabled": true }
+     ]
+   }
+   ```
+
+   - `processName`: nombre del proceso **sin `.exe`** (no distingue mayúsculas).
+   - `profileId`: `id` de un perfil de `Config/profiles.json`.
+   - `enabled`: la entrada solo se considera con `true`. El catálogo de fábrica trae dos
+     entradas de ejemplo desactivadas.
+   - Si varios procesos vigilados coinciden a la vez, se aplica el **primero del catálogo** y se
+     anota el conflicto en el estado.
+
+2. Marque la casilla **«Watcher de juegos»** en el Dashboard. La app sondea los procesos cada
+   5 segundos mientras esté abierta; el resultado de cada decisión aparece en **Status**.
+
+Cada aplicación automática pasa por los mismos gates que un clic manual: permisos de
+administrador, build de Windows soportada y punto de restauración previo. Sin administrador no
+aplica nada y lo indica una sola vez. El watcher no revierte perfiles al cerrar el juego.
+
 ## Perfiles disponibles
 
 Estos son los diez perfiles incluidos en `Config/profiles.json`:

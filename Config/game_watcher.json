@@ -1,0 +1,15 @@
+{
+  "version": "2026.10",
+  "mappings": [
+    {
+      "processName": "cyberpunk2077",
+      "profileId": "gaming_pro",
+      "enabled": false
+    },
+    {
+      "processName": "notepad",
+      "profileId": "balanced",
+      "enabled": false
+    }
+  ]
+}

@@ -53,8 +53,12 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
   componente, progreso, deltas y comparaciones).
 - `AutoConfigModels.cs`: motor de autoconfiguración (`AutoConfigResult`,
   `AutoConfigRecommendation`, `AutoConfigRule`, `RuleCondition`, `RuleAction`...).
+- `GameWatcherModels.cs`: watcher de juegos (`GameWatcherMapping` con proceso, perfil y
+  habilitación; `GameWatcherCatalog` con versión y lista de mapeos del catálogo
+  `Config/game_watcher.json`).
 - `UserSettings.cs`: preferencias de usuario: overrides de hardware, opciones de
-  monitorización (habilitación e intervalo) y modo oscuro. La configuración de benchmark
+  monitorización (habilitación e intervalo), watcher de juegos (`EnableGameWatcher`,
+  desactivado por defecto) y modo oscuro. La configuración de benchmark
   (`BenchmarkRunOptions`) no se persiste en ajustes.
 
 ### Services (`src/LJokerL.Core/Services`, 20 ficheros)
@@ -71,6 +75,19 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
   ni ningún recurso del sistema. `MainViewModel` lo invoca desde el botón «Vista previa
   (dry-run)» y presenta el plan en pantalla; el flujo real de aplicación no cambia. Cubierto por
   `DryRunPlannerTests` contra los catálogos reales de `Config/`.
+- **`GameWatcherPlanner`**: planificador puro del watcher de juegos (M2). `Decide` recibe los
+  procesos en ejecución, el catálogo `GameWatcherCatalog` y el perfil aplicado actualmente, y
+  devuelve una `GameWatcherDecision` (`None`/`Apply` con perfil y motivo) sin tocar el sistema:
+  solo considera mapeos habilitados (nombre de proceso sin `.exe`, insensible a mayúsculas), elige
+  el primero del catálogo en caso de conflicto (con nota) y no reaplica el perfil ya activo.
+  Cubierto por `GameWatcherPlannerTests`.
+- **`GameWatcherService`**: servicio de sondeo del watcher de juegos (M2). Expone
+  `IsEnabled()` (lee el setting opt-in) y `SnapshotRunningGameNames()` (nombres de proceso en
+  minúsculas, sin `.exe` y distintos), y mantiene un `Timer` de 5 s que solo sondea con el
+  setting activo y la app abierta. Ante una decisión `Apply` notifica al `MainViewModel`, que
+  ordena la aplicación en el hilo de UI reutilizando el mismo camino seguro
+  (`ApplySelectedProfile` con sus gates); sin administrador no aplica y registra el motivo una
+  sola vez.
 - **`HardwareDetector`**: instantánea rápida de CPU, GPU, RAM, SO y monitor al arranque,
   con override opcional de VRR.
 - **`GpuDetector`** / **`StorageDetector`** / **`SoftwareDetector`** / **`MonitorDetector`**:

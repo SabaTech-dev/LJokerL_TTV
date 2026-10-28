@@ -284,6 +284,7 @@
                             <Button Content="{Binding MonitoringToggleLabel}" Style="{StaticResource GamingButton}" Command="{Binding ToggleMonitoringCommand}" Margin="0,0,12,0"/>
                             <CheckBox Content="Log metrics" IsChecked="{Binding MetricsLoggingEnabled}" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center"/>
                             <CheckBox Content="Crear punto de restauración antes de aplicar" IsChecked="{Binding CreateRestorePointBeforeApply}" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" Margin="24,0,0,0"/>
+                            <CheckBox Content="Watcher de juegos (aplica el perfil mapeado al detectar el proceso)" IsChecked="{Binding EnableGameWatcher}" Foreground="{StaticResource TextPrimaryBrush}" VerticalAlignment="Center" Margin="24,0,0,0" ToolTip="Opt-in: sondea procesos cada 5 s y aplica el perfil de game_watcher.json pasando por los mismos gates (admin, build de Windows, punto de restauración)."/>
                         </StackPanel>
                     </Grid>
                 </Border>

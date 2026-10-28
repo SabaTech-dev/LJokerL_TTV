@@ -17,5 +17,6 @@ public sealed class UserSettings
     public bool MetricsLoggingEnabled { get; set; }
     public int MonitoringIntervalSeconds { get; set; } = 2;
     public bool CreateRestorePointBeforeApply { get; set; } = true;
+    public bool EnableGameWatcher { get; set; }
     public bool DarkMode { get; set; }
 }
