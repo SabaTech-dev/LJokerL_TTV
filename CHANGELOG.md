@@ -13,6 +13,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - Resources/MANIFEST.md: manifiesto SHA-256 de las herramientas externas no versionadas (P2-3).
 
 ### Cambios
+- Suite de pruebas migrada a xUnit (dotnet test) e integrada en CI (P2-5).
 - LJokerL.Core sin UseWindowsForms y sin Class1.cs (P2-2).
 - .editorconfig, global.json y version centralizada en Directory.Build.props (P2-1).
 - env example: nota de uso real y valores de VRR (P1-8, jueces).
