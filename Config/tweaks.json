@@ -1513,6 +1513,7 @@
       "category": "system",
       "risk": "advanced",
       "requiresReboot": false,
+      "affectsUpdate": true,
       "description": "Enable updates for other Microsoft products via Windows Update.",
       "actions": [
         {
@@ -1630,6 +1631,7 @@
       "category": "system",
       "risk": "experimental",
       "requiresReboot": false,
+      "affectsUpdate": true,
       "description": "Disable Windows Update restart notifications.",
       "actions": [
         {
@@ -1656,7 +1658,8 @@
       "category": "system",
       "risk": "advanced",
       "requiresReboot": false,
-      "description": "Prevent auto reboot when users are logged in.",
+      "affectsUpdate": true,
+      "description": "Prevent Windows Update from auto rebooting when users are logged in.",
       "actions": [
         {
           "type": "registry",

@@ -9,6 +9,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Anadido
 - ROADMAP: backlog de mejoras competitivas derivado de deep research de 12+ herramientas (M1-M4).
+- Chequeo de build de Windows antes de aplicar (Win11 soportado; Win10 19041+ con aviso de no validado) y etiquetas del catálogo "afecta a Defender/Windows Update" (M1).
 
 ### Corregido
 - Deuda técnica liquidada: instalador compila el .iss in situ (sin copia en TEMP), nuget.config reproducible, docs alineadas (selected_profile, suite xUnit) y URLs del repositorio actualizadas; rutas relativas del .iss corregidas (..\ en lugar de ..\..).

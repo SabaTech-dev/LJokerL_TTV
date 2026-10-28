@@ -57,7 +57,7 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
   monitorización (habilitación e intervalo) y modo oscuro. La configuración de benchmark
   (`BenchmarkRunOptions`) no se persiste en ajustes.
 
-### Services (`src/LJokerL.Core/Services`, 17 ficheros)
+### Services (`src/LJokerL.Core/Services`, 18 ficheros)
 
 - **`ConfigLoader`**: carga los catálogos de `Config/*.json` en un `ConfigBundle` único
   (tweaks, servicios, apps, perfiles y reglas de hardware).
@@ -90,6 +90,12 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
 - **`ExecutionLogger`** (dentro de `ExecutionEngine.cs`): registro JSONL de cada acción en
   `Logs/execution.jsonl`, con valor previo, resultado y error.
 - **`UserSettingsService`**: carga y guarda `UserSettings` como JSON.
+- **`OsVersionCheck`**: clase estática que decide la compatibilidad de la build de Windows
+  antes de aplicar un perfil. `CurrentBuild()` lee `Environment.OSVersion` y el método puro
+  `Decide(build)` clasifica: `Supported` (build ≥ 22000, Windows 11), `SupportedLegacy`
+  (19041 ≤ build < 22000, Windows 10 sin validación oficial) y `Unsupported` (build < 19041).
+  `MainViewModel.ApplySelectedProfile` bloquea la aplicación en `Unsupported` y muestra un
+  aviso en el estado en `SupportedLegacy`.
 
 ## Flujo de datos
 
