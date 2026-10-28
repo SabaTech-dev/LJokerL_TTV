@@ -136,7 +136,7 @@ Config/*.json (tweaks, services, apps_bloatware, profiles, hardware_rules)
   variantes instalador y portable; `LJokerL_TTV_Installer.iss` define el paquete con
   Inno Setup.
 - **CI** (`.github/workflows/ci.yml`): GitHub Actions en `windows-latest` con .NET 9;
-  `dotnet build LJokerL.sln -c Release` y `dotnet run --project src/LJokerL.Tests -c Release`.
+  `dotnet build LJokerL.sln -c Release` y `dotnet test LJokerL.sln -c Release --nologo`.
   Se dispara en push y pull request hacia `main` y `develop`.
 - **Repositorio**: público en GitHub (`SabaTech-dev/LJokerL_TTV`); la rama `develop` está
   protegida.
