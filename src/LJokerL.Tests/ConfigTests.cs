@@ -1,4 +1,5 @@
 using System.Text.Json;
+using LJokerL.Core.Models;
 using LJokerL.Core.Services;
 using Xunit;
 
@@ -83,5 +84,33 @@ public class ConfigTests
         }
 
         Assert.True(missingReferences.Count == 0, string.Join("; ", missingReferences));
+    }
+
+    [Fact]
+    public void Affects_labels_only_on_matching_tweaks()
+    {
+        var path = TestHelpers.FindConfigPath("tweaks.json");
+        var loader = new ConfigLoader();
+        var catalog = loader.Load<TweakCatalog>(path);
+
+        Assert.NotEmpty(catalog.Tweaks);
+
+        var labeled = catalog.Tweaks
+            .Where(t => t.AffectsDefender == true || t.AffectsUpdate == true)
+            .ToList();
+
+        Assert.True(labeled.Count > 0, "No tweak is labeled with affectsDefender/affectsUpdate; catalog labels missing.");
+
+        foreach (var tweak in labeled)
+        {
+            var text = $"{tweak.Id} {tweak.Description}";
+            var matches = text.Contains("defender", StringComparison.OrdinalIgnoreCase)
+                || text.Contains("update", StringComparison.OrdinalIgnoreCase);
+            Assert.True(matches,
+                $"Tweak '{tweak.Id}' is labeled affectsDefender/affectsUpdate but its id/description does not mention Defender or Update.");
+        }
+
+        Assert.Contains(catalog.Tweaks, t => t.AffectsUpdate == true);
+        Assert.Contains(catalog.Tweaks, t => t.AffectsDefender == null && t.AffectsUpdate == null);
     }
 }

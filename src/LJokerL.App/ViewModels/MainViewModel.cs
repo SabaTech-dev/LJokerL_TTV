@@ -1109,6 +1109,18 @@ public sealed class MainViewModel : ObservableObject
             return;
         }
 
+        var build = OsVersionCheck.CurrentBuild();
+        var support = OsVersionCheck.Decide(build);
+        if (support == WindowsBuildSupport.Unsupported)
+        {
+            LastActionStatus = $"Build de Windows no soportada ({build}). Se requiere Windows 10 19041+ o Windows 11.";
+            return;
+        }
+
+        var osWarning = support == WindowsBuildSupport.SupportedLegacy
+            ? "AVISO: build de Windows 10 sin validación oficial; el resultado no está garantizado. "
+            : string.Empty;
+
         var restoreNote = string.Empty;
         if (_settings.CreateRestorePointBeforeApply)
         {
@@ -1133,7 +1145,6 @@ public sealed class MainViewModel : ObservableObject
 
             restoreNote = gate.Message;
         }
-
         var errors = new List<string>();
         var actionCount = 0;
         var contextId = CreateProfileContextId(SelectedProfile.Id);
@@ -1192,7 +1203,7 @@ public sealed class MainViewModel : ObservableObject
 
         if (errors.Count == 0)
         {
-            LastActionStatus = $"Perfil aplicado: {SelectedProfile.Name}. Acciones: {actionCount}. Log: {LogPath}" +
+            LastActionStatus = $"{osWarning}Perfil aplicado: {SelectedProfile.Name}. Acciones: {actionCount}. Log: {LogPath}" +
                                (restoreNote.Length > 0 ? $" {restoreNote}" : string.Empty);
         }
         else

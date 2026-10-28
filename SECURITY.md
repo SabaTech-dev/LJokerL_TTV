@@ -10,6 +10,21 @@ usuario, por lo que los reportes se tratan con prioridad.
 
 Sistemas afectados: Windows 11 y Windows 10 (build 19041 o superior).
 
+### Etiquetas «afecta a Defender / Windows Update»
+
+El catálogo `Config/tweaks.json` puede marcar cada tweak con dos propiedades opcionales:
+
+- `"affectsDefender": true`: el tweak modifica la configuración de Microsoft Defender
+  (por ejemplo, desactivar la protección antispyware). Aplicarlo reduce la superficie de
+  defensa del sistema; reviértalo si no es intencional.
+- `"affectsUpdate": true`: el tweak modifica la configuración de Windows Update
+  (claves `WindowsUpdate`, servicio `wuauserv`, medicación de WaaSMedic, políticas `AU`).
+  Aplicarlo puede posibilitar o impedir que el sistema reciba parches de seguridad.
+
+Las propiedades son informativas y validadas en tests: toda entrada etiquetada debe
+mencionar Defender o Update en su identificador o descripción. En la versión actual del
+catálogo hay 3 tweaks etiquetados con `affectsUpdate` y ninguno con `affectsDefender`.
+
 ## Versiones soportadas
 
 | Versión          | Rama          | Soporte de seguridad |
