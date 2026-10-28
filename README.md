@@ -23,6 +23,8 @@ El estado actual del proyecto es la versión **13.0.1**. Consulta
 - **Aplicar/revertir perfiles completos** con snapshot de los valores previos
   del registro de Windows.
 - **Punto de restauración del sistema antes de aplicar** (configurable, fail-safe: no aplica si falla su creación).
+- **Modo dry-run**: vista previa del plan de acciones por perfil (registro, servicios y apps,
+  con riesgo y reversibilidad) sin aplicar nada ni requerir administrador.
 - **Rollback** por perfil (desde el log JSONL) o por catálogo (tweaks,
   servicios y apps con acción de reversión propia).
 - **Detección de hardware** (CPU, GPU, RAM, display) con 14 reglas contextuales,

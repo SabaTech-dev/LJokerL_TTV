@@ -514,6 +514,23 @@ public sealed class MainViewModel : ObservableObject
 
     public string LogPath { get; }
 
+    private string _dryRunPreviewText = string.Empty;
+    public string DryRunPreviewText
+    {
+        get => _dryRunPreviewText;
+        private set
+        {
+            _dryRunPreviewText = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(DryRunPreviewVisibility));
+        }
+    }
+
+    public System.Windows.Visibility DryRunPreviewVisibility =>
+        string.IsNullOrEmpty(_dryRunPreviewText)
+            ? System.Windows.Visibility.Collapsed
+            : System.Windows.Visibility.Visible;
+
     private string _hardwareStatus = "Hardware not detected";
     public string HardwareStatus
     {
@@ -696,6 +713,9 @@ public sealed class MainViewModel : ObservableObject
     private readonly RelayCommand _revertSelectedProfileCommand;
     public ICommand RevertSelectedProfileCommand => _revertSelectedProfileCommand;
 
+    private readonly RelayCommand _dryRunProfileCommand;
+    public ICommand DryRunProfileCommand => _dryRunProfileCommand;
+
     private readonly RelayCommand _applySelectedTweakCommand;
     public ICommand ApplySelectedTweakCommand => _applySelectedTweakCommand;
 
@@ -773,6 +793,7 @@ public sealed class MainViewModel : ObservableObject
         }
         _applySelectedProfileCommand = new RelayCommand(_ => ApplySelectedProfile(), _ => CanApplyProfile());
         _revertSelectedProfileCommand = new RelayCommand(_ => RevertSelectedProfile(), _ => CanApplyProfile());
+        _dryRunProfileCommand = new RelayCommand(_ => DryRunSelectedProfile(), _ => CanApplyProfile());
         _applySelectedTweakCommand = new RelayCommand(_ => ApplySelectedTweak(), _ => SelectedTweak != null);
         _revertSelectedTweakCommand = new RelayCommand(_ => RevertSelectedTweak(), _ => SelectedTweak != null);
         _revertProfileCatalogCommand = new RelayCommand(_ => RevertSelectedProfileCatalog(), _ => CanApplyProfile());
@@ -1202,6 +1223,55 @@ public sealed class MainViewModel : ObservableObject
         }
 
         RefreshLogs();
+    }
+
+    private void DryRunSelectedProfile()
+    {
+        if (_bundle == null || SelectedProfile == null)
+        {
+            LastActionStatus = "No profile selected";
+            return;
+        }
+
+        var profile = new ProfileDefinition
+        {
+            Id = SelectedProfile.Id,
+            Name = SelectedProfile.Name,
+            Description = SelectedProfile.Description,
+            Tweaks = SelectedProfile.TweakIds.ToList(),
+            Services = SelectedProfile.ServiceIds.ToList(),
+            Apps = SelectedProfile.AppIds.ToList()
+        };
+
+        var plan = DryRunPlanner.Plan(
+            profile,
+            _bundle.Tweaks?.Tweaks,
+            _bundle.Services?.Services,
+            _bundle.Apps?.Apps);
+
+        DryRunPreviewText = BuildDryRunPreview(plan);
+        LastActionStatus = $"Vista previa (dry-run) de '{SelectedProfile.Name}': {plan.Summarize()}. No se ha aplicado nada.";
+    }
+
+    private static string BuildDryRunPreview(DryRunPlan plan)
+    {
+        var lines = new List<string> { $"Vista previa (dry-run) del perfil '{plan.ProfileId}' — nada se aplicara." };
+        foreach (var action in plan.Actions)
+        {
+            var reversible = action.Reversible ? "reversible" : "no reversible";
+            lines.Add($"  [{action.Kind.ToString().ToLowerInvariant()}] {action.Operation,-8} {action.Target}  (id: {action.Id}, riesgo: {action.Risk}, {reversible})");
+        }
+
+        if (plan.Skipped.Count > 0)
+        {
+            lines.Add("Omitidos (no existen en el catalogo):");
+            foreach (var note in plan.Skipped)
+            {
+                lines.Add($"  - {note}");
+            }
+        }
+
+        return string.Join(Environment.NewLine, lines);
     }
 
     private void RevertSelectedProfile()

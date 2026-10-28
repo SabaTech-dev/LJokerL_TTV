@@ -8,6 +8,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Anadido
+- Modo dry-run: vista previa del plan de acciones por perfil sin aplicar nada (M1).
 - Punto de restauración del sistema antes de aplicar (configurable, fail-safe: no aplica si falla su creación) (M1).
 - ROADMAP: backlog de mejoras competitivas derivado de deep research de 12+ herramientas (M1-M4).
 - CI publica SBOM CycloneDX con attestation de procedencia en cada ejecución (M1).

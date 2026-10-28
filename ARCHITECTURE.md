@@ -57,7 +57,7 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
   monitorización (habilitación e intervalo) y modo oscuro. La configuración de benchmark
   (`BenchmarkRunOptions`) no se persiste en ajustes.
 
-### Services (`src/LJokerL.Core/Services`, 17 ficheros)
+### Services (`src/LJokerL.Core/Services`, 18 ficheros)
 
 - **`ConfigLoader`**: carga los catálogos de `Config/*.json` en un `ConfigBundle` único
   (tweaks, servicios, apps, perfiles y reglas de hardware).
@@ -65,6 +65,12 @@ construida como aplicación de escritorio WPF con patrón MVVM. Comprende tres p
   (con captura previa del valor en un `RegistrySnapshot`) y `command`; habilita/deshabilita
   servicios de Windows; elimina y restaura paquetes Appx invocando PowerShell. Registra cada
   acción en JSONL por contexto y soporta **rollback limitado a acciones de registro**.
+- **`DryRunPlanner`**: planificador puro del modo dry-run (M1). Deriva de los catálogos el plan
+  de acciones que ejecutaría un perfil (`PlannedAction` con tipo, destino, operación, riesgo y
+  reversibilidad, más la lista de ids omitidos por no existir) sin tocar `Process`, el registro
+  ni ningún recurso del sistema. `MainViewModel` lo invoca desde el botón «Vista previa
+  (dry-run)» y presenta el plan en pantalla; el flujo real de aplicación no cambia. Cubierto por
+  `DryRunPlannerTests` contra los catálogos reales de `Config/`.
 - **`HardwareDetector`**: instantánea rápida de CPU, GPU, RAM, SO y monitor al arranque,
   con override opcional de VRR.
 - **`GpuDetector`** / **`StorageDetector`** / **`SoftwareDetector`** / **`MonitorDetector`**:

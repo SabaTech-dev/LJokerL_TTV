@@ -191,8 +191,14 @@
                         
                         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
                             <Button Content="🚀 Apply Selected" Style="{StaticResource GamingButton}" Command="{Binding ApplySelectedProfileCommand}" Margin="0,0,12,0"/>
+                            <Button Content="🔍 Vista previa (dry-run)" Style="{StaticResource SecondaryButton}" Command="{Binding DryRunProfileCommand}" Margin="0,0,12,0"/>
                             <Button Content="↩️ Revert" Style="{StaticResource SecondaryButton}" Command="{Binding RevertSelectedProfileCommand}"/>
                         </StackPanel>
+
+                        <TextBox Text="{Binding DryRunPreviewText, Mode=OneWay}" IsReadOnly="True" FontFamily="Consolas" FontSize="11"
+                                 Visibility="{Binding DryRunPreviewVisibility}" MaxHeight="220" VerticalScrollBarVisibility="Auto"
+                                 HorizontalScrollBarVisibility="Auto" TextWrapping="NoWrap" Margin="0,12,0,0"
+                                 Background="#FF14181F" Foreground="{StaticResource TextPrimaryBrush}" BorderThickness="1"/>
                     </StackPanel>
                 </Border>
 

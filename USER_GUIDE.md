@@ -94,6 +94,13 @@ volver atrás desde el Restaurar sistema de Windows si algo no va bien. Ten en c
 - Puedes desactivar este comportamiento con la casilla «Crear punto de restauración antes de
   aplicar» del Dashboard.
 
+**Vista previa (dry-run).** El botón **Vista previa (dry-run)**, junto a **Apply Selected**,
+muestra el plan completo de acciones que se ejecutarían con el perfil seleccionado — cada valor
+de registro a modificar, cada servicio a desactivar y cada aplicación a eliminar, con su riesgo
+y si es reversible — **sin aplicar nada**. Es lectura pura: no necesita permisos de
+administrador, no toca el registro, no detiene servicios ni desinstala nada, y no escribe en el
+log de ejecución. Úsalo antes de aplicar un perfil para revisar exactamente qué va a cambiar.
+
 En la versión actual, las tarjetas de perfil del Dashboard aún no admiten selección con clic; los
 botones **Apply Selected** y **Revert** avisan con «No profile selected» hasta que esa
 interacción esté disponible.
