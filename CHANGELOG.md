@@ -7,6 +7,9 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Corregido
+- Deuda técnica liquidada: instalador compila el .iss in situ (sin copia en TEMP), nuget.config reproducible, docs alineadas (selected_profile, suite xUnit) y URLs del repositorio actualizadas.
+
 ## [13.0.1] - 2026-10-28
 
 ### Anadido

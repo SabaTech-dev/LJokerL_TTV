@@ -13,8 +13,8 @@ Existe hoy, verificado contra el árbol de fuentes:
 - **ViewModel** (`MainViewModel.cs`): aplicación y reversión de perfiles y tweaks individuales, detección de hardware (CPU/GPU/RAM), monitor de rendimiento con registro de métricas, sistema de logs JSONL con paginación y exportación, y sistema de benchmarks (rápido/completo, comparación y exportación de informes).
 - **Núcleo** (`src/LJokerL.Core`): `ConfigLoader` (catálogos JSON), `ExecutionEngine` (acciones directas de registro/sistema), `HardwareDetector` (instantánea de hardware y reglas), `ExecutionLogger` (JSONL + snapshot para rollback) y `BenchmarkRunner`.
 - **Catálogos** (`Config/`): 14 reglas de hardware, 10 perfiles, 92 tweaks con reversión definida, 13 servicios y 23 aplicaciones de bloatware.
-- **Pruebas**: suite propia (`src/LJokerL.Tests`, runner de consola) con 28 pruebas sobre modelos, detector de hardware, catálogos, perfiles, auto-config y sistema de benchmarks; la ejecuta el pipeline de CI.
-- **CI**: `.github/workflows/ci.yml` — `dotnet build -c Release` y `dotnet run --project src/LJokerL.Tests` en `windows-latest` con .NET 9.
+- **Pruebas**: suite xUnit (`src/LJokerL.Tests`) con 29 pruebas sobre modelos, detector de hardware, catálogos, perfiles, auto-config y sistema de benchmarks; la ejecuta el pipeline de CI con `dotnet test`.
+- **CI**: `.github/workflows/ci.yml` — `dotnet build LJokerL.sln -c Release` y `dotnet test LJokerL.sln -c Release --nologo` en `windows-latest` con .NET 9.
 
 **Stack tecnológico actual**: C#/.NET 9 · WPF + MVVM · catálogos JSON · GitHub Actions (CI) · Windows 10/11 con privilegios de administrador (PowerShell invocado en tiempo de ejecución por siete componentes y también para empaquetado; la lógica de la aplicación es C#/.NET; ver DEPENDENCIES.md).
 

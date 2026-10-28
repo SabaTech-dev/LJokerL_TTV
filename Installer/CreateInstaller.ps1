@@ -69,14 +69,9 @@ if (-not (Test-Path $InnoScript)) {
     exit 1
 }
 
-# Create temporary modified script with version
-$TempScript = Join-Path $env:TEMP "LJokerL_TTV_Installer_temp.iss"
-$ScriptContent = Get-Content $InnoScript -Raw
-$ScriptContent = $ScriptContent -replace '#define AppVersion "13.0.1"', "#define AppVersion `"$Version`""
-$ScriptContent | Out-File -FilePath $TempScript -Encoding UTF8
-
+# Compile the original script in place, passing the version as a define
 try {
-    & $InnoPath $TempScript
+    & $InnoPath "/DAppVersion=$Version" $InnoScript
     if ($LASTEXITCODE -ne 0) {
         throw "Inno Setup compilation failed with exit code $LASTEXITCODE"
     }
@@ -84,11 +79,6 @@ try {
 } catch {
     Write-Host "✗ Installer compilation failed: $_" -ForegroundColor Red
     exit 1
-} finally {
-    # Clean up temp script
-    if (Test-Path $TempScript) {
-        Remove-Item $TempScript -Force
-    }
 }
 
 # Find the generated installer

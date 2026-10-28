@@ -22,7 +22,7 @@ This is the central Copilot index for the workspace. Keep it short, link-first, 
 
 ## Build and verify
 - `dotnet publish src/LJokerL.App -c Release`
-- `dotnet run --project src/LJokerL.Tests`
+- `dotnet test LJokerL.sln -c Release --nologo`
 - `Installer/CreatePortable.ps1`
 - `Installer/CreateInstaller.ps1` (requires Inno Setup)
 
