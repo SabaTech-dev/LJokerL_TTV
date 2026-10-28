@@ -85,6 +85,41 @@ Las fases futuras de este roadmap son **Propuestas (no comprometidas)**: no se p
 
 Una vez cerrado TODO.md, los candidatos naturales son completar las vistas pendientes de la Fase 3 y la suite de `ExecutionEngine` (Fase 2).
 
+## Mejoras competitivas (backlog propuesto — investigación 28/10/2026)
+
+Análisis competitivo (WinUtil 65k★, Win11Debloat 61k★, Sophia Script, O&O ShutUp10++, Optimizer, Hone.gg, Razer Cortex, ParkControl/Process Lasso, ISLC, guías FR33THY/PC-Tuning, TCP Optimizer, privacy.sexy). Prioridad = impacto × adopción demostrada por la competencia.
+
+### M1 — Seguridad y confianza (prioridad alta)
+- Punto de restauración del sistema antes de aplicar, con fail-safe (no aplicar si falla) — O&O ShutUp10++.
+- Modo dry-run con diff previsualizable de todo lo que se tocará — Win11Debloat, privacy.sexy.
+- Exportación del script/plan de reversión (no depender solo de execution.jsonl local) — privacy.sexy.
+- Attestations de artefactos + SBOM (CycloneDX) en CI, sobre la base de Resources/MANIFEST.md.
+- Chequeo de build de Windows (24H2/25H2) antes de aplicar cada tweak — Sophia Script.
+- Etiqueta por tweak «afecta a Defender/Windows Update: sí/no» (debate comunitario winutil#3712).
+
+### M2 — Automatización (prioridad alta)
+- CLI headless: aplicar/revertir perfil por argumentos (--profile X [--dry-run]) — WinUtil -Config, Optimizer flags.
+- Watcher de juegos: aplicar perfil al detectar el lanzamiento de un .exe y revertir al salir — Razer Cortex, Hone, Process Lasso.
+- Tarea programada guardián: re-aplicar perfil tras Windows Update (detección de deriva) — O&O Premium, patrón Sophia.
+- Manifest de winget + switches silenciosos documentados del instalador.
+
+### M3 — Gaming y latencia (prioridad media)
+- Perfiles por juego: exe/SteamID, prioridad y afinidad de proceso, HAGS/FSO por título — Process Lasso, Hone.
+- Plan de energía dinámico (Ultimate Performance al jugar y revertir) + core parking y frequency scaling como tweaks SAFE/ADV — ParkControl/BHP.
+- Timer resolution por proceso con guard Windows 10 2004+ — PC-Tuning, ISLC.
+- Purga de standby list por umbral durante la sesión (hoy es puntual) — ISLC.
+- Medición de latencia DPC/ISR pre/post en el benchmark propio (estilo LatencyMon) para validar MSI/afinidad — Blur Busters, RigPolice.
+- Red profunda: MTU/MSS, RWIN, congestion provider y propiedades NIC con backup/restaure — TCP Optimizer.
+- Mouse fixes tipo MarkC (curva de aceleración, polling) más allá de mouse_accel_off — FR33THY.
+
+### M4 — UX y comunidad (prioridad media)
+- Explicación wiki-style por tweak (riesgo, efecto, reversión) publicando Reports/Tweaks2_Validation_Status.md como catálogo navegable — privacy.sexy, winutil.
+- Exportar/importar perfiles de usuario como archivo compartible — ShutUp10 .cfg, WinUtil JSON (mayor efecto de red).
+- Deshacer total guiado con navegador de backups en UI — Win11Debloat.
+- i18n (inglés) y conmutación de tema en vivo.
+- Toggles de funciones IA (Copilot, Recall) en el catálogo — Win11Debloat.
+- (Opcional) Instalación de apps vía WinGet desde la propia app — WinUtil.
+
 ## Trazabilidad
 
 | Fecha | Hito | Estado |

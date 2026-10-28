@@ -7,6 +7,9 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Anadido
+- ROADMAP: backlog de mejoras competitivas derivado de deep research de 12+ herramientas (M1-M4).
+
 ## [13.0.1] - 2026-10-28
 
 ### Anadido
