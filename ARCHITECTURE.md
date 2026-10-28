@@ -176,6 +176,12 @@ Config/*.json (tweaks, services, apps_bloatware, profiles, hardware_rules)
 - **Suite de tests xUnit**: ejecutada con `dotnet test`, cubre modelos, detectores, carga de
   configuración, profiler, autoconfiguración y sistema de benchmarks. `ExecutionEngine` no
   tiene cobertura automatizada (muta el registro y servicios reales).
+- **CLI headless con parser puro**: `App.xaml.cs` deriva a `CliRunner` solo cuando el proceso
+  recibe argumentos (sin argumentos arranca la ventana). `CliOptions.Parse` es una función
+  pura sin efectos secundarios; `CliRunner.Run` recibe un `TextWriter` y la raíz de configuración
+  como dependencias, lo que permite probar la CLI sin abrir la GUI ni tocar el registro.
+  `--apply-profile`/`--revert-profile` sin `--dry-run` devuelven deliberadamente el código de
+  salida `2` sin ejecutar nada; la ejecución real por CLI queda para la siguiente iteración (M2).
 
 ## Trabajo futuro
 

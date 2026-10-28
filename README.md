@@ -117,6 +117,30 @@ Desde el centro de control WPF:
 Cada operación queda registrada en el log JSONL con el valor previo del
 registro, lo que permite revertir cambios de forma selectiva.
 
+## Uso por línea de comandos
+
+El ejecutable admite un modo headless (sin ventana) cuando se invoca con
+argumentos:
+
+```text
+LJokerL.App.exe --list-profiles
+LJokerL.App.exe --apply-profile <id> --dry-run
+LJokerL.App.exe --revert-profile <id> --dry-run
+LJokerL.App.exe --help
+```
+
+Códigos de salida: `0` operación correcta, `1` error de argumentos o de carga
+de configuración, `2` ejecución real aún no soportada por CLI. En esta fase,
+`--apply-profile` y `--revert-profile` solo funcionan con `--dry-run` (muestra
+el plan de acciones sin tocar el sistema); la ejecución real por CLI llega en
+la siguiente iteración (M2).
+
+> **Nota:** la app es una aplicación de ventanas (WinExe): al ejecutarla desde
+> una terminal interactiva la salida de texto puede no mostrarse; usa
+> redirección (`LJokerL.App.exe --list-profiles > perfiles.txt`) o el código de
+> salida (0/1/2), que siempre funciona. La CLI respeta `LJOKERL_CONFIG_PATH`
+> para redirigir la raíz de configuración (ver `.env.example`).
+
 ## Perfiles disponibles
 
 Los perfiles se definen en `Config/profiles.json` (versión 2026.03). Los diez
