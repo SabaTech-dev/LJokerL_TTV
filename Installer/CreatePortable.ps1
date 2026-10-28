@@ -71,7 +71,7 @@ if (Test-Path $ResourcesSource) {
 
 # Step 6: Copy documentation
 Write-Host "Step 6: Copying documentation..." -ForegroundColor Yellow
-$Docs = @("README.md", "USER_GUIDE.md", "BUILD_INSTRUCTIONS.md")
+$Docs = @("README.md", "USER_GUIDE.md", "BUILD_INSTRUCTIONS.md", "CHANGELOG.md", "LICENSE.txt")
 foreach ($doc in $Docs) {
     $docPath = Join-Path $ProjectRoot $doc
     if (Test-Path $docPath) {
