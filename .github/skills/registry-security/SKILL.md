@@ -1,5 +1,7 @@
 ---
-description: Seguridad y mejores prácticas para operaciones de registro Windows
+name: registry-security
+description: 'Seguridad y mejores prácticas para operaciones de registro Windows: validación, snapshots, rollback y auditoría en LJokerL_TTV.'
+argument-hint: 'Describe la operación de registro o el tweak a validar'
 version: 1.0.0
 tags: [registry, security, windows, admin, safety, validation]
 priority: high
@@ -7,7 +9,8 @@ priority: high
 
 # Registry Security
 
-Seguridad y mejores prácticas para operaciones de registro Windows en el sistema de optimización.
+> Origen: migrado de `.opencode/skills/domain/registry-security` durante la consolidación P1-6.
+> Propósito: seguridad y mejores prácticas para operaciones de registro Windows en el sistema de optimización (C#/.NET).
 
 ## Casos de uso
 
@@ -62,7 +65,7 @@ public void ValidateTweakRisk(Tweak tweak)
     {
         // Requerir confirmación explícita
         RequireExplicitConfirmation();
-        
+
         // Crear backup obligatorio
         CreateMandatoryBackup();
     }
@@ -160,7 +163,7 @@ public object? ReadRegistryValue(string path, string name)
 public void WriteRegistryValue(string path, string name, object value, RegistryValueKind kind)
 {
     ValidateRegistryPath(path);
-    
+
     if (!IsAdministrator())
     {
         throw new UnauthorizedAccessException("Se requieren permisos de administrador");
@@ -170,7 +173,7 @@ public void WriteRegistryValue(string path, string name, object value, RegistryV
     {
         using var key = Registry.CurrentUser.CreateSubKey(path);
         key?.SetValue(name, value, kind);
-        
+
         _logger.LogInformation("Registro modificado: {Path}\\{Name}", path, name);
     }
     catch (Exception ex)
@@ -237,22 +240,17 @@ try
 catch (RegistryOperationException ex)
 {
     _logger.LogError(ex, "Error aplicando cambio de registro");
-    
+
     // Intentar rollback automático
     if (snapshot != null)
     {
         RollbackFromSnapshot(snapshot);
     }
-    
+
     // Notificar al usuario
     ShowErrorMessage($"Error aplicando tweak: {ex.Message}");
 }
 ```
-
-## Dependencias
-
-- windows-optimization: Para contexto de tweaks
-- dotnet-csharp: Para implementación en C#
 
 ## Notas críticas
 

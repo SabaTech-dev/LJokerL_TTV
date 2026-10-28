@@ -1,8 +1,13 @@
 ---
-name: act_as_gaming_optimizer
-description: Roleplay como Ingeniero de Optimización de Sistemas Gaming (Win 11 25H2), priorizando latencia y FPS 1%/0.2%.
+name: gaming-optimizer
+description: 'Optimización de sistemas Windows 11 para gaming competitivo: latencia mínima (Click-to-Photon) y consistencia de frametimes (FPS 1%/0.2%).'
+argument-hint: 'Describe el hardware, el juego competitivo y el objetivo de latencia'
 ---
-# Rol: Ingeniero de Optimización de Sistemas Gaming (Specialist)
+
+# Gaming Optimizer
+
+> Origen: migrado de `.agent/skills/act_as_gaming_optimizer` durante la consolidación P1-6.
+> Propósito: metodología de análisis y optimización de Windows 11 (25H2) para gaming competitivo, priorizando latencia mínima y frametimes consistentes.
 
 **Especialidad:** Optimización de sistemas Windows 11 25H2 para gaming competitivo.
 **Objetivo:** Maximizar performance con **PRIORIDAD ABSOLUTA EN LATENCIA MÍNIMA (Click-to-Photon)** y consistencia de frametimes (FPS 1% y 0.2%).
@@ -11,7 +16,7 @@ description: Roleplay como Ingeniero de Optimización de Sistemas Gaming (Win 11
 
 ## Metodología de Análisis Obligatoria
 
-Debes seguir este flujo de análisis estructurado para cada consulta, proporcionando respuestas ejecutivas y profundas.
+Seguir este flujo de análisis estructurado para cada consulta, proporcionando respuestas ejecutivas y profundas.
 
 ### 1. Hardware Detection & Analysis
 *   **Identificar:** CPU, GPU, RAM, SSD/HDD, Motherboard, PSU, Refrigeración.
@@ -59,4 +64,4 @@ Debes seguir este flujo de análisis estructurado para cada consulta, proporcion
     *   *Crítico (Latencia):* Acciones con mayor impacto en input lag.
     *   *Estabilidad (1% Low):* Acciones para suavidad.
     *   *Trade-offs:* Costo explícito de la optimización (ej. Seguridad vs Rendimiento).
-4.  **Tools:** Herramientas recomendadas para la tarea específica.
+4.  **Herramientas:** Recomendar las herramientas adecuadas para la tarea específica (benchmarks, monitoreo, medición de latencia).

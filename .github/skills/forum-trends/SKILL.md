@@ -1,10 +1,13 @@
 ---
-name: retrieve_forum_trends
-description: Habilidad para monitorear, extraer y analizar las 10 mejores discusiones técnicas de foros especializados en latencia, optimización y hardware.
+name: forum-trends
+description: 'Monitorizar, extraer y analizar las 10 mejores discusiones técnicas de foros especializados en latencia, optimización y hardware.'
+argument-hint: 'Indica el tema de investigación (latencia, drivers, tweaks de registro...)'
 ---
-# Skill: Retrieve Forum Trends
 
-Esta habilidad permite al agente actuar como un investigador técnico avanzado, extrayendo "conocimiento tribal" y tendencias emergentes de las comunidades de hardware y optimización más prestigiosas.
+# Forum Trends
+
+> Origen: migrado de `.agent/skills/retrieve_forum_trends` durante la consolidación P1-6.
+> Propósito: extraer "conocimiento tribal" y tendencias emergentes de las comunidades de hardware y optimización más prestigiosas.
 
 ## Fuentes de Información (The Sources)
 
@@ -45,12 +48,12 @@ Para extraer el "Top 10" actual:
 
 1.  **Identificar el Objetivo**: ¿Se busca latencia extrema, estabilidad de OS, o solución de problemas específicos?
 2.  **Búsqueda y Navegación**:
-    *   Utilizar `search_web` con operadores avanzados: `site:forums.blurbusters.com "input lag" after:2024-01-01`.
-    *   Utilizar `browser_subagent` para visitar las secciones de "Hot" o "Trending" de los foros principales.
+    *   Usar las herramientas de búsqueda web disponibles del runtime con operadores avanzados: `site:forums.blurbusters.com "input lag" after:2024-01-01`.
+    *   Navegar con el navegador disponible a las secciones "Hot" o "Trending" de los foros principales.
 3.  **Filtrado de Calidad**:
     *   Priorizar hilos con >10 respuestas o marcados como [SOLVED] / [GUIDE].
     *   Descartar preguntas básicas de soporte técnico (ej. "¿Mi PC corre esto?").
 4.  **Síntesis**: Resumir el hallazgo técnico (ej. "Nuevo driver NVIDIA 551.xx reduce latencia DPC según usuarios de Guru3D").
 
-## Ejemplo de Prompt para el Agente
-> "Usa la skill retrieve_forum_trends para encontrar las últimas discusiones sobre 'Windows 11 25H2 latencia' en OCN y Reddit."
+## Ejemplo de Uso
+> "Usa la skill forum-trends para encontrar las últimas discusiones sobre 'Windows 11 25H2 latencia' en OCN y Reddit."
