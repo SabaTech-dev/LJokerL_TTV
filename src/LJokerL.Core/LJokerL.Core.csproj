@@ -4,8 +4,7 @@
     <TargetFramework>net9.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <UseWindowsForms>true</UseWindowsForms>
-    
+
     <!-- Análisis de Código -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
@@ -13,9 +12,6 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     
     <!-- Metadata -->
-    <AssemblyVersion>13.0.0.0</AssemblyVersion>
-    <FileVersion>13.0.0.0</FileVersion>
-    <Version>13.0.0</Version>
     <Authors>LJokerL</Authors>
     <Product>LJokerL_TTV Custom Config PRO</Product>
     <Description>Sistema de optimización de Windows con persistencia JSON y rollback completo</Description>

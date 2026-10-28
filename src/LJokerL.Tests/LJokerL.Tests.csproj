@@ -6,18 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <OutputType>Exe</OutputType>
     
     <!-- Análisis de Código -->
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <CodeAnalysisTreatWarningsAsErrors>false</CodeAnalysisTreatWarningsAsErrors>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    
-    <!-- Metadata -->
-    <AssemblyVersion>13.0.0.0</AssemblyVersion>
-    <FileVersion>13.0.0.0</FileVersion>
-    <Version>13.0.0</Version>
+
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
@@ -38,7 +33,6 @@
     </Content>
   </ItemGroup>
 
-  <!-- Paquetes de testing - habilitar cuando NuGet esté configurado
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="xunit" Version="2.9.2" />
@@ -50,9 +44,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="6.12.2" />
-    <PackageReference Include="Moq" Version="4.20.72" />
   </ItemGroup>
-  -->
 
 </Project>

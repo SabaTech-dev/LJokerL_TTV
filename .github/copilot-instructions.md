@@ -6,7 +6,7 @@ This is the central Copilot index for the workspace. Keep it short, link-first, 
 ## Repository map
 - `src/LJokerL.App/`: WPF UI and MVVM. Main entry points: `MainWindow.xaml.cs` and `ViewModels/MainViewModel.cs`.
 - `src/LJokerL.Core/`: business logic, hardware detection, execution, rollback, config loading, and benchmarking helpers.
-- `src/LJokerL.Tests/`: custom console test runner; `TestRunner.cs` is the entry point and this is not a standard xUnit project.
+- `src/LJokerL.Tests/`: standard xUnit test suite; tests are executed with `dotnet test`.
 - `Config/`: JSON catalogs for tweaks, services, apps, profiles, and hardware rules.
 - `Installer/`: PowerShell packaging scripts and Inno Setup assets.
 - `Reports/`: validation and analysis reports.

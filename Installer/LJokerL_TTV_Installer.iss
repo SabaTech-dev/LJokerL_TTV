@@ -1,8 +1,8 @@
-; LJokerL_TTV Custom Config PRO v13.0 Installer Script
+; LJokerL_TTV Custom Config PRO v13.0.1 Installer Script
 ; Inno Setup 6.x
 
 #define AppName "LJokerL TTV Custom Config PRO"
-#define AppVersion "13.0"
+#define AppVersion "13.0.1"
 #define AppPublisher "LJokerL_TTV"
 #define AppURL "https://github.com/ljokerl/ttv-custom-config"
 #define AppExeName "LJokerL.App.exe"
@@ -20,7 +20,7 @@ DisableProgramGroupPage=yes
 LicenseFile=LICENSE.txt
 InfoBeforeFile=README.md
 OutputDir=..\..\Output
-OutputBaseFilename=LJokerL_TTV_Installer_v13.0
+OutputBaseFilename=LJokerL_TTV_Installer_v13.0.1
 SetupIconFile=..\..\Resources\icon.ico
 Compression=lzma
 SolidCompression=yes

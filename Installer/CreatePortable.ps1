@@ -5,14 +5,14 @@
 .DESCRIPTION
     Packages the published application into a portable ZIP file
 .NOTES
-    Version: 13.0
+    Version: 13.0.1
     Date: 2026-01-31
 #>
 
 [CmdletBinding()]
 param(
     [string]$Configuration = "Release",
-    [string]$Version = "13.0"
+    [string]$Version = "13.0.1"
 )
 
 $ErrorActionPreference = "Stop"
@@ -71,7 +71,7 @@ if (Test-Path $ResourcesSource) {
 
 # Step 6: Copy documentation
 Write-Host "Step 6: Copying documentation..." -ForegroundColor Yellow
-$Docs = @("README.md", "USER_GUIDE.md", "BUILD_INSTRUCTIONS.md")
+$Docs = @("README.md", "USER_GUIDE.md", "BUILD_INSTRUCTIONS.md", "CHANGELOG.md", "LICENSE.txt")
 foreach ($doc in $Docs) {
     $docPath = Join-Path $ProjectRoot $doc
     if (Test-Path $docPath) {
