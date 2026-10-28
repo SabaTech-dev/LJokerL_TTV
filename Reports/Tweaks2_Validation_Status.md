@@ -1,7 +1,7 @@
 # Estado de validacion de propuestas (tweaks2)
 
 Este documento clasifica los elementos marcados como "Propuesto" en
-`Reports/Tweaks2_Functions_Mapping.md` en:
+`Reports/archive/Tweaks2_Functions_Mapping.md` en:
 - VALIDADO: clave/accion conocida y estable
 - EXPERIMENTAL: requiere parametros, tiene impacto de seguridad, o hay duda
 - PENDIENTE: sin referencia clara
