@@ -14,6 +14,7 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - Chequeo de build de Windows antes de aplicar (Win11 soportado; Win10 19041+ con aviso de no validado) y etiquetas del catálogo "afecta a Defender/Windows Update" (M1).
 - CI publica SBOM CycloneDX con attestation de procedencia en cada ejecución (M1).
 - CLI headless: --list-profiles, --dry-run por perfil y --help; la ejecución real por CLI llega en la siguiente iteración (M2).
+- Documentación de instalación silenciosa y guía+plantilla de manifiesto winget (M2).
 
 ### Corregido
 - Deuda técnica liquidada: instalador compila el .iss in situ (sin copia en TEMP), nuget.config reproducible, docs alineadas (selected_profile, suite xUnit) y URLs del repositorio actualizadas; rutas relativas del .iss corregidas (..\ en lugar de ..\..).

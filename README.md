@@ -88,6 +88,20 @@ powershell -ExecutionPolicy Bypass -File Installer/CreateInstaller.ps1
 Requiere Inno Setup 6 (`iscc.exe`); el script de instalador es
 `Installer/LJokerL_TTV_Installer.iss`.
 
+### Instalación silenciosa (empresas)
+
+El instalador generado por Inno Setup admite de serie los switches estándar,
+sin configuración adicional en el `.iss`:
+
+```powershell
+LJokerL_TTV_Installer_v13.0.1.exe /VERYSILENT /NORESTART
+```
+
+`/SILENT` muestra solo la barra de progreso; `/VERYSILENT` no muestra ninguna
+ventana. El portable (`LJokerL_TTV_Portable_v13.0.1.zip`) no necesita
+instalador: se descomprime y se ejecuta. Para distribución automatizada vía
+winget, véase [Installer/WINGET.md](Installer/WINGET.md).
+
 ## Uso
 
 Desde el centro de control WPF:
