@@ -35,6 +35,9 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - SECURITY: precisión sobre red (ping del benchmark) y canal único de reporte (P1-2, jueces).
 - BUILD_INSTRUCTIONS: rutas correctas de los scripts de empaquetado (P0-6).
 
+### Corregido
+- El perfil por defecto seleccionado ("NEXT GEN GAMING", id inexistente) pasa a ser "gaming_pro"; prueba de regresión en la suite (D-12).
+
 ## 13.0-mantenimiento - 2026-02 a 2026-06
 
 ### Anadido
