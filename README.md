@@ -22,6 +22,7 @@ El estado actual del proyecto es la versión **13.0.1**. Consulta
   filtros, métricas del sistema en tiempo real y benchmark pre/post.
 - **Aplicar/revertir perfiles completos** con snapshot de los valores previos
   del registro de Windows.
+- **Punto de restauración del sistema antes de aplicar** (configurable, fail-safe: no aplica si falla su creación).
 - **Rollback** por perfil (desde el log JSONL) o por catálogo (tweaks,
   servicios y apps con acción de reversión propia).
 - **Detección de hardware** (CPU, GPU, RAM, display) con 14 reglas contextuales,
