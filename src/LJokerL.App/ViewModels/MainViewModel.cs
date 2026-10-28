@@ -785,7 +785,7 @@ public sealed class MainViewModel : ObservableObject
 
     private readonly Dictionary<string, string> _lastProfileRunIds = new(StringComparer.OrdinalIgnoreCase);
     private readonly GameWatcherService? _gameWatcherService;
-    private string? _watcherAppliedProfileId;
+    private string? _lastAppliedProfileId;
     private bool _watcherAdminNoticeLogged;
     private bool _suppressOverrideUpdates;
 
@@ -857,7 +857,7 @@ public sealed class MainViewModel : ObservableObject
         return new GameWatcherService(
             () => _settings.EnableGameWatcher,
             () => _bundle?.GameWatcher,
-            () => _watcherAppliedProfileId,
+            () => _lastAppliedProfileId,
             HandleGameWatcherDecision);
     }
 
@@ -895,7 +895,6 @@ public sealed class MainViewModel : ObservableObject
 
             SelectedProfile = match;
             ApplySelectedProfile();
-            _watcherAppliedProfileId = profileId;
             LastActionStatus = $"Watcher de juegos: {decision.Reason}.";
         }, null);
     }
@@ -1301,6 +1300,7 @@ public sealed class MainViewModel : ObservableObject
 
         if (errors.Count == 0)
         {
+            _lastAppliedProfileId = SelectedProfile.Id;
             LastActionStatus = $"{osWarning}Perfil aplicado: {SelectedProfile.Name}. Acciones: {actionCount}. Log: {LogPath}" +
                                (restoreNote.Length > 0 ? $" {restoreNote}" : string.Empty);
         }
