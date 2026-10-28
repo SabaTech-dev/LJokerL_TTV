@@ -10,11 +10,32 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 ### Anadido
 
 - SECURITY.md y CONTRIBUTING.md: políticas de seguridad y contribución (P1-2).
+- Resources/MANIFEST.md: manifiesto SHA-256 de las herramientas externas no versionadas (P2-3).
 
 ### Cambios
-
+- TODO.md actualizado con el estado de ejecución del plan (completadas, bloqueadas y desbloqueo).
+- Política de documentación fijada: español de España, raíz del repo (P2-6).
+- Directorios de runtime (Logs, Benchmarks, vestigios locales) documentados como no versionados (P2-7).
+- Eliminadas referencias muertas a Scripts/ y Legacy/ en la configuración de agentes (P1-9).
+- ARCHITECTURE reescrito con la estructura real implementada (P1-4).
+- DEPENDENCIES actualizado a v13.0 con inventario real de herramientas externas y política de no versionado de binarios (P0-5).
 - README reescrito: stack real (sin infraestructura ficticia), sin scripts inexistentes, sin secciones duplicadas, perfiles alineados con profiles.json (P0-3).
 - Corregidas imprecisiones de cobertura de pruebas, disparo de CI, estructura del repositorio y requisitos (P0-3, ronda de jueces).
+- Guía de usuario reescrita para la aplicación WPF v13.0 (P0-4).
+- USER_GUIDE: sección de reversión exacta (solo registro; catálogo sin UI), requisitos e instalador corregidos (P0-4, ronda de jueces).
+- ROADMAP reconciliado con el estado real del proyecto (P0-7).
+
+## 13.0-mantenimiento - 2026-02 a 2026-06
+
+### Anadido
+- Scaffolding de agentes de IA del repositorio (`.opencode/` feb 2026; `.github/` con copilot-instructions, agentes y reglas por área en may 2026).
+- Catálogo `Config/profiles.json` v2026.03 con 10 perfiles reales; `Config/tweaks.json` v2026.01; `Resources/WindowsReset.zip` (may 2026).
+
+### Cambios
+- Ajustes finales de documentación y `.gitignore` (16-jun-2026).
+
+### Notas
+- Entradas reconstruidas desde marcas de fecha de archivos (sin historial Git previo al 27-10-2026).
 
 ## [13.0.0] - 2026-01-31
 
@@ -57,5 +78,5 @@ Build en Release con 0 errores y 0 advertencias.
   problemas de compatibilidad no criticos. La aplicacion principal es
   plenamente funcional.
 
-[13.0.0]: https://github.com/ljokerl/ttv-custom-config/releases/tag/v13.0.0
+[13.0.0]: https://github.com/SabaTech-dev/LJokerL_TTV/releases/tag/v13.0.0
 [Unreleased]: https://github.com/SabaTech-dev/LJokerL_TTV/compare/main...develop
