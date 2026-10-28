@@ -8,11 +8,12 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Anadido
-
 - SECURITY.md y CONTRIBUTING.md: políticas de seguridad y contribución (P1-2).
+- .env.example con las variables de entorno opcionales documentadas (P1-8).
 - Resources/MANIFEST.md: manifiesto SHA-256 de las herramientas externas no versionadas (P2-3).
 
 ### Cambios
+- env example: nota de uso real y valores de VRR (P1-8, jueces).
 - TODO.md actualizado con el estado de ejecución del plan (completadas, bloqueadas y desbloqueo).
 - Política de documentación fijada: español de España, raíz del repo (P2-6).
 - Directorios de runtime (Logs, Benchmarks, vestigios locales) documentados como no versionados (P2-7).
@@ -23,8 +24,10 @@ y el proyecto se ajusta a [Versionado Semántico](https://semver.org/lang/es/).
 - Corregidas imprecisiones de cobertura de pruebas, disparo de CI, estructura del repositorio y requisitos (P0-3, ronda de jueces).
 - Guía de usuario reescrita para la aplicación WPF v13.0 (P0-4).
 - USER_GUIDE: sección de reversión exacta (solo registro; catálogo sin UI), requisitos e instalador corregidos (P0-4, ronda de jueces).
+- Informes obsoletos de la era PowerShell movidos a Reports/archive/ (P1-5).
 - ROADMAP reconciliado con el estado real del proyecto (P0-7).
 - SECURITY: precisión sobre red (ping del benchmark) y canal único de reporte (P1-2, jueces).
+- BUILD_INSTRUCTIONS: rutas correctas de los scripts de empaquetado (P0-6).
 
 ## 13.0-mantenimiento - 2026-02 a 2026-06
 
