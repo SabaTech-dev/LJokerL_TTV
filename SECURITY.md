@@ -69,6 +69,11 @@ exponer el detalle público. No incluyas detalles explotables en texto público
   si la creación falla, el perfil no se aplica (fail-safe); si ya existe un
   punto con menos de 24 h, se reutiliza (límite de Windows, un punto por
   24 h). Configurable en el Dashboard.
+- **Vista previa (dry-run) antes de aplicar** (M1): el plan de acciones del perfil se deriva
+  de los catálogos por una función pura (`DryRunPlanner`) y se muestra al usuario sin ejecutar
+  nada. Es la primera defensa de la cadena: permite revisar exactamente qué se tocaría
+  (registro, servicios y apps, con riesgo y reversibilidad) antes de autorizar cualquier
+  cambio, sin necesidad de permisos de administrador.
 - **Rollback limitado al registro**: la reversión reconstruye el estado previo
   desde ese snapshot; no toca nada fuera del ámbito aplicado.
 - **Sin telemetría**: la aplicación no envía datos a ningún servicio. Única
