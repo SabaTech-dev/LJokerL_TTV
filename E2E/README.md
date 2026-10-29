@@ -16,15 +16,17 @@ El generador:
 
 1. Comprueba (solo lectura) que la caracteristica `Containers-DisposableClientVM`
    (Windows Sandbox) esta habilitada. Si no lo esta, falla con mensaje claro.
-2. Genera `E2E\WindowsSandbox\run.wsb` mapeando la raiz del repo con `ReadOnly=false`.
-   La carpeta mapeada se monta en la sandbox en `C:\mnt\<N>` (orden alfabetico de
-   `HostFolder`; con una sola carpeta, `C:\mnt\1`). El `LogonCommand` descubre el
-   punto de montaje en tiempo de ejecucion, asi que no depende de `N`.
+2. Genera `E2E\WindowsSandbox\run.wsb` mapeando la raiz del repo con `ReadOnly=false`
+   y `<SandboxFolder>C:\mnt\repo</SandboxFolder>`: la carpeta mapeada se monta
+   siempre en `C:\mnt\repo` (sin `SandboxFolder`, Windows Sandbox la deja en el
+   escritorio de `WDAGUtilityAccount`). El `LogonCommand` referencia esa ruta
+   determinista directamente.
 3. Arranca la sandbox con `WindowsSandbox.exe run.wsb`.
 
 Dentro de la sandbox, el logon ejecuta `E2E\WindowsSandbox\e2e-inside.ps1`, que
-auto-detecta la unidad mapeada (marcador `E2E\WindowsSandbox\e2e-inside.ps1` en
-A:..Z:), escribe resultados incrementalmente en `E2E\RESULTS.md` y, al terminar,
+auto-detecta la carpeta mapeada (marcador `E2E\WindowsSandbox\e2e-inside.ps1` en
+A:..Z:, en `C:\mnt\repo` y en los hijos del escritorio de `WDAGUtilityAccount`),
+escribe resultados incrementalmente en `E2E\RESULTS.md` y, al terminar,
 escribe `===E2E-DONE===` y apaga la sandbox.
 
 Desde el host se puede sondear el progreso:

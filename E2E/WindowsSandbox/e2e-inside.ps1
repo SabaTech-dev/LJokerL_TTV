@@ -4,7 +4,11 @@
     E2E de LJokerL_TTV DENTRO de Windows Sandbox. Lo lanza el LogonCommand de run.wsb.
 .DESCRIPTION
     - Escribe resultados INCREMENTALMENTE en <repo mapeado>\E2E\RESULTS.md.
-    - Auto-detecta la unidad mapeada buscando el marcador E2E\WindowsSandbox\e2e-inside.ps1 en A:..Z:.
+    - Auto-detecta la carpeta mapeada buscando el marcador E2E\WindowsSandbox\e2e-inside.ps1
+      en A:..Z:, en C:\mnt\repo (SandboxFolder determinista) y en los hijos del
+      escritorio de WDAGUtilityAccount (fallback historico).
+    - Si no la encuentra, deja E2E-RESULTS-missing.md en ese escritorio con el
+      motivo y apaga la sandbox (el host no se queda esperando eternamente).
     - Cada escenario va en try/catch independiente con veredicto PASSED/FAILED.
     - S6/S7/S8 mutan SOLO el interior de la sandbox (registro, config de usuario, harness en C:\).
     - Al final escribe '===E2E-DONE===' y apaga la sandbox (Stop-Computer -Force).
@@ -24,12 +28,37 @@ function Find-MappedDrive {
         $marker = Join-Path $drive 'E2E\WindowsSandbox\e2e-inside.ps1'
         if (Test-Path -LiteralPath $marker) { return $drive }
     }
+    if (Test-Path -LiteralPath 'C:\mnt\repo\E2E\WindowsSandbox\e2e-inside.ps1') { return 'C:\mnt\repo' }
+    $desktopRoot = 'C:\Users\WDAGUtilityAccount\Desktop'
+    if (Test-Path -LiteralPath $desktopRoot) {
+        $hit = Get-ChildItem -LiteralPath $desktopRoot -Directory -ErrorAction SilentlyContinue |
+            Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName 'E2E\WindowsSandbox\e2e-inside.ps1') } |
+            Select-Object -First 1
+        if ($hit) { return $hit.FullName }
+    }
     return $null
 }
 
 $Repo = Find-MappedDrive
 if (-not $Repo) {
-    Write-Host 'ERROR: no se encontro unidad mapeada A-Z con E2E\WindowsSandbox\e2e-inside.ps1'
+    Write-Host 'ERROR: carpeta mapeada no encontrada (A:..Z:, C:\mnt\repo, escritorio WDAGUtilityAccount)'
+    $missingPath = 'C:\Users\WDAGUtilityAccount\Desktop\E2E-RESULTS-missing.md'
+    try {
+        Set-Content -LiteralPath $missingPath -Encoding UTF8 -Value @(
+            '# E2E Windows Sandbox - LJokerL_TTV',
+            '',
+            ('- Fecha: ' + (Get-Date).ToString('yyyy-MM-dd HH:mm:ss')),
+            ('- Equipo / usuario: ' + $env:COMPUTERNAME + ' / ' + $env:USERNAME),
+            '- Motivo: mapped folder not found',
+            '',
+            'No se localizo el marcador E2E\WindowsSandbox\e2e-inside.ps1 en',
+            'A:..Z:, C:\mnt\repo ni en los hijos del escritorio de WDAGUtilityAccount.',
+            '',
+            '===E2E-DONE==='
+        )
+    } catch { }
+    Start-Sleep -Seconds 3
+    Stop-Computer -Force
     exit 1
 }
 

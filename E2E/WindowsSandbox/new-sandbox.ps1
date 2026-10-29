@@ -4,8 +4,9 @@
     Generador (HOST) de la sandbox E2E de LJokerL_TTV.
 .DESCRIPTION
     - Verifica (solo lectura) que la caracteristica Windows Sandbox esta habilitada.
-    - Escribe E2E\WindowsSandbox\run.wsb mapeando la raiz del repo (ReadOnly=false).
-    - El LogonCommand auto-detecta el punto de montaje (C:\mnt\<N>) y lanza e2e-inside.ps1.
+    - Escribe E2E\WindowsSandbox\run.wsb mapeando la raiz del repo (ReadOnly=false)
+      con SandboxFolder determinista C:\mnt\repo.
+    - El LogonCommand lanza e2e-inside.ps1 desde C:\mnt\repo (ruta fija).
     - Arranca la sandbox con WindowsSandbox.exe.
     No muta nada del sistema en el host: solo crea run.wsb dentro de E2E\WindowsSandbox\.
 #>
@@ -58,11 +59,12 @@ if ($null -eq $featureState) {
 
 # ---------------------------------------------------------------------------
 # 2) run.wsb
-#    Las carpetas mapeadas se montan en C:\mnt\<N> en orden alfabetico de
-#    HostFolder; con una sola carpeta queda en C:\mnt\1. El LogonCommand
-#    descubre el punto de montaje en tiempo de ejecucion para no depender de N.
+#    <SandboxFolder>C:\mnt\repo</SandboxFolder> fija el punto de montaje
+#    determinista: sin esa etiqueta, la carpeta mapeada cae en el escritorio
+#    de WDAGUtilityAccount en lugar de C:\mnt. El LogonCommand referencia
+#    directamente esa ruta, sin descubrimiento en tiempo de ejecucion.
 # ---------------------------------------------------------------------------
-$logonRaw = 'powershell -Command "& { $d = Get-ChildItem C:\mnt -Directory -ErrorAction SilentlyContinue | Sort-Object Name | Select-Object -First 1; if (-not $d) { $d = Get-Item ''C:\mnt\1'' }; & powershell -ExecutionPolicy Bypass -File (Join-Path $d.FullName ''E2E\WindowsSandbox\e2e-inside.ps1'') }"'
+$logonRaw = 'powershell -ExecutionPolicy Bypass -File C:\mnt\repo\E2E\WindowsSandbox\e2e-inside.ps1'
 $logonEscaped = [System.Security.SecurityElement]::Escape($logonRaw)
 
 $wsbContent = @"
@@ -70,6 +72,7 @@ $wsbContent = @"
   <MappedFolders>
     <MappedFolder>
       <HostFolder>$RepoRoot</HostFolder>
+      <SandboxFolder>C:\mnt\repo</SandboxFolder>
       <ReadOnly>false</ReadOnly>
     </MappedFolder>
   </MappedFolders>
@@ -80,7 +83,7 @@ $wsbContent = @"
 $wsbPath = Join-Path $PSScriptRoot 'run.wsb'
 Set-Content -LiteralPath $wsbPath -Value $wsbContent -Encoding Ascii
 Write-Host ("run.wsb generado: " + $wsbPath)
-Write-Host ("HostFolder mapeado: " + $RepoRoot + "  (se montara en C:\mnt\1)")
+Write-Host ("HostFolder mapeado: " + $RepoRoot + "  (se montara en C:\mnt\repo)")
 
 # ---------------------------------------------------------------------------
 # 3) Arrancar la sandbox
