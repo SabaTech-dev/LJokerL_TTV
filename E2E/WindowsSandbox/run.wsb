@@ -1,0 +1,9 @@
+<Configuration>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>C:\LJokerL_TTV</HostFolder>
+      <ReadOnly>false</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>powershell -Command &quot;&amp; { $d = Get-ChildItem C:\mnt -Directory -ErrorAction SilentlyContinue | Sort-Object Name | Select-Object -First 1; if (-not $d) { $d = Get-Item &apos;C:\mnt\1&apos; }; &amp; powershell -ExecutionPolicy Bypass -File (Join-Path $d.FullName &apos;E2E\WindowsSandbox\e2e-inside.ps1&apos;) }&quot;</LogonCommand>
+</Configuration>
